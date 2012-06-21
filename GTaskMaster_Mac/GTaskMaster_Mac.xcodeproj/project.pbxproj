@@ -13,7 +13,6 @@
 		654DA08E15937CDB00CBE844 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 654DA08C15937CDB00CBE844 /* Credits.rtf */; };
 		654DA09115937CDB00CBE844 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 654DA09015937CDB00CBE844 /* AppDelegate.m */; };
 		654DA09415937CDB00CBE844 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 654DA09215937CDB00CBE844 /* MainMenu.xib */; };
-		654DA09715937CDB00CBE844 /* GTaskMaster_Mac.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 654DA09515937CDB00CBE844 /* GTaskMaster_Mac.xcdatamodeld */; };
 		654DA09F15937CDB00CBE844 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654DA09E15937CDB00CBE844 /* SenTestingKit.framework */; };
 		654DA0A015937CDB00CBE844 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654DA07D15937CDB00CBE844 /* Cocoa.framework */; };
 		654DA0A815937CDB00CBE844 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 654DA0A615937CDB00CBE844 /* InfoPlist.strings */; };
@@ -27,6 +26,7 @@
 		654DA0C315937CDB00CBE844 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 654DA0C215937CDB00CBE844 /* main.c */; };
 		654DA0C515937CDB00CBE844 /* GetMetadataForFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 654DA0C415937CDB00CBE844 /* GetMetadataForFile.m */; };
 		654DA0C815937CDB00CBE844 /* MySpotlightImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 654DA0C715937CDB00CBE844 /* MySpotlightImporter.m */; };
+		654DA0E21593AED300CBE844 /* GTaskMaster.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 654DA0E01593AED300CBE844 /* GTaskMaster.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +60,6 @@
 		654DA08F15937CDB00CBE844 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		654DA09015937CDB00CBE844 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		654DA09315937CDB00CBE844 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		654DA09615937CDB00CBE844 /* GTaskMaster_Mac.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GTaskMaster_Mac.xcdatamodel; sourceTree = "<group>"; };
 		654DA09D15937CDB00CBE844 /* GTaskMaster_MacTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GTaskMaster_MacTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		654DA09E15937CDB00CBE844 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		654DA0A515937CDB00CBE844 /* GTaskMaster_MacTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GTaskMaster_MacTests-Info.plist"; sourceTree = "<group>"; };
@@ -80,6 +79,7 @@
 		654DA0C715937CDB00CBE844 /* MySpotlightImporter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MySpotlightImporter.m; sourceTree = "<group>"; };
 		654DA0C915937CDC00CBE844 /* Importer Read Me.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Importer Read Me.txt"; sourceTree = "<group>"; };
 		654DA0CA15937CDC00CBE844 /* GTaskMaster_MacImporter-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GTaskMaster_MacImporter-Prefix.pch"; sourceTree = "<group>"; };
+		654DA0E11593AED300CBE844 /* GTaskMaster.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GTaskMaster.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,8 +164,8 @@
 			children = (
 				654DA08F15937CDB00CBE844 /* AppDelegate.h */,
 				654DA09015937CDB00CBE844 /* AppDelegate.m */,
+				654DA0E01593AED300CBE844 /* GTaskMaster.xcdatamodeld */,
 				654DA09215937CDB00CBE844 /* MainMenu.xib */,
-				654DA09515937CDB00CBE844 /* GTaskMaster_Mac.xcdatamodeld */,
 				654DA08415937CDB00CBE844 /* Supporting Files */,
 			);
 			path = GTaskMaster_Mac;
@@ -363,7 +363,7 @@
 			files = (
 				654DA08A15937CDB00CBE844 /* main.m in Sources */,
 				654DA09115937CDB00CBE844 /* AppDelegate.m in Sources */,
-				654DA09715937CDB00CBE844 /* GTaskMaster_Mac.xcdatamodeld in Sources */,
+				654DA0E21593AED300CBE844 /* GTaskMaster.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -616,13 +616,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		654DA09515937CDB00CBE844 /* GTaskMaster_Mac.xcdatamodeld */ = {
+		654DA0E01593AED300CBE844 /* GTaskMaster.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				654DA09615937CDB00CBE844 /* GTaskMaster_Mac.xcdatamodel */,
+				654DA0E11593AED300CBE844 /* GTaskMaster.xcdatamodel */,
 			);
-			currentVersion = 654DA09615937CDB00CBE844 /* GTaskMaster_Mac.xcdatamodel */;
-			path = GTaskMaster_Mac.xcdatamodeld;
+			currentVersion = 654DA0E11593AED300CBE844 /* GTaskMaster.xcdatamodel */;
+			name = GTaskMaster.xcdatamodeld;
+			path = ../../GTaskMaster_shared/GTaskMaster.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

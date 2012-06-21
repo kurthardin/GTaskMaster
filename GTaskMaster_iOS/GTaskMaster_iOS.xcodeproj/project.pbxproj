@@ -16,7 +16,6 @@
 		654DA04015937C9C00CBE844 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 654DA03F15937C9C00CBE844 /* AppDelegate.m */; };
 		654DA04315937C9C00CBE844 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 654DA04115937C9C00CBE844 /* MainStoryboard_iPhone.storyboard */; };
 		654DA04615937C9C00CBE844 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 654DA04415937C9C00CBE844 /* MainStoryboard_iPad.storyboard */; };
-		654DA04915937C9C00CBE844 /* GTaskMaster_iOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 654DA04715937C9C00CBE844 /* GTaskMaster_iOS.xcdatamodeld */; };
 		654DA04C15937C9C00CBE844 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 654DA04B15937C9C00CBE844 /* MasterViewController.m */; };
 		654DA04F15937C9C00CBE844 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 654DA04E15937C9C00CBE844 /* DetailViewController.m */; };
 		654DA05715937C9C00CBE844 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654DA05615937C9C00CBE844 /* SenTestingKit.framework */; };
@@ -25,6 +24,7 @@
 		654DA05A15937C9C00CBE844 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654DA03315937C9C00CBE844 /* CoreData.framework */; };
 		654DA06215937C9C00CBE844 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 654DA06015937C9C00CBE844 /* InfoPlist.strings */; };
 		654DA06515937C9C00CBE844 /* GTaskMaster_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 654DA06415937C9C00CBE844 /* GTaskMaster_iOSTests.m */; };
+		654DA0E51593AF5000CBE844 /* GTaskMaster.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 654DA0E31593AF5000CBE844 /* GTaskMaster.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,7 +51,6 @@
 		654DA03F15937C9C00CBE844 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		654DA04215937C9C00CBE844 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		654DA04515937C9C00CBE844 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
-		654DA04815937C9C00CBE844 /* GTaskMaster_iOS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GTaskMaster_iOS.xcdatamodel; sourceTree = "<group>"; };
 		654DA04A15937C9C00CBE844 /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
 		654DA04B15937C9C00CBE844 /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
 		654DA04D15937C9C00CBE844 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
@@ -62,6 +61,7 @@
 		654DA06115937C9C00CBE844 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		654DA06315937C9C00CBE844 /* GTaskMaster_iOSTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTaskMaster_iOSTests.h; sourceTree = "<group>"; };
 		654DA06415937C9C00CBE844 /* GTaskMaster_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GTaskMaster_iOSTests.m; sourceTree = "<group>"; };
+		654DA0E41593AF5000CBE844 /* GTaskMaster.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GTaskMaster.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,9 +130,9 @@
 				654DA04415937C9C00CBE844 /* MainStoryboard_iPad.storyboard */,
 				654DA04A15937C9C00CBE844 /* MasterViewController.h */,
 				654DA04B15937C9C00CBE844 /* MasterViewController.m */,
+				654DA0E31593AF5000CBE844 /* GTaskMaster.xcdatamodeld */,
 				654DA04D15937C9C00CBE844 /* DetailViewController.h */,
 				654DA04E15937C9C00CBE844 /* DetailViewController.m */,
-				654DA04715937C9C00CBE844 /* GTaskMaster_iOS.xcdatamodeld */,
 				654DA03615937C9C00CBE844 /* Supporting Files */,
 			);
 			path = GTaskMaster_iOS;
@@ -278,9 +278,9 @@
 			files = (
 				654DA03C15937C9C00CBE844 /* main.m in Sources */,
 				654DA04015937C9C00CBE844 /* AppDelegate.m in Sources */,
-				654DA04915937C9C00CBE844 /* GTaskMaster_iOS.xcdatamodeld in Sources */,
 				654DA04C15937C9C00CBE844 /* MasterViewController.m in Sources */,
 				654DA04F15937C9C00CBE844 /* DetailViewController.m in Sources */,
+				654DA0E51593AF5000CBE844 /* GTaskMaster.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,13 +474,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		654DA04715937C9C00CBE844 /* GTaskMaster_iOS.xcdatamodeld */ = {
+		654DA0E31593AF5000CBE844 /* GTaskMaster.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				654DA04815937C9C00CBE844 /* GTaskMaster_iOS.xcdatamodel */,
+				654DA0E41593AF5000CBE844 /* GTaskMaster.xcdatamodel */,
 			);
-			currentVersion = 654DA04815937C9C00CBE844 /* GTaskMaster_iOS.xcdatamodel */;
-			path = GTaskMaster_iOS.xcdatamodeld;
+			currentVersion = 654DA0E41593AF5000CBE844 /* GTaskMaster.xcdatamodel */;
+			name = GTaskMaster.xcdatamodeld;
+			path = ../../GTaskMaster_shared/GTaskMaster.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
