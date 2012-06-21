@@ -1,0 +1,6 @@
+//
+// Prefix header for all source files of the 'GTaskMaster_MacImporter' target in the 'GTaskMaster_MacImporter' project
+//
+
+#ifdef __OBJC__
+#endif

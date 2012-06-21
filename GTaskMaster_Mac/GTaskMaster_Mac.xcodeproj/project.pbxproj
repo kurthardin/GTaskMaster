@@ -1,0 +1,630 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		654DA07E15937CDB00CBE844 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654DA07D15937CDB00CBE844 /* Cocoa.framework */; };
+		654DA08815937CDB00CBE844 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 654DA08615937CDB00CBE844 /* InfoPlist.strings */; };
+		654DA08A15937CDB00CBE844 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 654DA08915937CDB00CBE844 /* main.m */; };
+		654DA08E15937CDB00CBE844 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 654DA08C15937CDB00CBE844 /* Credits.rtf */; };
+		654DA09115937CDB00CBE844 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 654DA09015937CDB00CBE844 /* AppDelegate.m */; };
+		654DA09415937CDB00CBE844 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 654DA09215937CDB00CBE844 /* MainMenu.xib */; };
+		654DA09715937CDB00CBE844 /* GTaskMaster_Mac.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 654DA09515937CDB00CBE844 /* GTaskMaster_Mac.xcdatamodeld */; };
+		654DA09F15937CDB00CBE844 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654DA09E15937CDB00CBE844 /* SenTestingKit.framework */; };
+		654DA0A015937CDB00CBE844 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654DA07D15937CDB00CBE844 /* Cocoa.framework */; };
+		654DA0A815937CDB00CBE844 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 654DA0A615937CDB00CBE844 /* InfoPlist.strings */; };
+		654DA0AB15937CDB00CBE844 /* GTaskMaster_MacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 654DA0AA15937CDB00CBE844 /* GTaskMaster_MacTests.m */; };
+		654DA0B315937CDB00CBE844 /* GTaskMaster_MacImporter.mdimporter in Resources */ = {isa = PBXBuildFile; fileRef = 654DA0B015937CDB00CBE844 /* GTaskMaster_MacImporter.mdimporter */; };
+		654DA0B515937CDB00CBE844 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654DA0B415937CDB00CBE844 /* CoreServices.framework */; };
+		654DA0B715937CDB00CBE844 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654DA0B615937CDB00CBE844 /* CoreFoundation.framework */; };
+		654DA0B915937CDB00CBE844 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654DA0B815937CDB00CBE844 /* CoreData.framework */; };
+		654DA0BB15937CDB00CBE844 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654DA0BA15937CDB00CBE844 /* Foundation.framework */; };
+		654DA0C115937CDB00CBE844 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 654DA0BF15937CDB00CBE844 /* InfoPlist.strings */; };
+		654DA0C315937CDB00CBE844 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 654DA0C215937CDB00CBE844 /* main.c */; };
+		654DA0C515937CDB00CBE844 /* GetMetadataForFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 654DA0C415937CDB00CBE844 /* GetMetadataForFile.m */; };
+		654DA0C815937CDB00CBE844 /* MySpotlightImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 654DA0C715937CDB00CBE844 /* MySpotlightImporter.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		654DA0A115937CDB00CBE844 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 654DA07015937CDB00CBE844 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 654DA07815937CDB00CBE844;
+			remoteInfo = GTaskMaster_Mac;
+		};
+		654DA0B115937CDB00CBE844 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 654DA07015937CDB00CBE844 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 654DA0AF15937CDB00CBE844;
+			remoteInfo = GTaskMaster_MacImporter;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		654DA07915937CDB00CBE844 /* GTaskMaster_Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GTaskMaster_Mac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		654DA07D15937CDB00CBE844 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		654DA08015937CDB00CBE844 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		654DA08115937CDB00CBE844 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		654DA08215937CDB00CBE844 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		654DA08515937CDB00CBE844 /* GTaskMaster_Mac-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GTaskMaster_Mac-Info.plist"; sourceTree = "<group>"; };
+		654DA08715937CDB00CBE844 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		654DA08915937CDB00CBE844 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		654DA08B15937CDB00CBE844 /* GTaskMaster_Mac-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GTaskMaster_Mac-Prefix.pch"; sourceTree = "<group>"; };
+		654DA08D15937CDB00CBE844 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		654DA08F15937CDB00CBE844 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		654DA09015937CDB00CBE844 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		654DA09315937CDB00CBE844 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		654DA09615937CDB00CBE844 /* GTaskMaster_Mac.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GTaskMaster_Mac.xcdatamodel; sourceTree = "<group>"; };
+		654DA09D15937CDB00CBE844 /* GTaskMaster_MacTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GTaskMaster_MacTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		654DA09E15937CDB00CBE844 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		654DA0A515937CDB00CBE844 /* GTaskMaster_MacTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GTaskMaster_MacTests-Info.plist"; sourceTree = "<group>"; };
+		654DA0A715937CDB00CBE844 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		654DA0A915937CDB00CBE844 /* GTaskMaster_MacTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTaskMaster_MacTests.h; sourceTree = "<group>"; };
+		654DA0AA15937CDB00CBE844 /* GTaskMaster_MacTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GTaskMaster_MacTests.m; sourceTree = "<group>"; };
+		654DA0B015937CDB00CBE844 /* GTaskMaster_MacImporter.mdimporter */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GTaskMaster_MacImporter.mdimporter; sourceTree = BUILT_PRODUCTS_DIR; };
+		654DA0B415937CDB00CBE844 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		654DA0B615937CDB00CBE844 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		654DA0B815937CDB00CBE844 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		654DA0BA15937CDB00CBE844 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		654DA0BE15937CDB00CBE844 /* GTaskMaster_MacImporter-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GTaskMaster_MacImporter-Info.plist"; sourceTree = "<group>"; };
+		654DA0C015937CDB00CBE844 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		654DA0C215937CDB00CBE844 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		654DA0C415937CDB00CBE844 /* GetMetadataForFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetMetadataForFile.m; sourceTree = "<group>"; };
+		654DA0C615937CDB00CBE844 /* MySpotlightImporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MySpotlightImporter.h; sourceTree = "<group>"; };
+		654DA0C715937CDB00CBE844 /* MySpotlightImporter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MySpotlightImporter.m; sourceTree = "<group>"; };
+		654DA0C915937CDC00CBE844 /* Importer Read Me.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Importer Read Me.txt"; sourceTree = "<group>"; };
+		654DA0CA15937CDC00CBE844 /* GTaskMaster_MacImporter-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GTaskMaster_MacImporter-Prefix.pch"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		654DA07615937CDB00CBE844 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				654DA07E15937CDB00CBE844 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		654DA09915937CDB00CBE844 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				654DA09F15937CDB00CBE844 /* SenTestingKit.framework in Frameworks */,
+				654DA0A015937CDB00CBE844 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		654DA0AD15937CDB00CBE844 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				654DA0B515937CDB00CBE844 /* CoreServices.framework in Frameworks */,
+				654DA0B715937CDB00CBE844 /* CoreFoundation.framework in Frameworks */,
+				654DA0B915937CDB00CBE844 /* CoreData.framework in Frameworks */,
+				654DA0BB15937CDB00CBE844 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		654DA06E15937CDB00CBE844 = {
+			isa = PBXGroup;
+			children = (
+				654DA08315937CDB00CBE844 /* GTaskMaster_Mac */,
+				654DA0A315937CDB00CBE844 /* GTaskMaster_MacTests */,
+				654DA0BC15937CDB00CBE844 /* GTaskMaster_MacImporter */,
+				654DA07C15937CDB00CBE844 /* Frameworks */,
+				654DA07A15937CDB00CBE844 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		654DA07A15937CDB00CBE844 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				654DA07915937CDB00CBE844 /* GTaskMaster_Mac.app */,
+				654DA09D15937CDB00CBE844 /* GTaskMaster_MacTests.octest */,
+				654DA0B015937CDB00CBE844 /* GTaskMaster_MacImporter.mdimporter */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		654DA07C15937CDB00CBE844 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				654DA07D15937CDB00CBE844 /* Cocoa.framework */,
+				654DA09E15937CDB00CBE844 /* SenTestingKit.framework */,
+				654DA0B415937CDB00CBE844 /* CoreServices.framework */,
+				654DA0B615937CDB00CBE844 /* CoreFoundation.framework */,
+				654DA0B815937CDB00CBE844 /* CoreData.framework */,
+				654DA0BA15937CDB00CBE844 /* Foundation.framework */,
+				654DA07F15937CDB00CBE844 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		654DA07F15937CDB00CBE844 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				654DA08015937CDB00CBE844 /* AppKit.framework */,
+				654DA08115937CDB00CBE844 /* CoreData.framework */,
+				654DA08215937CDB00CBE844 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		654DA08315937CDB00CBE844 /* GTaskMaster_Mac */ = {
+			isa = PBXGroup;
+			children = (
+				654DA08F15937CDB00CBE844 /* AppDelegate.h */,
+				654DA09015937CDB00CBE844 /* AppDelegate.m */,
+				654DA09215937CDB00CBE844 /* MainMenu.xib */,
+				654DA09515937CDB00CBE844 /* GTaskMaster_Mac.xcdatamodeld */,
+				654DA08415937CDB00CBE844 /* Supporting Files */,
+			);
+			path = GTaskMaster_Mac;
+			sourceTree = "<group>";
+		};
+		654DA08415937CDB00CBE844 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				654DA08515937CDB00CBE844 /* GTaskMaster_Mac-Info.plist */,
+				654DA08615937CDB00CBE844 /* InfoPlist.strings */,
+				654DA08915937CDB00CBE844 /* main.m */,
+				654DA08B15937CDB00CBE844 /* GTaskMaster_Mac-Prefix.pch */,
+				654DA08C15937CDB00CBE844 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		654DA0A315937CDB00CBE844 /* GTaskMaster_MacTests */ = {
+			isa = PBXGroup;
+			children = (
+				654DA0A915937CDB00CBE844 /* GTaskMaster_MacTests.h */,
+				654DA0AA15937CDB00CBE844 /* GTaskMaster_MacTests.m */,
+				654DA0A415937CDB00CBE844 /* Supporting Files */,
+			);
+			path = GTaskMaster_MacTests;
+			sourceTree = "<group>";
+		};
+		654DA0A415937CDB00CBE844 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				654DA0A515937CDB00CBE844 /* GTaskMaster_MacTests-Info.plist */,
+				654DA0A615937CDB00CBE844 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		654DA0BC15937CDB00CBE844 /* GTaskMaster_MacImporter */ = {
+			isa = PBXGroup;
+			children = (
+				654DA0C415937CDB00CBE844 /* GetMetadataForFile.m */,
+				654DA0C615937CDB00CBE844 /* MySpotlightImporter.h */,
+				654DA0C715937CDB00CBE844 /* MySpotlightImporter.m */,
+				654DA0C915937CDC00CBE844 /* Importer Read Me.txt */,
+				654DA0BD15937CDB00CBE844 /* Supporting Files */,
+			);
+			path = GTaskMaster_MacImporter;
+			sourceTree = "<group>";
+		};
+		654DA0BD15937CDB00CBE844 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				654DA0BE15937CDB00CBE844 /* GTaskMaster_MacImporter-Info.plist */,
+				654DA0BF15937CDB00CBE844 /* InfoPlist.strings */,
+				654DA0C215937CDB00CBE844 /* main.c */,
+				654DA0CA15937CDC00CBE844 /* GTaskMaster_MacImporter-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		654DA07815937CDB00CBE844 /* GTaskMaster_Mac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 654DA0D015937CDC00CBE844 /* Build configuration list for PBXNativeTarget "GTaskMaster_Mac" */;
+			buildPhases = (
+				654DA07515937CDB00CBE844 /* Sources */,
+				654DA07615937CDB00CBE844 /* Frameworks */,
+				654DA07715937CDB00CBE844 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				654DA0B215937CDB00CBE844 /* PBXTargetDependency */,
+			);
+			name = GTaskMaster_Mac;
+			productName = GTaskMaster_Mac;
+			productReference = 654DA07915937CDB00CBE844 /* GTaskMaster_Mac.app */;
+			productType = "com.apple.product-type.application";
+		};
+		654DA09C15937CDB00CBE844 /* GTaskMaster_MacTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 654DA0D315937CDC00CBE844 /* Build configuration list for PBXNativeTarget "GTaskMaster_MacTests" */;
+			buildPhases = (
+				654DA09815937CDB00CBE844 /* Sources */,
+				654DA09915937CDB00CBE844 /* Frameworks */,
+				654DA09A15937CDB00CBE844 /* Resources */,
+				654DA09B15937CDB00CBE844 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				654DA0A215937CDB00CBE844 /* PBXTargetDependency */,
+			);
+			name = GTaskMaster_MacTests;
+			productName = GTaskMaster_MacTests;
+			productReference = 654DA09D15937CDB00CBE844 /* GTaskMaster_MacTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+		654DA0AF15937CDB00CBE844 /* GTaskMaster_MacImporter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 654DA0CD15937CDC00CBE844 /* Build configuration list for PBXNativeTarget "GTaskMaster_MacImporter" */;
+			buildPhases = (
+				654DA0AC15937CDB00CBE844 /* Sources */,
+				654DA0AD15937CDB00CBE844 /* Frameworks */,
+				654DA0AE15937CDB00CBE844 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GTaskMaster_MacImporter;
+			productName = GTaskMaster_MacImporter;
+			productReference = 654DA0B015937CDB00CBE844 /* GTaskMaster_MacImporter.mdimporter */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		654DA07015937CDB00CBE844 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Kurt Hardin";
+			};
+			buildConfigurationList = 654DA07315937CDB00CBE844 /* Build configuration list for PBXProject "GTaskMaster_Mac" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 654DA06E15937CDB00CBE844;
+			productRefGroup = 654DA07A15937CDB00CBE844 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				654DA07815937CDB00CBE844 /* GTaskMaster_Mac */,
+				654DA09C15937CDB00CBE844 /* GTaskMaster_MacTests */,
+				654DA0AF15937CDB00CBE844 /* GTaskMaster_MacImporter */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		654DA07715937CDB00CBE844 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				654DA08815937CDB00CBE844 /* InfoPlist.strings in Resources */,
+				654DA08E15937CDB00CBE844 /* Credits.rtf in Resources */,
+				654DA09415937CDB00CBE844 /* MainMenu.xib in Resources */,
+				654DA0B315937CDB00CBE844 /* GTaskMaster_MacImporter.mdimporter in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		654DA09A15937CDB00CBE844 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				654DA0A815937CDB00CBE844 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		654DA0AE15937CDB00CBE844 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				654DA0C115937CDB00CBE844 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		654DA09B15937CDB00CBE844 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		654DA07515937CDB00CBE844 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				654DA08A15937CDB00CBE844 /* main.m in Sources */,
+				654DA09115937CDB00CBE844 /* AppDelegate.m in Sources */,
+				654DA09715937CDB00CBE844 /* GTaskMaster_Mac.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		654DA09815937CDB00CBE844 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				654DA0AB15937CDB00CBE844 /* GTaskMaster_MacTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		654DA0AC15937CDB00CBE844 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				654DA0C315937CDB00CBE844 /* main.c in Sources */,
+				654DA0C515937CDB00CBE844 /* GetMetadataForFile.m in Sources */,
+				654DA0C815937CDB00CBE844 /* MySpotlightImporter.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		654DA0A215937CDB00CBE844 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 654DA07815937CDB00CBE844 /* GTaskMaster_Mac */;
+			targetProxy = 654DA0A115937CDB00CBE844 /* PBXContainerItemProxy */;
+		};
+		654DA0B215937CDB00CBE844 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 654DA0AF15937CDB00CBE844 /* GTaskMaster_MacImporter */;
+			targetProxy = 654DA0B115937CDB00CBE844 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		654DA08615937CDB00CBE844 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				654DA08715937CDB00CBE844 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		654DA08C15937CDB00CBE844 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				654DA08D15937CDB00CBE844 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		654DA09215937CDB00CBE844 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				654DA09315937CDB00CBE844 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		654DA0A615937CDB00CBE844 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				654DA0A715937CDB00CBE844 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		654DA0BF15937CDB00CBE844 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				654DA0C015937CDB00CBE844 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		654DA0CB15937CDC00CBE844 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		654DA0CC15937CDC00CBE844 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		654DA0CE15937CDC00CBE844 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GTaskMaster_MacImporter/GTaskMaster_MacImporter-Prefix.pch";
+				INFOPLIST_FILE = "GTaskMaster_MacImporter/GTaskMaster_MacImporter-Info.plist";
+				INSTALL_PATH = "@executable_path/../Contents/Library/Spotlight";
+				LIBRARY_STYLE = BUNDLE;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = mdimporter;
+			};
+			name = Debug;
+		};
+		654DA0CF15937CDC00CBE844 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GTaskMaster_MacImporter/GTaskMaster_MacImporter-Prefix.pch";
+				INFOPLIST_FILE = "GTaskMaster_MacImporter/GTaskMaster_MacImporter-Info.plist";
+				INSTALL_PATH = "@executable_path/../Contents/Library/Spotlight";
+				LIBRARY_STYLE = BUNDLE;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = mdimporter;
+			};
+			name = Release;
+		};
+		654DA0D115937CDC00CBE844 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GTaskMaster_Mac/GTaskMaster_Mac-Prefix.pch";
+				INFOPLIST_FILE = "GTaskMaster_Mac/GTaskMaster_Mac-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		654DA0D215937CDC00CBE844 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GTaskMaster_Mac/GTaskMaster_Mac-Prefix.pch";
+				INFOPLIST_FILE = "GTaskMaster_Mac/GTaskMaster_Mac-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		654DA0D415937CDC00CBE844 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/GTaskMaster_Mac.app/Contents/MacOS/GTaskMaster_Mac";
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GTaskMaster_Mac/GTaskMaster_Mac-Prefix.pch";
+				INFOPLIST_FILE = "GTaskMaster_MacTests/GTaskMaster_MacTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		654DA0D515937CDC00CBE844 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/GTaskMaster_Mac.app/Contents/MacOS/GTaskMaster_Mac";
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GTaskMaster_Mac/GTaskMaster_Mac-Prefix.pch";
+				INFOPLIST_FILE = "GTaskMaster_MacTests/GTaskMaster_MacTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		654DA07315937CDB00CBE844 /* Build configuration list for PBXProject "GTaskMaster_Mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				654DA0CB15937CDC00CBE844 /* Debug */,
+				654DA0CC15937CDC00CBE844 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		654DA0CD15937CDC00CBE844 /* Build configuration list for PBXNativeTarget "GTaskMaster_MacImporter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				654DA0CE15937CDC00CBE844 /* Debug */,
+				654DA0CF15937CDC00CBE844 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		654DA0D015937CDC00CBE844 /* Build configuration list for PBXNativeTarget "GTaskMaster_Mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				654DA0D115937CDC00CBE844 /* Debug */,
+				654DA0D215937CDC00CBE844 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		654DA0D315937CDC00CBE844 /* Build configuration list for PBXNativeTarget "GTaskMaster_MacTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				654DA0D415937CDC00CBE844 /* Debug */,
+				654DA0D515937CDC00CBE844 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		654DA09515937CDB00CBE844 /* GTaskMaster_Mac.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				654DA09615937CDB00CBE844 /* GTaskMaster_Mac.xcdatamodel */,
+			);
+			currentVersion = 654DA09615937CDB00CBE844 /* GTaskMaster_Mac.xcdatamodel */;
+			path = GTaskMaster_Mac.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 654DA07015937CDB00CBE844 /* Project object */;
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:GTaskMaster_Mac/GTaskMaster_Mac.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:GTaskMaster_iOS/GTaskMaster_iOS.xcodeproj">
+   </FileRef>
+   <Group
+      location = "group:GTaskMaster_shared"
+      name = "GTaskMaster_shared">
+      <FileRef
+         location = "group:GTManager.h">
+      </FileRef>
+      <FileRef
+         location = "group:GTManager.m">
+      </FileRef>
+   </Group>
+</Workspace>
