@@ -27,8 +27,7 @@
 		654DA0C515937CDB00CBE844 /* GetMetadataForFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 654DA0C415937CDB00CBE844 /* GetMetadataForFile.m */; };
 		654DA0C815937CDB00CBE844 /* MySpotlightImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 654DA0C715937CDB00CBE844 /* MySpotlightImporter.m */; };
 		654DA0E21593AED300CBE844 /* GTaskMaster.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 654DA0E01593AED300CBE844 /* GTaskMaster.xcdatamodeld */; };
-		65C9578F1593B18400D14ABF /* GTManager.h in Resources */ = {isa = PBXBuildFile; fileRef = 65C9578C1593B18400D14ABF /* GTManager.h */; };
-		65C957901593B18400D14ABF /* GTManager.m in Resources */ = {isa = PBXBuildFile; fileRef = 65C9578D1593B18400D14ABF /* GTManager.m */; };
+		65DE5BAE1593B56300D4CF78 /* GTSyncManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DE5BAD1593B56300D4CF78 /* GTSyncManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,8 +81,8 @@
 		654DA0C915937CDC00CBE844 /* Importer Read Me.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Importer Read Me.txt"; sourceTree = "<group>"; };
 		654DA0CA15937CDC00CBE844 /* GTaskMaster_MacImporter-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GTaskMaster_MacImporter-Prefix.pch"; sourceTree = "<group>"; };
 		654DA0E11593AED300CBE844 /* GTaskMaster.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GTaskMaster.xcdatamodel; sourceTree = "<group>"; };
-		65C9578C1593B18400D14ABF /* GTManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTManager.h; sourceTree = "<group>"; };
-		65C9578D1593B18400D14ABF /* GTManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GTManager.m; sourceTree = "<group>"; };
+		65DE5BAC1593B56300D4CF78 /* GTSyncManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTSyncManager.h; sourceTree = "<group>"; };
+		65DE5BAD1593B56300D4CF78 /* GTSyncManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTSyncManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,8 +232,8 @@
 			isa = PBXGroup;
 			children = (
 				654DA0E01593AED300CBE844 /* GTaskMaster.xcdatamodeld */,
-				65C9578C1593B18400D14ABF /* GTManager.h */,
-				65C9578D1593B18400D14ABF /* GTManager.m */,
+				65DE5BAC1593B56300D4CF78 /* GTSyncManager.h */,
+				65DE5BAD1593B56300D4CF78 /* GTSyncManager.m */,
 			);
 			name = GTaskMaster_shared;
 			path = ../GTaskMaster_shared;
@@ -334,8 +333,6 @@
 				654DA08E15937CDB00CBE844 /* Credits.rtf in Resources */,
 				654DA09415937CDB00CBE844 /* MainMenu.xib in Resources */,
 				654DA0B315937CDB00CBE844 /* GTaskMaster_MacImporter.mdimporter in Resources */,
-				65C9578F1593B18400D14ABF /* GTManager.h in Resources */,
-				65C957901593B18400D14ABF /* GTManager.m in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,6 +378,7 @@
 				654DA08A15937CDB00CBE844 /* main.m in Sources */,
 				654DA09115937CDB00CBE844 /* AppDelegate.m in Sources */,
 				654DA0E21593AED300CBE844 /* GTaskMaster.xcdatamodeld in Sources */,
+				65DE5BAE1593B56300D4CF78 /* GTSyncManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

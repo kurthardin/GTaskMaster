@@ -25,7 +25,7 @@
 		654DA06215937C9C00CBE844 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 654DA06015937C9C00CBE844 /* InfoPlist.strings */; };
 		654DA06515937C9C00CBE844 /* GTaskMaster_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 654DA06415937C9C00CBE844 /* GTaskMaster_iOSTests.m */; };
 		65DE5BA81593B1E000D4CF78 /* GTaskMaster.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 65DE5BA41593B1E000D4CF78 /* GTaskMaster.xcdatamodeld */; };
-		65DE5BA91593B1E000D4CF78 /* GTManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DE5BA71593B1E000D4CF78 /* GTManager.m */; };
+		65DE5BCA1593B80800D4CF78 /* GTSyncManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DE5BC91593B80800D4CF78 /* GTSyncManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,8 +63,8 @@
 		654DA06315937C9C00CBE844 /* GTaskMaster_iOSTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTaskMaster_iOSTests.h; sourceTree = "<group>"; };
 		654DA06415937C9C00CBE844 /* GTaskMaster_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GTaskMaster_iOSTests.m; sourceTree = "<group>"; };
 		65DE5BA51593B1E000D4CF78 /* GTaskMaster.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GTaskMaster.xcdatamodel; sourceTree = "<group>"; };
-		65DE5BA61593B1E000D4CF78 /* GTManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTManager.h; sourceTree = "<group>"; };
-		65DE5BA71593B1E000D4CF78 /* GTManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTManager.m; sourceTree = "<group>"; };
+		65DE5BC81593B80800D4CF78 /* GTSyncManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTSyncManager.h; sourceTree = "<group>"; };
+		65DE5BC91593B80800D4CF78 /* GTSyncManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTSyncManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,8 +175,8 @@
 			isa = PBXGroup;
 			children = (
 				65DE5BA41593B1E000D4CF78 /* GTaskMaster.xcdatamodeld */,
-				65DE5BA61593B1E000D4CF78 /* GTManager.h */,
-				65DE5BA71593B1E000D4CF78 /* GTManager.m */,
+				65DE5BC81593B80800D4CF78 /* GTSyncManager.h */,
+				65DE5BC91593B80800D4CF78 /* GTSyncManager.m */,
 			);
 			name = GTaskMaster_shared;
 			path = ../GTaskMaster_shared;
@@ -295,7 +295,6 @@
 				654DA04C15937C9C00CBE844 /* MasterViewController.m in Sources */,
 				654DA04F15937C9C00CBE844 /* DetailViewController.m in Sources */,
 				65DE5BA81593B1E000D4CF78 /* GTaskMaster.xcdatamodeld in Sources */,
-				65DE5BA91593B1E000D4CF78 /* GTManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +303,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				654DA06515937C9C00CBE844 /* GTaskMaster_iOSTests.m in Sources */,
+				65DE5BCA1593B80800D4CF78 /* GTSyncManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
