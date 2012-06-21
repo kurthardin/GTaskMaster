@@ -27,6 +27,8 @@
 		654DA0C515937CDB00CBE844 /* GetMetadataForFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 654DA0C415937CDB00CBE844 /* GetMetadataForFile.m */; };
 		654DA0C815937CDB00CBE844 /* MySpotlightImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 654DA0C715937CDB00CBE844 /* MySpotlightImporter.m */; };
 		654DA0E21593AED300CBE844 /* GTaskMaster.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 654DA0E01593AED300CBE844 /* GTaskMaster.xcdatamodeld */; };
+		65C9578F1593B18400D14ABF /* GTManager.h in Resources */ = {isa = PBXBuildFile; fileRef = 65C9578C1593B18400D14ABF /* GTManager.h */; };
+		65C957901593B18400D14ABF /* GTManager.m in Resources */ = {isa = PBXBuildFile; fileRef = 65C9578D1593B18400D14ABF /* GTManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +82,8 @@
 		654DA0C915937CDC00CBE844 /* Importer Read Me.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Importer Read Me.txt"; sourceTree = "<group>"; };
 		654DA0CA15937CDC00CBE844 /* GTaskMaster_MacImporter-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GTaskMaster_MacImporter-Prefix.pch"; sourceTree = "<group>"; };
 		654DA0E11593AED300CBE844 /* GTaskMaster.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GTaskMaster.xcdatamodel; sourceTree = "<group>"; };
+		65C9578C1593B18400D14ABF /* GTManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTManager.h; sourceTree = "<group>"; };
+		65C9578D1593B18400D14ABF /* GTManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GTManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +121,7 @@
 		654DA06E15937CDB00CBE844 = {
 			isa = PBXGroup;
 			children = (
+				65C9578E1593B18400D14ABF /* GTaskMaster_shared */,
 				654DA08315937CDB00CBE844 /* GTaskMaster_Mac */,
 				654DA0A315937CDB00CBE844 /* GTaskMaster_MacTests */,
 				654DA0BC15937CDB00CBE844 /* GTaskMaster_MacImporter */,
@@ -164,7 +169,6 @@
 			children = (
 				654DA08F15937CDB00CBE844 /* AppDelegate.h */,
 				654DA09015937CDB00CBE844 /* AppDelegate.m */,
-				654DA0E01593AED300CBE844 /* GTaskMaster.xcdatamodeld */,
 				654DA09215937CDB00CBE844 /* MainMenu.xib */,
 				654DA08415937CDB00CBE844 /* Supporting Files */,
 			);
@@ -223,6 +227,17 @@
 				654DA0CA15937CDC00CBE844 /* GTaskMaster_MacImporter-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		65C9578E1593B18400D14ABF /* GTaskMaster_shared */ = {
+			isa = PBXGroup;
+			children = (
+				654DA0E01593AED300CBE844 /* GTaskMaster.xcdatamodeld */,
+				65C9578C1593B18400D14ABF /* GTManager.h */,
+				65C9578D1593B18400D14ABF /* GTManager.m */,
+			);
+			name = GTaskMaster_shared;
+			path = ../GTaskMaster_shared;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -319,6 +334,8 @@
 				654DA08E15937CDB00CBE844 /* Credits.rtf in Resources */,
 				654DA09415937CDB00CBE844 /* MainMenu.xib in Resources */,
 				654DA0B315937CDB00CBE844 /* GTaskMaster_MacImporter.mdimporter in Resources */,
+				65C9578F1593B18400D14ABF /* GTManager.h in Resources */,
+				65C957901593B18400D14ABF /* GTManager.m in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -596,6 +613,7 @@
 				654DA0CF15937CDC00CBE844 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		654DA0D015937CDC00CBE844 /* Build configuration list for PBXNativeTarget "GTaskMaster_Mac" */ = {
 			isa = XCConfigurationList;
@@ -604,6 +622,7 @@
 				654DA0D215937CDC00CBE844 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		654DA0D315937CDC00CBE844 /* Build configuration list for PBXNativeTarget "GTaskMaster_MacTests" */ = {
 			isa = XCConfigurationList;
@@ -612,6 +631,7 @@
 				654DA0D515937CDC00CBE844 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
@@ -622,8 +642,7 @@
 				654DA0E11593AED300CBE844 /* GTaskMaster.xcdatamodel */,
 			);
 			currentVersion = 654DA0E11593AED300CBE844 /* GTaskMaster.xcdatamodel */;
-			name = GTaskMaster.xcdatamodeld;
-			path = ../../GTaskMaster_shared/GTaskMaster.xcdatamodeld;
+			path = GTaskMaster.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
