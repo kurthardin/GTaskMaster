@@ -153,8 +153,6 @@
 		654DA06E15937CDB00CBE844 = {
 			isa = PBXGroup;
 			children = (
-				655C375E159903480027403D /* SystemConfiguration.framework */,
-				655C375C159903400027403D /* Security.framework */,
 				65C9578E1593B18400D14ABF /* GTaskMaster_shared */,
 				654DA08315937CDB00CBE844 /* GTaskMaster_Mac */,
 				654DA0A315937CDB00CBE844 /* GTaskMaster_MacTests */,
@@ -177,6 +175,8 @@
 		654DA07C15937CDB00CBE844 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				655C375E159903480027403D /* SystemConfiguration.framework */,
+				655C375C159903400027403D /* Security.framework */,
 				655C36891598E81E0027403D /* GTL.framework */,
 				654DA07D15937CDB00CBE844 /* Cocoa.framework */,
 				654DA09E15937CDB00CBE844 /* SenTestingKit.framework */,

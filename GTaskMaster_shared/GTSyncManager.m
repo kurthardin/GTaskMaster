@@ -13,7 +13,11 @@
 - (BOOL)repeatedSync;
 - (BOOL)sync;
 - (void)processServerTaskLists:(GTLTasksTaskLists *)serverTaskLists;
+- (NSArray *)fetchLocalTaskLists;
 - (NSManagedObject *)fetchLocalTaskListWithId:(NSString *)taskListId;
+- (void)processServerTasks:(NSArray *)serverTasks fromTaskList:(GTLTasksTaskList *)serverTaskList;
+- (NSArray *)fetchLocalTasksFromTaskList:(NSString *)taskListId;
+- (NSManagedObject *)fetchLocalTaskWithId:(NSString *)taskId;
 
 @end
 
@@ -137,33 +141,97 @@ int const kDefaultSyncInterval = 60;
 }
 
 - (void)processServerTaskLists:(GTLTasksTaskLists *)serverTaskLists {
+    
+    NSMutableArray *localTaskLists = [NSMutableArray arrayWithArray:[self fetchLocalTaskLists]];
+    
     if (serverTaskLists) {
         for (GTLTasksTaskList *serverTaskList in serverTaskLists) {
             NSManagedObject *localTaskList = [self fetchLocalTaskListWithId:serverTaskList.identifier];
             NSDate *serverModDate = serverTaskList.updated.date;
             NSDate *localModDate = [localTaskList valueForKey:@"updated"];
-            NSDate *localSyncDate = [localModDate valueForKey:@"synced"];
-            if ([localModDate compare:localSyncDate] == NSOrderedDescending) {
-                if ([serverModDate compare:localSyncDate] == NSOrderedDescending) {
-# pragma mark TODO: Resolve sync conflict
-                } else {
-# pragma mark TODO: Sync local changes with server
-                }
-            } else if ([serverModDate compare:localSyncDate] == NSOrderedDescending) {
-                if ([localModDate compare:localSyncDate] == NSOrderedDescending) {
-# pragma mark TODO: Resolve sync conflict
-                } else {
-# pragma mark TODO: Sync changes from server
-                }
+            if (localModDate == nil || [localModDate compare:serverModDate] != NSOrderedSame) {
+# pragma mark TODO: Fetch tasks for list and process
             }
+            [localTaskLists removeObject:localTaskList];
         }
     }
+    
+    if (localTaskLists.count > 0) {
+# pragma mark TODO: Add list to server
+    }
+}
+
+- (NSArray *)fetchLocalTaskLists {
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+	[fetchRequest setEntity:[NSEntityDescription entityForName:@"TaskList" inManagedObjectContext:self.managedObjectContext]];
+//    [fetchRequest setResultType:NSDictionaryResultType];
+//    [fetchRequest setReturnsDistinctResults:YES];
+//    [fetchRequest setPropertiesToFetch:[NSArray arrayWithObject:@"id"]];
+	NSError *error = nil;
+    NSArray *taskLists = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if (error) {
+        [self.delegate presentError:error];
+    }
+    return taskLists;
 }
 
 - (NSManagedObject *)fetchLocalTaskListWithId:(NSString *)taskListId {
 	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 	[fetchRequest setEntity:[NSEntityDescription entityForName:@"TaskList" inManagedObjectContext:self.managedObjectContext]];
-    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"id='%@'", taskListId]];
+    if (taskListId && taskListId.length > 0) {
+        [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"id='%@'", taskListId]];
+    }
+	NSError *error = nil;
+    NSArray *taskLists = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if (taskLists.count > 0 && !error) {
+        return [taskLists objectAtIndex:0];
+    } else if (error) {
+        [self.delegate presentError:error];
+    }
+    return nil;
+}
+
+- (void)processServerTasks:(NSArray *)serverTasks fromTaskList:(GTLTasksTaskList *)serverTaskList {
+    
+    NSMutableArray *localTasks = [NSMutableArray arrayWithArray:[self fetchLocalTasksFromTaskList:serverTaskList.identifier]];
+    
+    for (GTLTasksTask *serverTask in serverTasks) {
+        NSManagedObject *localTask = [self fetchLocalTaskWithId:serverTask.identifier];
+        if (localTask == nil) {
+#pragma mark TODO: Add task from server
+        }
+        NSDate *serverModDate = serverTask.updated.date;
+        NSDate *localModDate = [localTask valueForKey:@"updated"];
+        NSDate *localSyncDate = [localTask valueForKey:@"synced"];
+        if ([localModDate compare:localSyncDate] == NSOrderedDescending) {
+            if ([serverModDate compare:localSyncDate] == NSOrderedDescending) {
+# pragma mark TODO: Resolve sync conflict
+            } else {
+# pragma mark TODO: Sync local changes with server
+            }
+        } else if ([serverModDate compare:localSyncDate] == NSOrderedDescending) {
+            if ([localModDate compare:localSyncDate] == NSOrderedDescending) {
+# pragma mark TODO: Resolve sync conflict
+            } else {
+# pragma mark TODO: Sync changes from server
+            }
+        }
+        [localTasks removeObject:localTask];
+    }
+
+    if (localTasks.count > 0) {
+# pragma mark TODO: Add task to server
+    }
+}
+
+- (NSArray *)fetchLocalTasksFromTaskList:(NSString *)taskListId {
+    return [[self fetchLocalTaskListWithId:taskListId] valueForKey:@"tasks"];
+}
+
+- (NSManagedObject *)fetchLocalTaskWithId:(NSString *)taskId {
+	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+	[fetchRequest setEntity:[NSEntityDescription entityForName:@"Task" inManagedObjectContext:self.managedObjectContext]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"id='%@'", taskId]];
 	NSError *error = nil;
     NSArray *taskLists = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     if (taskLists.count > 0 && !error) {
