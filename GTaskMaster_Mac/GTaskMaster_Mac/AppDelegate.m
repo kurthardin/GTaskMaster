@@ -16,7 +16,9 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    // Insert code here to initialize your application
+    GTSyncManager *syncMgr = [GTSyncManager sharedInstance];
+    [syncMgr setDataSource:self];
+    [syncMgr setDelegate:self];
 }
 
 // Returns the directory the application uses to store the Core Data store file. This code uses a directory named "kurthardin.GTaskMaster_Mac" in the user's Application Support directory.
@@ -178,6 +180,12 @@
     }
 
     return NSTerminateNow;
+}
+
+#pragma mark - GTSyncManagerDelegate methods
+
+- (void)presentError:(NSError *)error {
+    [[NSApplication sharedApplication] presentError:error];
 }
 
 @end

@@ -15,13 +15,17 @@
 
 @end
 
+
 int const kDefaultSyncInterval = 60;
 
 @implementation GTSyncManager
 
-@synthesize isSyncing;
-@synthesize isRepeating;
-@synthesize delayInSeconds;
+@synthesize isSyncing = _isSyncing;
+@synthesize isRepeating = _isRepeating;
+@synthesize delayInSeconds = _delayInSeconds;
+@synthesize managedObjectContext = _managedObjectContext;
+@synthesize dataSource = _dataSource;
+@synthesize delegate = _delegate;
 
 + (GTSyncManager *)sharedInstance {
     __strong static id _sharedObject = nil;
@@ -59,9 +63,33 @@ int const kDefaultSyncInterval = 60;
 - (id)init {
     self = [super init];
     if (self) {
-        self.delayInSeconds = kDefaultSyncInterval;
+        _isSyncing = NO;
+        _isRepeating = NO;
+        _delayInSeconds = kDefaultSyncInterval;
     }
     return self;
+}
+
+// Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) 
+- (NSManagedObjectContext *)managedObjectContext
+{
+    if (_managedObjectContext) {
+        return _managedObjectContext;
+    }
+    
+    NSPersistentStoreCoordinator *coordinator = [self.dataSource persistentStoreCoordinator];
+    if (!coordinator) {
+        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+        [dict setValue:@"Failed to initialize the store" forKey:NSLocalizedDescriptionKey];
+        [dict setValue:@"There was an error building up the data file." forKey:NSLocalizedFailureReasonErrorKey];
+        NSError *error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
+        [self.delegate presentError:error];
+        return nil;
+    }
+    _managedObjectContext = [[NSManagedObjectContext alloc] init];
+    [_managedObjectContext setPersistentStoreCoordinator:coordinator];
+    
+    return _managedObjectContext;
 }
 
 - (BOOL)repeatedSync {
@@ -77,7 +105,7 @@ int const kDefaultSyncInterval = 60;
 - (BOOL)sync {
     BOOL syncStarted = NO;
     
-    if (!isSyncing) {
+    if (!self.isSyncing) {
 #pragma mark TODO: Add Google Tasks API code
         
     }

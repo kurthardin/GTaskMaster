@@ -18,7 +18,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    GTSyncManager *syncMgr = [GTSyncManager sharedInstance];
+    [syncMgr setDataSource:self];
+    [syncMgr setDelegate:self];
+    
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
         UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
@@ -156,6 +159,12 @@
 - (NSURL *)applicationDocumentsDirectory
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+#pragma mark - GTSyncManagerDelegate methods
+
+- (void)presentError:(NSError *)error {
+#pragma mark TODO: Present error
 }
 
 @end

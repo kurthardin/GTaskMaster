@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+#import "GTSyncManager.h"
+
+@interface AppDelegate : UIResponder <UIApplicationDelegate, GTSyncManagerDataSource, GTSyncManagerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

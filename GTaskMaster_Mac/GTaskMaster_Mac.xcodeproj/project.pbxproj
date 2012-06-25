@@ -27,6 +27,7 @@
 		654DA0C515937CDB00CBE844 /* GetMetadataForFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 654DA0C415937CDB00CBE844 /* GetMetadataForFile.m */; };
 		654DA0C815937CDB00CBE844 /* MySpotlightImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 654DA0C715937CDB00CBE844 /* MySpotlightImporter.m */; };
 		654DA0E21593AED300CBE844 /* GTaskMaster.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 654DA0E01593AED300CBE844 /* GTaskMaster.xcdatamodeld */; };
+		6562D28E1598CB8F00DA982D /* GTSyncManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DE5BAD1593B56300D4CF78 /* GTSyncManager.m */; };
 		65DE5BAE1593B56300D4CF78 /* GTSyncManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DE5BAD1593B56300D4CF78 /* GTSyncManager.m */; };
 /* End PBXBuildFile section */
 
@@ -387,6 +388,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				654DA0AB15937CDB00CBE844 /* GTaskMaster_MacTests.m in Sources */,
+				6562D28E1598CB8F00DA982D /* GTSyncManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

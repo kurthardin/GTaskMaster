@@ -8,7 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
+#import "GTSyncManager.h"
+
+@interface AppDelegate : NSObject <NSApplicationDelegate, GTSyncManagerDataSource, GTSyncManagerDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 
