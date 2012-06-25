@@ -18,27 +18,28 @@
         <attribute name="position" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="selflink" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="sync" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="synced" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updated" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="links" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Link" inverseName="task" inverseEntity="Link" syncable="YES"/>
-        <relationship name="tasklist" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Tasklist" inverseName="tasks" inverseEntity="Tasklist" syncable="YES"/>
+        <relationship name="tasklist" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaskList" inverseName="tasks" inverseEntity="TaskList" syncable="YES"/>
     </entity>
-    <entity name="Tasklist">
+    <entity name="TaskList">
         <attribute name="etag" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="String">
             <userInfo/>
         </attribute>
         <attribute name="selflink" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="sync" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="synced" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updated" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Task" inverseName="tasklist" inverseEntity="Task" syncable="YES"/>
         <userInfo/>
     </entity>
+    <fetchRequest name="TaskListsFetchRequest" entity="TaskList"/>
     <elements>
         <element name="Link" positionX="160" positionY="192" width="128" height="105"/>
         <element name="Task" positionX="160" positionY="192" width="128" height="285"/>
-        <element name="Tasklist" positionX="160" positionY="192" width="128" height="150"/>
+        <element name="TaskList" positionX="160" positionY="192" width="128" height="150"/>
     </elements>
 </model>

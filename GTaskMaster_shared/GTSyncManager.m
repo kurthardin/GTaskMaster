@@ -12,17 +12,21 @@
 
 - (BOOL)repeatedSync;
 - (BOOL)sync;
+- (void)processServerTaskLists:(GTLTasksTaskLists *)serverTaskLists;
+- (NSManagedObject *)fetchLocalTaskListWithId:(NSString *)taskListId;
 
 @end
 
 
 int const kDefaultSyncInterval = 60;
 
+
 @implementation GTSyncManager
 
 @synthesize isSyncing = _isSyncing;
 @synthesize isRepeating = _isRepeating;
 @synthesize delayInSeconds = _delayInSeconds;
+@synthesize tasksService = _tasksService;
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize dataSource = _dataSource;
 @synthesize delegate = _delegate;
@@ -70,6 +74,15 @@ int const kDefaultSyncInterval = 60;
     return self;
 }
 
+- (GTLServiceTasks *)tasksService {
+    if (!_tasksService) {
+        _tasksService = [[GTLServiceTasks alloc] init];
+        _tasksService.shouldFetchNextPages = YES;
+        _tasksService.retryEnabled = YES;
+    }
+    return _tasksService;
+}
+
 // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) 
 - (NSManagedObjectContext *)managedObjectContext
 {
@@ -106,11 +119,59 @@ int const kDefaultSyncInterval = 60;
     BOOL syncStarted = NO;
     
     if (!self.isSyncing) {
-#pragma mark TODO: Add Google Tasks API code
-        
+        self.isSyncing = YES;
+        [self.tasksService executeQuery:[GTLQueryTasks queryForTasklistsList]
+                      completionHandler:^(GTLServiceTicket *ticket,
+                                          id taskLists, NSError *error) {
+                          // callback
+                          if (error) {
+                              [self.delegate presentError:error];
+                          } else {
+                              [self processServerTaskLists:taskLists];
+                          }
+                      }];
+        syncStarted = YES;
     }
     
     return syncStarted;
+}
+
+- (void)processServerTaskLists:(GTLTasksTaskLists *)serverTaskLists {
+    if (serverTaskLists) {
+        for (GTLTasksTaskList *serverTaskList in serverTaskLists) {
+            NSManagedObject *localTaskList = [self fetchLocalTaskListWithId:serverTaskList.identifier];
+            NSDate *serverModDate = serverTaskList.updated.date;
+            NSDate *localModDate = [localTaskList valueForKey:@"updated"];
+            NSDate *localSyncDate = [localModDate valueForKey:@"synced"];
+            if ([localModDate compare:localSyncDate] == NSOrderedDescending) {
+                if ([serverModDate compare:localSyncDate] == NSOrderedDescending) {
+# pragma mark TODO: Resolve sync conflict
+                } else {
+# pragma mark TODO: Sync local changes with server
+                }
+            } else if ([serverModDate compare:localSyncDate] == NSOrderedDescending) {
+                if ([localModDate compare:localSyncDate] == NSOrderedDescending) {
+# pragma mark TODO: Resolve sync conflict
+                } else {
+# pragma mark TODO: Sync changes from server
+                }
+            }
+        }
+    }
+}
+
+- (NSManagedObject *)fetchLocalTaskListWithId:(NSString *)taskListId {
+	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+	[fetchRequest setEntity:[NSEntityDescription entityForName:@"TaskList" inManagedObjectContext:self.managedObjectContext]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"id='%@'", taskListId]];
+	NSError *error = nil;
+    NSArray *taskLists = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if (taskLists.count > 0 && !error) {
+        return [taskLists objectAtIndex:0];
+    } else if (error) {
+        [self.delegate presentError:error];
+    }
+    return nil;
 }
 
 @end

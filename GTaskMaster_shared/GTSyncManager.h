@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "GTLTasks.h"
 
 @protocol GTSyncManagerDataSource, GTSyncManagerDelegate;
 
@@ -15,6 +16,7 @@
 @property (nonatomic) BOOL isSyncing;
 @property (nonatomic) BOOL isRepeating;
 @property (nonatomic) double delayInSeconds;
+@property (readonly, strong, nonatomic) GTLServiceTasks *tasksService;
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) id<GTSyncManagerDataSource> dataSource;
 @property (strong, nonatomic) id<GTSyncManagerDelegate> delegate;

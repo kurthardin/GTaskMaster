@@ -7,9 +7,11 @@
 //
 
 #import "AppDelegate.h"
+#import "Defines.h"
 
 @implementation AppDelegate
 
+@synthesize window;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize managedObjectContext = _managedObjectContext;
@@ -19,6 +21,9 @@
     GTSyncManager *syncMgr = [GTSyncManager sharedInstance];
     [syncMgr setDataSource:self];
     [syncMgr setDelegate:self];
+    [syncMgr.tasksService setAuthorizer:[GTMOAuth2WindowController authForGoogleFromKeychainForName:kKeychainItemName
+                                                                                           clientID:kMyClientID
+                                                                                       clientSecret:kMyClientSecret]];
 }
 
 // Returns the directory the application uses to store the Core Data store file. This code uses a directory named "kurthardin.GTaskMaster_Mac" in the user's Application Support directory.
@@ -58,7 +63,7 @@
     NSURL *applicationFilesDirectory = [self applicationFilesDirectory];
     NSError *error = nil;
     
-    NSDictionary *properties = [applicationFilesDirectory resourceValuesForKeys:@[NSURLIsDirectoryKey] error:&error];
+    NSDictionary *properties = [applicationFilesDirectory resourceValuesForKeys:[NSArray arrayWithObject:NSURLIsDirectoryKey] error:&error];
     
     if (!properties) {
         BOOL ok = NO;

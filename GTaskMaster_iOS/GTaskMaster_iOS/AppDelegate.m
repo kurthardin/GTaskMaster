@@ -6,12 +6,15 @@
 //  Copyright (c) 2012 Kurt Hardin. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "GTMOAuth2ViewControllerTouch.h"
 
+#import "AppDelegate.h"
+#import "Defines.h"
 #import "MasterViewController.h"
 
 @implementation AppDelegate
 
+@synthesize window;
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
@@ -21,13 +24,16 @@
     GTSyncManager *syncMgr = [GTSyncManager sharedInstance];
     [syncMgr setDataSource:self];
     [syncMgr setDelegate:self];
+    [syncMgr.tasksService setAuthorizer:[GTMOAuth2ViewControllerTouch authForGoogleFromKeychainForName:kKeychainItemName
+                                                                                         clientID:kMyClientID
+                                                                                     clientSecret:kMyClientSecret]];
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
         UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
         splitViewController.delegate = (id)navigationController.topViewController;
         
-        UINavigationController *masterNavigationController = splitViewController.viewControllers[0];
+        UINavigationController *masterNavigationController = [splitViewController.viewControllers objectAtIndex:0];
         MasterViewController *controller = (MasterViewController *)masterNavigationController.topViewController;
         controller.managedObjectContext = self.managedObjectContext;
     } else {

@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <GTL/GTMOAuth2WindowController.h>
 
 #import "GTSyncManager.h"
 
