@@ -38,6 +38,7 @@
 		655C375D159903400027403D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655C375C159903400027403D /* Security.framework */; };
 		655C375F159903480027403D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655C375E159903480027403D /* SystemConfiguration.framework */; };
 		6562D28E1598CB8F00DA982D /* GTSyncManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DE5BAD1593B56300D4CF78 /* GTSyncManager.m */; };
+		65D2CCA8159A0AD700ECD844 /* LocalTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D2CCA7159A0AD700ECD844 /* LocalTaskManager.m */; };
 		65DE5BAE1593B56300D4CF78 /* GTSyncManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DE5BAD1593B56300D4CF78 /* GTSyncManager.m */; };
 /* End PBXBuildFile section */
 
@@ -111,6 +112,8 @@
 		655C3702159900950027403D /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
 		655C375C159903400027403D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		655C375E159903480027403D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		65D2CCA6159A0AD700ECD844 /* LocalTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalTaskManager.h; sourceTree = "<group>"; };
+		65D2CCA7159A0AD700ECD844 /* LocalTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalTaskManager.m; sourceTree = "<group>"; };
 		65DE5BAC1593B56300D4CF78 /* GTSyncManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTSyncManager.h; sourceTree = "<group>"; };
 		65DE5BAD1593B56300D4CF78 /* GTSyncManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTSyncManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -299,6 +302,8 @@
 			children = (
 				655C3702159900950027403D /* Defines.h */,
 				654DA0E01593AED300CBE844 /* GTaskMaster.xcdatamodeld */,
+				65D2CCA6159A0AD700ECD844 /* LocalTaskManager.h */,
+				65D2CCA7159A0AD700ECD844 /* LocalTaskManager.m */,
 				65DE5BAC1593B56300D4CF78 /* GTSyncManager.h */,
 				65DE5BAD1593B56300D4CF78 /* GTSyncManager.m */,
 				655C368B1598E83C0027403D /* Tasks */,
@@ -454,6 +459,7 @@
 				655C36A01598E83C0027403D /* GTLTasksTaskList.m in Sources */,
 				655C36A11598E83C0027403D /* GTLTasksTaskLists.m in Sources */,
 				655C36A21598E83C0027403D /* GTLTasksTasks.m in Sources */,
+				65D2CCA8159A0AD700ECD844 /* LocalTaskManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

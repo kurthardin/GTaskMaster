@@ -13,11 +13,7 @@
 - (BOOL)repeatedSync;
 - (BOOL)sync;
 - (void)processServerTaskLists:(GTLTasksTaskLists *)serverTaskLists;
-- (NSArray *)fetchLocalTaskLists;
-- (NSManagedObject *)fetchLocalTaskListWithId:(NSString *)taskListId;
 - (void)processServerTasks:(NSArray *)serverTasks fromTaskList:(GTLTasksTaskList *)serverTaskList;
-- (NSArray *)fetchLocalTasksFromTaskList:(NSString *)taskListId;
-- (NSManagedObject *)fetchLocalTaskWithId:(NSString *)taskId;
 
 @end
 
@@ -30,10 +26,8 @@ int const kDefaultSyncInterval = 60;
 @synthesize isSyncing = _isSyncing;
 @synthesize isRepeating = _isRepeating;
 @synthesize delayInSeconds = _delayInSeconds;
+@synthesize taskManager = _taskManager;
 @synthesize tasksService = _tasksService;
-@synthesize managedObjectContext = _managedObjectContext;
-@synthesize dataSource = _dataSource;
-@synthesize delegate = _delegate;
 
 + (GTSyncManager *)sharedInstance {
     __strong static id _sharedObject = nil;
@@ -78,6 +72,13 @@ int const kDefaultSyncInterval = 60;
     return self;
 }
 
+- (LocalTaskManager *)taskManager {
+    if (_taskManager == nil) {
+        _taskManager = [[LocalTaskManager alloc] init];
+    }
+    return _taskManager;
+}
+
 - (GTLServiceTasks *)tasksService {
     if (!_tasksService) {
         _tasksService = [[GTLServiceTasks alloc] init];
@@ -85,28 +86,6 @@ int const kDefaultSyncInterval = 60;
         _tasksService.retryEnabled = YES;
     }
     return _tasksService;
-}
-
-// Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) 
-- (NSManagedObjectContext *)managedObjectContext
-{
-    if (_managedObjectContext) {
-        return _managedObjectContext;
-    }
-    
-    NSPersistentStoreCoordinator *coordinator = [self.dataSource persistentStoreCoordinator];
-    if (!coordinator) {
-        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-        [dict setValue:@"Failed to initialize the store" forKey:NSLocalizedDescriptionKey];
-        [dict setValue:@"There was an error building up the data file." forKey:NSLocalizedFailureReasonErrorKey];
-        NSError *error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
-        [self.delegate presentError:error];
-        return nil;
-    }
-    _managedObjectContext = [[NSManagedObjectContext alloc] init];
-    [_managedObjectContext setPersistentStoreCoordinator:coordinator];
-    
-    return _managedObjectContext;
 }
 
 - (BOOL)repeatedSync {
@@ -129,7 +108,7 @@ int const kDefaultSyncInterval = 60;
                                           id taskLists, NSError *error) {
                           // callback
                           if (error) {
-                              [self.delegate presentError:error];
+//                              [self.delegate presentError:error];
                           } else {
                               [self processServerTaskLists:taskLists];
                           }
@@ -142,11 +121,11 @@ int const kDefaultSyncInterval = 60;
 
 - (void)processServerTaskLists:(GTLTasksTaskLists *)serverTaskLists {
     
-    NSMutableArray *localTaskLists = [NSMutableArray arrayWithArray:[self fetchLocalTaskLists]];
+    NSMutableArray *localTaskLists = [NSMutableArray arrayWithArray:[self.taskManager taskLists]];
     
     if (serverTaskLists) {
         for (GTLTasksTaskList *serverTaskList in serverTaskLists) {
-            NSManagedObject *localTaskList = [self fetchLocalTaskListWithId:serverTaskList.identifier];
+            NSManagedObject *localTaskList = [self.taskManager taskListWithId:serverTaskList.identifier];
             NSDate *serverModDate = serverTaskList.updated.date;
             NSDate *localModDate = [localTaskList valueForKey:@"updated"];
             if (localModDate == nil || [localModDate compare:serverModDate] != NSOrderedSame) {
@@ -161,42 +140,12 @@ int const kDefaultSyncInterval = 60;
     }
 }
 
-- (NSArray *)fetchLocalTaskLists {
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-	[fetchRequest setEntity:[NSEntityDescription entityForName:@"TaskList" inManagedObjectContext:self.managedObjectContext]];
-//    [fetchRequest setResultType:NSDictionaryResultType];
-//    [fetchRequest setReturnsDistinctResults:YES];
-//    [fetchRequest setPropertiesToFetch:[NSArray arrayWithObject:@"id"]];
-	NSError *error = nil;
-    NSArray *taskLists = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (error) {
-        [self.delegate presentError:error];
-    }
-    return taskLists;
-}
-
-- (NSManagedObject *)fetchLocalTaskListWithId:(NSString *)taskListId {
-	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-	[fetchRequest setEntity:[NSEntityDescription entityForName:@"TaskList" inManagedObjectContext:self.managedObjectContext]];
-    if (taskListId && taskListId.length > 0) {
-        [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"id='%@'", taskListId]];
-    }
-	NSError *error = nil;
-    NSArray *taskLists = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (taskLists.count > 0 && !error) {
-        return [taskLists objectAtIndex:0];
-    } else if (error) {
-        [self.delegate presentError:error];
-    }
-    return nil;
-}
-
 - (void)processServerTasks:(NSArray *)serverTasks fromTaskList:(GTLTasksTaskList *)serverTaskList {
     
-    NSMutableArray *localTasks = [NSMutableArray arrayWithArray:[self fetchLocalTasksFromTaskList:serverTaskList.identifier]];
+    NSMutableArray *localTasks = [NSMutableArray arrayWithArray:[self.taskManager tasksForTaskList:serverTaskList.identifier]];
     
     for (GTLTasksTask *serverTask in serverTasks) {
-        NSManagedObject *localTask = [self fetchLocalTaskWithId:serverTask.identifier];
+        NSManagedObject *localTask = [self.taskManager taskWithId:serverTask.identifier];
         if (localTask == nil) {
 #pragma mark TODO: Add task from server
         }
@@ -222,24 +171,6 @@ int const kDefaultSyncInterval = 60;
     if (localTasks.count > 0) {
 # pragma mark TODO: Add task to server
     }
-}
-
-- (NSArray *)fetchLocalTasksFromTaskList:(NSString *)taskListId {
-    return [[self fetchLocalTaskListWithId:taskListId] valueForKey:@"tasks"];
-}
-
-- (NSManagedObject *)fetchLocalTaskWithId:(NSString *)taskId {
-	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-	[fetchRequest setEntity:[NSEntityDescription entityForName:@"Task" inManagedObjectContext:self.managedObjectContext]];
-    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"id='%@'", taskId]];
-	NSError *error = nil;
-    NSArray *taskLists = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (taskLists.count > 0 && !error) {
-        return [taskLists objectAtIndex:0];
-    } else if (error) {
-        [self.delegate presentError:error];
-    }
-    return nil;
 }
 
 @end

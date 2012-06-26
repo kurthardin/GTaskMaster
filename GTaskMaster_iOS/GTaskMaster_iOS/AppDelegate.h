@@ -8,17 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-#import "GTSyncManager.h"
+#import "LocalTaskManager.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, GTSyncManagerDataSource, GTSyncManagerDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (readonly, strong, nonatomic) LocalTaskManager *taskManager;
 
-@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
-@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-
-- (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 
 @end

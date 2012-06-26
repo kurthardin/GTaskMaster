@@ -7,18 +7,14 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <GTL/GTMOAuth2WindowController.h>
 
-#import "GTSyncManager.h"
+#import "LocalTaskManager.h"
 
-@interface AppDelegate : NSObject <NSApplicationDelegate, GTSyncManagerDataSource, GTSyncManagerDelegate>
+@interface AppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
+@property (readonly, strong, nonatomic) LocalTaskManager *taskManager;
 
-@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
-@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-
-- (IBAction)saveAction:(id)sender;
+- (NSURL *)applicationFilesDirectory;
 
 @end

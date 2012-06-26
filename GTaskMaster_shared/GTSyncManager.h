@@ -7,19 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GTLTasks.h"
 
-@protocol GTSyncManagerDataSource, GTSyncManagerDelegate;
+#import "LocalTaskManager.h"
+#import "GTLTasks.h"
 
 @interface GTSyncManager : NSObject
 
 @property (nonatomic) BOOL isSyncing;
 @property (nonatomic) BOOL isRepeating;
 @property (nonatomic) double delayInSeconds;
+
+@property (readonly, strong, nonatomic) LocalTaskManager *taskManager;
 @property (readonly, strong, nonatomic) GTLServiceTasks *tasksService;
-@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic) id<GTSyncManagerDataSource> dataSource;
-@property (strong, nonatomic) id<GTSyncManagerDelegate> delegate;
 
 + (GTSyncManager *)sharedInstance;
 
@@ -29,13 +28,4 @@
 + (BOOL)syncNow;
 + (void)stopSyncing;
 
-@end
-
-@protocol GTSyncManagerDataSource <NSObject>
-- (NSPersistentStoreCoordinator *)persistentStoreCoordinator;
-- (NSManagedObjectModel *)managedObjectModel;
-@end
-
-@protocol GTSyncManagerDelegate <NSObject>
-- (void)presentError:(NSError *)error;
 @end
