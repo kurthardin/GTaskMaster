@@ -13,19 +13,23 @@
 
 @interface GTSyncManager : NSObject
 
-@property (nonatomic) BOOL isSyncing;
-@property (nonatomic) BOOL isRepeating;
+@property (readonly, nonatomic) BOOL isSyncing;
+@property (readonly, nonatomic) BOOL isRepeating;
 @property (nonatomic) double delayInSeconds;
+
+@property (readonly, strong, nonatomic) NSThread *syncThread;
+@property (readonly, strong, nonatomic) NSRunLoop *syncRunloop;
+@property (readonly, strong, nonatomic) NSTimer *syncTimer;
 
 @property (readonly, strong, nonatomic) LocalTaskManager *taskManager;
 @property (readonly, strong, nonatomic) GTLServiceTasks *tasksService;
 
 + (GTSyncManager *)sharedInstance;
 
++ (void)setSyncDelay:(double)seconds;
 + (BOOL)startSyncing;
 + (BOOL)startSyncingWithInterval:(double)seconds;
-+ (void)setSyncDelay:(double)seconds;
++ (BOOL)stopSyncing;
 + (BOOL)syncNow;
-+ (void)stopSyncing;
 
 @end
