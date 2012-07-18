@@ -6,12 +6,10 @@
 //  Copyright (c) 2012 Kurt Hardin. All rights reserved.
 //
 
-#import "GTMOAuth2ViewControllerTouch.h"
-
 #import "AppDelegate.h"
-#import "Defines.h"
-#import "GTSyncManager.h"
 #import "MasterViewController.h"
+#import "GTSyncManager.h"
+#import "GTMOAuth2ViewControllerTouch.h"
 
 @implementation AppDelegate
 
@@ -20,13 +18,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    GTSyncManager *syncMgr = [GTSyncManager sharedInstance];
-//    [syncMgr setDataSource:self];
-//    [syncMgr setDelegate:self];
-    [syncMgr.tasksService setAuthorizer:[GTMOAuth2ViewControllerTouch authForGoogleFromKeychainForName:kKeychainItemName
-                                                                                         clientID:kMyClientID
-                                                                                     clientSecret:kMyClientSecret]];
-    
+    UINavigationController *mainNavigationController;
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
         UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
@@ -35,11 +27,52 @@
         UINavigationController *masterNavigationController = [splitViewController.viewControllers objectAtIndex:0];
         MasterViewController *controller = (MasterViewController *)masterNavigationController.topViewController;
         controller.managedObjectContext = self.taskManager.managedObjectContext;
+        controller.detailViewController = (DetailViewController *)[[splitViewController.viewControllers lastObject] topViewController];
+        
+        mainNavigationController = navigationController;
     } else {
         UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
         MasterViewController *controller = (MasterViewController *)navigationController.topViewController;
         controller.managedObjectContext = self.taskManager.managedObjectContext;
+        
+        mainNavigationController = navigationController;
     }
+    
+    GTMOAuth2Authentication *auth = [GTMOAuth2ViewControllerTouch authForGoogleFromKeychainForName:kKeychainItemName
+                                                                                          clientID:kMyClientID
+                                                                                      clientSecret:kMyClientSecret];
+    
+    if (!SAVE_AUTH_TOKEN) {
+        [GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:kKeychainItemName];
+        [GTMOAuth2ViewControllerTouch revokeTokenForGoogleAuthentication:auth];
+    }
+    
+    if (auth.canAuthorize) {
+        [[GTSyncManager sharedInstance].tasksService setAuthorizer:auth];
+        [GTSyncManager startSyncing];
+        
+    } else {
+        // Show the OAuth 2 sign-in controller
+        GTMOAuth2ViewControllerTouch *authViewController;
+        
+        authViewController = [GTMOAuth2ViewControllerTouch controllerWithScope:kGTLAuthScopeTasks
+                                                                      clientID:kMyClientID
+                                                                  clientSecret:kMyClientSecret
+                                                              keychainItemName:(SAVE_AUTH_TOKEN ? kKeychainItemName : nil)
+                                                             completionHandler:^(GTMOAuth2ViewControllerTouch *viewController,
+                                                                                 GTMOAuth2Authentication *auth,
+                                                                                 NSError *error) {
+                                                                 if (error) {
+                                                                     NSLog(@"Error authenticating user:\n   %@", error);
+                                                                 } else {
+                                                                     [[GTSyncManager sharedInstance].tasksService setAuthorizer:auth];
+                                                                     [GTSyncManager startSyncing];
+                                                                 }
+                                                             }];
+        [mainNavigationController pushViewController:authViewController animated:YES];
+        
+    }
+    
     return YES;
 }
 							
@@ -72,6 +105,10 @@
 - (LocalTaskManager *)taskManager {
     if (_taskManager == nil) {
         _taskManager = [[LocalTaskManager alloc] init];
+        [[NSNotificationCenter defaultCenter] addObserver:_taskManager
+                                                 selector:@selector(refresh:)
+                                                     name:NSManagedObjectContextDidSaveNotification
+                                                   object:[GTSyncManager sharedInstance].taskManager.managedObjectContext];
     }
     return _taskManager;
 }

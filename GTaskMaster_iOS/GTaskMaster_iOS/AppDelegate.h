@@ -6,8 +6,6 @@
 //  Copyright (c) 2012 Kurt Hardin. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 #import "LocalTaskManager.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>

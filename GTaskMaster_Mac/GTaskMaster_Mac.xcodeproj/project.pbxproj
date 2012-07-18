@@ -7,17 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		651D0D4615B4E72D0083D6EB /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 651D0D4515B4E72D0083D6EB /* WebKit.framework */; };
+		652AC0D615B6131D00F99147 /* GTL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652AC0D515B6131D00F99147 /* GTL.framework */; };
+		652AC11B15B615CC00F99147 /* GTL.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 652AC0D515B6131D00F99147 /* GTL.framework */; };
+		654A70E315B4C5B50082453C /* TasksTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 654A70E215B4C5B50082453C /* TasksTableViewController.m */; };
+		654A710E15B4D2E20082453C /* GTaskMaster.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 654A70E815B4D2E20082453C /* GTaskMaster.xcdatamodeld */; };
+		654A710F15B4D2E20082453C /* GTaskMasterManagedLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 654A70EB15B4D2E20082453C /* GTaskMasterManagedLink.m */; };
+		654A711015B4D2E20082453C /* GTaskMasterManagedTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 654A70ED15B4D2E20082453C /* GTaskMasterManagedTask.m */; };
+		654A711115B4D2E20082453C /* GTaskMasterManagedTaskList.m in Sources */ = {isa = PBXBuildFile; fileRef = 654A70EF15B4D2E20082453C /* GTaskMasterManagedTaskList.m */; };
+		654A711215B4D2E20082453C /* GTSyncManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 654A70F315B4D2E20082453C /* GTSyncManager.m */; };
+		654A711315B4D2E20082453C /* LocalTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 654A70F515B4D2E20082453C /* LocalTaskManager.m */; };
+		654A711515B4D2E20082453C /* NSThread+MCSMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 654A70F915B4D2E20082453C /* NSThread+MCSMAdditions.m */; };
+		654A711715B4D2E20082453C /* GTaskMasterIcon.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 654A70FC15B4D2E20082453C /* GTaskMasterIcon.jpeg */; };
+		654A711815B4D2E20082453C /* GTLQueryTasks.m in Sources */ = {isa = PBXBuildFile; fileRef = 654A710015B4D2E20082453C /* GTLQueryTasks.m */; };
+		654A711915B4D2E20082453C /* GTLServiceTasks.m in Sources */ = {isa = PBXBuildFile; fileRef = 654A710215B4D2E20082453C /* GTLServiceTasks.m */; };
+		654A711A15B4D2E20082453C /* GTLTasksConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 654A710515B4D2E20082453C /* GTLTasksConstants.m */; };
+		654A711B15B4D2E20082453C /* GTLTasksTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 654A710715B4D2E20082453C /* GTLTasksTask.m */; };
+		654A711C15B4D2E20082453C /* GTLTasksTaskList.m in Sources */ = {isa = PBXBuildFile; fileRef = 654A710915B4D2E20082453C /* GTLTasksTaskList.m */; };
+		654A711D15B4D2E20082453C /* GTLTasksTaskLists.m in Sources */ = {isa = PBXBuildFile; fileRef = 654A710B15B4D2E20082453C /* GTLTasksTaskLists.m */; };
+		654A711E15B4D2E20082453C /* GTLTasksTasks.m in Sources */ = {isa = PBXBuildFile; fileRef = 654A710D15B4D2E20082453C /* GTLTasksTasks.m */; };
 		654DA07E15937CDB00CBE844 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654DA07D15937CDB00CBE844 /* Cocoa.framework */; };
 		654DA08815937CDB00CBE844 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 654DA08615937CDB00CBE844 /* InfoPlist.strings */; };
 		654DA08A15937CDB00CBE844 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 654DA08915937CDB00CBE844 /* main.m */; };
-		654DA08E15937CDB00CBE844 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 654DA08C15937CDB00CBE844 /* Credits.rtf */; };
 		654DA09115937CDB00CBE844 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 654DA09015937CDB00CBE844 /* AppDelegate.m */; };
 		654DA09415937CDB00CBE844 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 654DA09215937CDB00CBE844 /* MainMenu.xib */; };
 		654DA09F15937CDB00CBE844 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654DA09E15937CDB00CBE844 /* SenTestingKit.framework */; };
 		654DA0A015937CDB00CBE844 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654DA07D15937CDB00CBE844 /* Cocoa.framework */; };
 		654DA0A815937CDB00CBE844 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 654DA0A615937CDB00CBE844 /* InfoPlist.strings */; };
 		654DA0AB15937CDB00CBE844 /* GTaskMaster_MacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 654DA0AA15937CDB00CBE844 /* GTaskMaster_MacTests.m */; };
-		654DA0B315937CDB00CBE844 /* GTaskMaster_MacImporter.mdimporter in Resources */ = {isa = PBXBuildFile; fileRef = 654DA0B015937CDB00CBE844 /* GTaskMaster_MacImporter.mdimporter */; };
 		654DA0B515937CDB00CBE844 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654DA0B415937CDB00CBE844 /* CoreServices.framework */; };
 		654DA0B715937CDB00CBE844 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654DA0B615937CDB00CBE844 /* CoreFoundation.framework */; };
 		654DA0B915937CDB00CBE844 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654DA0B815937CDB00CBE844 /* CoreData.framework */; };
@@ -26,20 +43,8 @@
 		654DA0C315937CDB00CBE844 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 654DA0C215937CDB00CBE844 /* main.c */; };
 		654DA0C515937CDB00CBE844 /* GetMetadataForFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 654DA0C415937CDB00CBE844 /* GetMetadataForFile.m */; };
 		654DA0C815937CDB00CBE844 /* MySpotlightImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 654DA0C715937CDB00CBE844 /* MySpotlightImporter.m */; };
-		655C368A1598E81E0027403D /* GTL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655C36891598E81E0027403D /* GTL.framework */; };
 		655C375D159903400027403D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655C375C159903400027403D /* Security.framework */; };
 		655C375F159903480027403D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655C375E159903480027403D /* SystemConfiguration.framework */; };
-		65D2CD18159A4A3900ECD844 /* GTaskMaster.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 65D2CCFA159A4A3800ECD844 /* GTaskMaster.xcdatamodeld */; };
-		65D2CD19159A4A3900ECD844 /* GTSyncManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D2CCFD159A4A3800ECD844 /* GTSyncManager.m */; };
-		65D2CD1A159A4A3900ECD844 /* LocalTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D2CCFF159A4A3800ECD844 /* LocalTaskManager.m */; };
-		65D2CD1D159A4A3900ECD844 /* NSThread+MCSMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D2CD05159A4A3800ECD844 /* NSThread+MCSMAdditions.m */; };
-		65D2CD1F159A4A3900ECD844 /* GTLQueryTasks.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D2CD0A159A4A3800ECD844 /* GTLQueryTasks.m */; };
-		65D2CD20159A4A3900ECD844 /* GTLServiceTasks.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D2CD0C159A4A3800ECD844 /* GTLServiceTasks.m */; };
-		65D2CD21159A4A3900ECD844 /* GTLTasksConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D2CD0F159A4A3900ECD844 /* GTLTasksConstants.m */; };
-		65D2CD22159A4A3900ECD844 /* GTLTasksTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D2CD11159A4A3900ECD844 /* GTLTasksTask.m */; };
-		65D2CD23159A4A3900ECD844 /* GTLTasksTaskList.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D2CD13159A4A3900ECD844 /* GTLTasksTaskList.m */; };
-		65D2CD24159A4A3900ECD844 /* GTLTasksTaskLists.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D2CD15159A4A3900ECD844 /* GTLTasksTaskLists.m */; };
-		65D2CD25159A4A3900ECD844 /* GTLTasksTasks.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D2CD17159A4A3900ECD844 /* GTLTasksTasks.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,16 +55,57 @@
 			remoteGlobalIDString = 654DA07815937CDB00CBE844;
 			remoteInfo = GTaskMaster_Mac;
 		};
-		654DA0B115937CDB00CBE844 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 654DA07015937CDB00CBE844 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 654DA0AF15937CDB00CBE844;
-			remoteInfo = GTaskMaster_MacImporter;
-		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		654183E515B4D42600EC3C18 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				652AC11B15B615CC00F99147 /* GTL.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		651D0D4515B4E72D0083D6EB /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		652AC0D515B6131D00F99147 /* GTL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GTL.framework; sourceTree = "<group>"; };
+		654A70E115B4C5B50082453C /* TasksTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TasksTableViewController.h; sourceTree = "<group>"; };
+		654A70E215B4C5B50082453C /* TasksTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TasksTableViewController.m; sourceTree = "<group>"; };
+		654A70E915B4D2E20082453C /* GTaskMaster.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GTaskMaster.xcdatamodel; sourceTree = "<group>"; };
+		654A70EA15B4D2E20082453C /* GTaskMasterManagedLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTaskMasterManagedLink.h; sourceTree = "<group>"; };
+		654A70EB15B4D2E20082453C /* GTaskMasterManagedLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTaskMasterManagedLink.m; sourceTree = "<group>"; };
+		654A70EC15B4D2E20082453C /* GTaskMasterManagedTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTaskMasterManagedTask.h; sourceTree = "<group>"; };
+		654A70ED15B4D2E20082453C /* GTaskMasterManagedTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTaskMasterManagedTask.m; sourceTree = "<group>"; };
+		654A70EE15B4D2E20082453C /* GTaskMasterManagedTaskList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTaskMasterManagedTaskList.h; sourceTree = "<group>"; };
+		654A70EF15B4D2E20082453C /* GTaskMasterManagedTaskList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTaskMasterManagedTaskList.m; sourceTree = "<group>"; };
+		654A70F015B4D2E20082453C /* GTaskMasterManagedObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTaskMasterManagedObjects.h; sourceTree = "<group>"; };
+		654A70F115B4D2E20082453C /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
+		654A70F215B4D2E20082453C /* GTSyncManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTSyncManager.h; sourceTree = "<group>"; };
+		654A70F315B4D2E20082453C /* GTSyncManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTSyncManager.m; sourceTree = "<group>"; };
+		654A70F415B4D2E20082453C /* LocalTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalTaskManager.h; sourceTree = "<group>"; };
+		654A70F515B4D2E20082453C /* LocalTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalTaskManager.m; sourceTree = "<group>"; };
+		654A70F815B4D2E20082453C /* NSThread+MCSMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSThread+MCSMAdditions.h"; sourceTree = "<group>"; };
+		654A70F915B4D2E20082453C /* NSThread+MCSMAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSThread+MCSMAdditions.m"; sourceTree = "<group>"; };
+		654A70FC15B4D2E20082453C /* GTaskMasterIcon.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = GTaskMasterIcon.jpeg; sourceTree = "<group>"; };
+		654A70FF15B4D2E20082453C /* GTLQueryTasks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLQueryTasks.h; sourceTree = "<group>"; };
+		654A710015B4D2E20082453C /* GTLQueryTasks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLQueryTasks.m; sourceTree = "<group>"; };
+		654A710115B4D2E20082453C /* GTLServiceTasks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLServiceTasks.h; sourceTree = "<group>"; };
+		654A710215B4D2E20082453C /* GTLServiceTasks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLServiceTasks.m; sourceTree = "<group>"; };
+		654A710315B4D2E20082453C /* GTLTasks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLTasks.h; sourceTree = "<group>"; };
+		654A710415B4D2E20082453C /* GTLTasksConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLTasksConstants.h; sourceTree = "<group>"; };
+		654A710515B4D2E20082453C /* GTLTasksConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLTasksConstants.m; sourceTree = "<group>"; };
+		654A710615B4D2E20082453C /* GTLTasksTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLTasksTask.h; sourceTree = "<group>"; };
+		654A710715B4D2E20082453C /* GTLTasksTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLTasksTask.m; sourceTree = "<group>"; };
+		654A710815B4D2E20082453C /* GTLTasksTaskList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLTasksTaskList.h; sourceTree = "<group>"; };
+		654A710915B4D2E20082453C /* GTLTasksTaskList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLTasksTaskList.m; sourceTree = "<group>"; };
+		654A710A15B4D2E20082453C /* GTLTasksTaskLists.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLTasksTaskLists.h; sourceTree = "<group>"; };
+		654A710B15B4D2E20082453C /* GTLTasksTaskLists.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLTasksTaskLists.m; sourceTree = "<group>"; };
+		654A710C15B4D2E20082453C /* GTLTasksTasks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLTasksTasks.h; sourceTree = "<group>"; };
+		654A710D15B4D2E20082453C /* GTLTasksTasks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLTasksTasks.m; sourceTree = "<group>"; };
 		654DA07915937CDB00CBE844 /* GTaskMaster_Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GTaskMaster_Mac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		654DA07D15937CDB00CBE844 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		654DA08015937CDB00CBE844 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -92,32 +138,8 @@
 		654DA0C715937CDB00CBE844 /* MySpotlightImporter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MySpotlightImporter.m; sourceTree = "<group>"; };
 		654DA0C915937CDC00CBE844 /* Importer Read Me.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Importer Read Me.txt"; sourceTree = "<group>"; };
 		654DA0CA15937CDC00CBE844 /* GTaskMaster_MacImporter-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GTaskMaster_MacImporter-Prefix.pch"; sourceTree = "<group>"; };
-		655C36891598E81E0027403D /* GTL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GTL.framework; sourceTree = "<group>"; };
 		655C375C159903400027403D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		655C375E159903480027403D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		65D2CCF9159A4A3800ECD844 /* Defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
-		65D2CCFB159A4A3800ECD844 /* GTaskMaster.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GTaskMaster.xcdatamodel; sourceTree = "<group>"; };
-		65D2CCFC159A4A3800ECD844 /* GTSyncManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTSyncManager.h; sourceTree = "<group>"; };
-		65D2CCFD159A4A3800ECD844 /* GTSyncManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTSyncManager.m; sourceTree = "<group>"; };
-		65D2CCFE159A4A3800ECD844 /* LocalTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalTaskManager.h; sourceTree = "<group>"; };
-		65D2CCFF159A4A3800ECD844 /* LocalTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalTaskManager.m; sourceTree = "<group>"; };
-		65D2CD04159A4A3800ECD844 /* NSThread+MCSMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSThread+MCSMAdditions.h"; sourceTree = "<group>"; };
-		65D2CD05159A4A3800ECD844 /* NSThread+MCSMAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSThread+MCSMAdditions.m"; sourceTree = "<group>"; };
-		65D2CD09159A4A3800ECD844 /* GTLQueryTasks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLQueryTasks.h; sourceTree = "<group>"; };
-		65D2CD0A159A4A3800ECD844 /* GTLQueryTasks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLQueryTasks.m; sourceTree = "<group>"; };
-		65D2CD0B159A4A3800ECD844 /* GTLServiceTasks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLServiceTasks.h; sourceTree = "<group>"; };
-		65D2CD0C159A4A3800ECD844 /* GTLServiceTasks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLServiceTasks.m; sourceTree = "<group>"; };
-		65D2CD0D159A4A3800ECD844 /* GTLTasks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLTasks.h; sourceTree = "<group>"; };
-		65D2CD0E159A4A3900ECD844 /* GTLTasksConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLTasksConstants.h; sourceTree = "<group>"; };
-		65D2CD0F159A4A3900ECD844 /* GTLTasksConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLTasksConstants.m; sourceTree = "<group>"; };
-		65D2CD10159A4A3900ECD844 /* GTLTasksTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLTasksTask.h; sourceTree = "<group>"; };
-		65D2CD11159A4A3900ECD844 /* GTLTasksTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLTasksTask.m; sourceTree = "<group>"; };
-		65D2CD12159A4A3900ECD844 /* GTLTasksTaskList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLTasksTaskList.h; sourceTree = "<group>"; };
-		65D2CD13159A4A3900ECD844 /* GTLTasksTaskList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLTasksTaskList.m; sourceTree = "<group>"; };
-		65D2CD14159A4A3900ECD844 /* GTLTasksTaskLists.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLTasksTaskLists.h; sourceTree = "<group>"; };
-		65D2CD15159A4A3900ECD844 /* GTLTasksTaskLists.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLTasksTaskLists.m; sourceTree = "<group>"; };
-		65D2CD16159A4A3900ECD844 /* GTLTasksTasks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLTasksTasks.h; sourceTree = "<group>"; };
-		65D2CD17159A4A3900ECD844 /* GTLTasksTasks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLTasksTasks.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,10 +147,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				651D0D4615B4E72D0083D6EB /* WebKit.framework in Frameworks */,
 				655C375F159903480027403D /* SystemConfiguration.framework in Frameworks */,
 				655C375D159903400027403D /* Security.framework in Frameworks */,
 				654DA07E15937CDB00CBE844 /* Cocoa.framework in Frameworks */,
-				655C368A1598E81E0027403D /* GTL.framework in Frameworks */,
+				652AC0D615B6131D00F99147 /* GTL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,10 +178,89 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		654A70E615B4D2E20082453C /* GTaskMaster_shared */ = {
+			isa = PBXGroup;
+			children = (
+				654A70E715B4D2E20082453C /* CoreData */,
+				654A70F115B4D2E20082453C /* constants.h */,
+				654A70F215B4D2E20082453C /* GTSyncManager.h */,
+				654A70F315B4D2E20082453C /* GTSyncManager.m */,
+				654A70F415B4D2E20082453C /* LocalTaskManager.h */,
+				654A70F515B4D2E20082453C /* LocalTaskManager.m */,
+				654A70F615B4D2E20082453C /* NSThread-MCSMAdditions */,
+				654A70FB15B4D2E20082453C /* Resources */,
+				654A70FD15B4D2E20082453C /* Tasks */,
+			);
+			name = GTaskMaster_shared;
+			path = ../GTaskMaster_shared;
+			sourceTree = "<group>";
+		};
+		654A70E715B4D2E20082453C /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				654A70E815B4D2E20082453C /* GTaskMaster.xcdatamodeld */,
+				654A70EA15B4D2E20082453C /* GTaskMasterManagedLink.h */,
+				654A70EB15B4D2E20082453C /* GTaskMasterManagedLink.m */,
+				654A70EC15B4D2E20082453C /* GTaskMasterManagedTask.h */,
+				654A70ED15B4D2E20082453C /* GTaskMasterManagedTask.m */,
+				654A70EE15B4D2E20082453C /* GTaskMasterManagedTaskList.h */,
+				654A70EF15B4D2E20082453C /* GTaskMasterManagedTaskList.m */,
+				654A70F015B4D2E20082453C /* GTaskMasterManagedObjects.h */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		654A70F615B4D2E20082453C /* NSThread-MCSMAdditions */ = {
+			isa = PBXGroup;
+			children = (
+				654A70F815B4D2E20082453C /* NSThread+MCSMAdditions.h */,
+				654A70F915B4D2E20082453C /* NSThread+MCSMAdditions.m */,
+			);
+			path = "NSThread-MCSMAdditions";
+			sourceTree = "<group>";
+		};
+		654A70FB15B4D2E20082453C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				654A70FC15B4D2E20082453C /* GTaskMasterIcon.jpeg */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		654A70FD15B4D2E20082453C /* Tasks */ = {
+			isa = PBXGroup;
+			children = (
+				654A70FE15B4D2E20082453C /* Generated */,
+			);
+			path = Tasks;
+			sourceTree = "<group>";
+		};
+		654A70FE15B4D2E20082453C /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				654A70FF15B4D2E20082453C /* GTLQueryTasks.h */,
+				654A710015B4D2E20082453C /* GTLQueryTasks.m */,
+				654A710115B4D2E20082453C /* GTLServiceTasks.h */,
+				654A710215B4D2E20082453C /* GTLServiceTasks.m */,
+				654A710315B4D2E20082453C /* GTLTasks.h */,
+				654A710415B4D2E20082453C /* GTLTasksConstants.h */,
+				654A710515B4D2E20082453C /* GTLTasksConstants.m */,
+				654A710615B4D2E20082453C /* GTLTasksTask.h */,
+				654A710715B4D2E20082453C /* GTLTasksTask.m */,
+				654A710815B4D2E20082453C /* GTLTasksTaskList.h */,
+				654A710915B4D2E20082453C /* GTLTasksTaskList.m */,
+				654A710A15B4D2E20082453C /* GTLTasksTaskLists.h */,
+				654A710B15B4D2E20082453C /* GTLTasksTaskLists.m */,
+				654A710C15B4D2E20082453C /* GTLTasksTasks.h */,
+				654A710D15B4D2E20082453C /* GTLTasksTasks.m */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
 		654DA06E15937CDB00CBE844 = {
 			isa = PBXGroup;
 			children = (
-				65D2CCF8159A4A3800ECD844 /* GTaskMaster_shared */,
+				654A70E615B4D2E20082453C /* GTaskMaster_shared */,
 				654DA08315937CDB00CBE844 /* GTaskMaster_Mac */,
 				654DA0A315937CDB00CBE844 /* GTaskMaster_MacTests */,
 				654DA0BC15937CDB00CBE844 /* GTaskMaster_MacImporter */,
@@ -180,15 +282,16 @@
 		654DA07C15937CDB00CBE844 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				652AC0D515B6131D00F99147 /* GTL.framework */,
 				655C375E159903480027403D /* SystemConfiguration.framework */,
 				655C375C159903400027403D /* Security.framework */,
-				655C36891598E81E0027403D /* GTL.framework */,
 				654DA07D15937CDB00CBE844 /* Cocoa.framework */,
 				654DA09E15937CDB00CBE844 /* SenTestingKit.framework */,
 				654DA0B415937CDB00CBE844 /* CoreServices.framework */,
 				654DA0B615937CDB00CBE844 /* CoreFoundation.framework */,
 				654DA0B815937CDB00CBE844 /* CoreData.framework */,
 				654DA0BA15937CDB00CBE844 /* Foundation.framework */,
+				651D0D4515B4E72D0083D6EB /* WebKit.framework */,
 				654DA07F15937CDB00CBE844 /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -211,6 +314,8 @@
 				654DA09015937CDB00CBE844 /* AppDelegate.m */,
 				654DA09215937CDB00CBE844 /* MainMenu.xib */,
 				654DA08415937CDB00CBE844 /* Supporting Files */,
+				654A70E115B4C5B50082453C /* TasksTableViewController.h */,
+				654A70E215B4C5B50082453C /* TasksTableViewController.m */,
 			);
 			path = GTaskMaster_Mac;
 			sourceTree = "<group>";
@@ -269,61 +374,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		65D2CCF8159A4A3800ECD844 /* GTaskMaster_shared */ = {
-			isa = PBXGroup;
-			children = (
-				65D2CCF9159A4A3800ECD844 /* Defines.h */,
-				65D2CCFA159A4A3800ECD844 /* GTaskMaster.xcdatamodeld */,
-				65D2CCFC159A4A3800ECD844 /* GTSyncManager.h */,
-				65D2CCFD159A4A3800ECD844 /* GTSyncManager.m */,
-				65D2CCFE159A4A3800ECD844 /* LocalTaskManager.h */,
-				65D2CCFF159A4A3800ECD844 /* LocalTaskManager.m */,
-				65D2CD02159A4A3800ECD844 /* NSThread-MCSMAdditions */,
-				65D2CD07159A4A3800ECD844 /* Tasks */,
-			);
-			name = GTaskMaster_shared;
-			path = ../GTaskMaster_shared;
-			sourceTree = "<group>";
-		};
-		65D2CD02159A4A3800ECD844 /* NSThread-MCSMAdditions */ = {
-			isa = PBXGroup;
-			children = (
-				65D2CD04159A4A3800ECD844 /* NSThread+MCSMAdditions.h */,
-				65D2CD05159A4A3800ECD844 /* NSThread+MCSMAdditions.m */,
-			);
-			path = "NSThread-MCSMAdditions";
-			sourceTree = "<group>";
-		};
-		65D2CD07159A4A3800ECD844 /* Tasks */ = {
-			isa = PBXGroup;
-			children = (
-				65D2CD08159A4A3800ECD844 /* Generated */,
-			);
-			path = Tasks;
-			sourceTree = "<group>";
-		};
-		65D2CD08159A4A3800ECD844 /* Generated */ = {
-			isa = PBXGroup;
-			children = (
-				65D2CD09159A4A3800ECD844 /* GTLQueryTasks.h */,
-				65D2CD0A159A4A3800ECD844 /* GTLQueryTasks.m */,
-				65D2CD0B159A4A3800ECD844 /* GTLServiceTasks.h */,
-				65D2CD0C159A4A3800ECD844 /* GTLServiceTasks.m */,
-				65D2CD0D159A4A3800ECD844 /* GTLTasks.h */,
-				65D2CD0E159A4A3900ECD844 /* GTLTasksConstants.h */,
-				65D2CD0F159A4A3900ECD844 /* GTLTasksConstants.m */,
-				65D2CD10159A4A3900ECD844 /* GTLTasksTask.h */,
-				65D2CD11159A4A3900ECD844 /* GTLTasksTask.m */,
-				65D2CD12159A4A3900ECD844 /* GTLTasksTaskList.h */,
-				65D2CD13159A4A3900ECD844 /* GTLTasksTaskList.m */,
-				65D2CD14159A4A3900ECD844 /* GTLTasksTaskLists.h */,
-				65D2CD15159A4A3900ECD844 /* GTLTasksTaskLists.m */,
-				65D2CD16159A4A3900ECD844 /* GTLTasksTasks.h */,
-				65D2CD17159A4A3900ECD844 /* GTLTasksTasks.m */,
-			);
-			path = Generated;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -334,11 +384,11 @@
 				654DA07515937CDB00CBE844 /* Sources */,
 				654DA07615937CDB00CBE844 /* Frameworks */,
 				654DA07715937CDB00CBE844 /* Resources */,
+				654183E515B4D42600EC3C18 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				654DA0B215937CDB00CBE844 /* PBXTargetDependency */,
 			);
 			name = GTaskMaster_Mac;
 			productName = GTaskMaster_Mac;
@@ -415,9 +465,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				654DA08815937CDB00CBE844 /* InfoPlist.strings in Resources */,
-				654DA08E15937CDB00CBE844 /* Credits.rtf in Resources */,
 				654DA09415937CDB00CBE844 /* MainMenu.xib in Resources */,
-				654DA0B315937CDB00CBE844 /* GTaskMaster_MacImporter.mdimporter in Resources */,
+				654A711715B4D2E20082453C /* GTaskMasterIcon.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,17 +511,21 @@
 			files = (
 				654DA08A15937CDB00CBE844 /* main.m in Sources */,
 				654DA09115937CDB00CBE844 /* AppDelegate.m in Sources */,
-				65D2CD18159A4A3900ECD844 /* GTaskMaster.xcdatamodeld in Sources */,
-				65D2CD19159A4A3900ECD844 /* GTSyncManager.m in Sources */,
-				65D2CD1A159A4A3900ECD844 /* LocalTaskManager.m in Sources */,
-				65D2CD1D159A4A3900ECD844 /* NSThread+MCSMAdditions.m in Sources */,
-				65D2CD1F159A4A3900ECD844 /* GTLQueryTasks.m in Sources */,
-				65D2CD20159A4A3900ECD844 /* GTLServiceTasks.m in Sources */,
-				65D2CD21159A4A3900ECD844 /* GTLTasksConstants.m in Sources */,
-				65D2CD22159A4A3900ECD844 /* GTLTasksTask.m in Sources */,
-				65D2CD23159A4A3900ECD844 /* GTLTasksTaskList.m in Sources */,
-				65D2CD24159A4A3900ECD844 /* GTLTasksTaskLists.m in Sources */,
-				65D2CD25159A4A3900ECD844 /* GTLTasksTasks.m in Sources */,
+				654A70E315B4C5B50082453C /* TasksTableViewController.m in Sources */,
+				654A710E15B4D2E20082453C /* GTaskMaster.xcdatamodeld in Sources */,
+				654A710F15B4D2E20082453C /* GTaskMasterManagedLink.m in Sources */,
+				654A711015B4D2E20082453C /* GTaskMasterManagedTask.m in Sources */,
+				654A711115B4D2E20082453C /* GTaskMasterManagedTaskList.m in Sources */,
+				654A711215B4D2E20082453C /* GTSyncManager.m in Sources */,
+				654A711315B4D2E20082453C /* LocalTaskManager.m in Sources */,
+				654A711515B4D2E20082453C /* NSThread+MCSMAdditions.m in Sources */,
+				654A711815B4D2E20082453C /* GTLQueryTasks.m in Sources */,
+				654A711915B4D2E20082453C /* GTLServiceTasks.m in Sources */,
+				654A711A15B4D2E20082453C /* GTLTasksConstants.m in Sources */,
+				654A711B15B4D2E20082453C /* GTLTasksTask.m in Sources */,
+				654A711C15B4D2E20082453C /* GTLTasksTaskList.m in Sources */,
+				654A711D15B4D2E20082453C /* GTLTasksTaskLists.m in Sources */,
+				654A711E15B4D2E20082453C /* GTLTasksTasks.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -501,11 +554,6 @@
 			isa = PBXTargetDependency;
 			target = 654DA07815937CDB00CBE844 /* GTaskMaster_Mac */;
 			targetProxy = 654DA0A115937CDB00CBE844 /* PBXContainerItemProxy */;
-		};
-		654DA0B215937CDB00CBE844 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 654DA0AF15937CDB00CBE844 /* GTaskMaster_MacImporter */;
-			targetProxy = 654DA0B115937CDB00CBE844 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -578,6 +626,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-DGTL_BUILT_AS_FRAMEWORK=1";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -600,6 +649,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OTHER_CFLAGS = "-DGTL_BUILT_AS_FRAMEWORK=1";
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -640,12 +690,14 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../../../../Library/Developer/Xcode/DerivedData/GTL-btlbgrqhutxknpdxfmqpuejjaqjr/Build/Products/Debug\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTaskMaster_Mac/GTaskMaster_Mac-Prefix.pch";
 				INFOPLIST_FILE = "GTaskMaster_Mac/GTaskMaster_Mac-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_CFLAGS = "-DGTL_BUILT_AS_FRAMEWORK=1";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -657,12 +709,14 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../../../../Library/Developer/Xcode/DerivedData/GTL-btlbgrqhutxknpdxfmqpuejjaqjr/Build/Products/Debug\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTaskMaster_Mac/GTaskMaster_Mac-Prefix.pch";
 				INFOPLIST_FILE = "GTaskMaster_Mac/GTaskMaster_Mac-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_CFLAGS = "-DGTL_BUILT_AS_FRAMEWORK=1";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -738,12 +792,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		65D2CCFA159A4A3800ECD844 /* GTaskMaster.xcdatamodeld */ = {
+		654A70E815B4D2E20082453C /* GTaskMaster.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				65D2CCFB159A4A3800ECD844 /* GTaskMaster.xcdatamodel */,
+				654A70E915B4D2E20082453C /* GTaskMaster.xcdatamodel */,
 			);
-			currentVersion = 65D2CCFB159A4A3800ECD844 /* GTaskMaster.xcdatamodel */;
+			currentVersion = 654A70E915B4D2E20082453C /* GTaskMaster.xcdatamodel */;
 			path = GTaskMaster.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

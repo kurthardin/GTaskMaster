@@ -9,7 +9,6 @@
 #import <GTL/GTMOAuth2WindowController.h>
 
 #import "AppDelegate.h"
-#import "Defines.h"
 #import "GTSyncManager.h"
 
 @implementation AppDelegate
@@ -18,12 +17,42 @@
 @synthesize taskManager = _taskManager;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    GTSyncManager *syncMgr = [GTSyncManager sharedInstance];
-//    [syncMgr setDataSource:self];
-//    [syncMgr setDelegate:self];
-    [syncMgr.tasksService setAuthorizer:[GTMOAuth2WindowController authForGoogleFromKeychainForName:kKeychainItemName
-                                                                                           clientID:kMyClientID
-                                                                                       clientSecret:kMyClientSecret]];
+    
+    GTMOAuth2Authentication *auth = [GTMOAuth2WindowController authForGoogleFromKeychainForName:kKeychainItemName
+                                                                                       clientID:kMyClientID
+                                                                                   clientSecret:kMyClientSecret];
+    
+    if (!SAVE_AUTH_TOKEN) {
+        [GTMOAuth2WindowController removeAuthFromKeychainForName:kKeychainItemName];
+        [GTMOAuth2WindowController revokeTokenForGoogleAuthentication:auth];
+    }
+    
+    if (auth.canAuthorize) {
+        [[GTSyncManager sharedInstance].tasksService setAuthorizer:auth];
+        [GTSyncManager startSyncing];
+        
+    } else {
+        // Show the OAuth 2 sign-in controller
+        NSBundle *frameworkBundle = [NSBundle bundleForClass:[GTMOAuth2WindowController class]];
+        GTMOAuth2WindowController *windowController;
+        windowController = [GTMOAuth2WindowController controllerWithScope:kGTLAuthScopeTasks
+                                                                 clientID:kMyClientID
+                                                             clientSecret:kMyClientSecret
+                                                         keychainItemName:(SAVE_AUTH_TOKEN ? kKeychainItemName : nil)
+                                                           resourceBundle:frameworkBundle];
+        
+        [windowController signInSheetModalForWindow:self.window
+                                  completionHandler:^(GTMOAuth2Authentication *auth,
+                                                      NSError *error) {
+                                      if (error) {
+                                          NSLog(@"Error authenticating user:\n   %@", error);
+                                      } else {
+                                          [[GTSyncManager sharedInstance].tasksService setAuthorizer:auth];
+                                          [GTSyncManager startSyncing];
+                                      }
+                                  }];
+    }
+    
 }
 
 // Returns the directory the application uses to store the Core Data store file. This code uses a directory named "kurthardin.GTaskMaster_Mac" in the user's Application Support directory.
@@ -88,6 +117,10 @@
 - (LocalTaskManager *)taskManager {
     if (_taskManager == nil) {
         _taskManager = [[LocalTaskManager alloc] init];
+        [[NSNotificationCenter defaultCenter] addObserver:_taskManager
+                                                 selector:@selector(refresh:)
+                                                     name:NSManagedObjectContextDidSaveNotification
+                                                   object:[GTSyncManager sharedInstance].taskManager.managedObjectContext];
     }
     return _taskManager;
 }

@@ -7,7 +7,6 @@
 //
 
 #include <CoreFoundation/CoreFoundation.h>
-#import <CoreData/CoreData.h>
 #import "MySpotlightImporter.h"
 
 Boolean GetMetadataForFile(void *thisInterface, CFMutableDictionaryRef attributes, CFStringRef contentTypeUTI, CFStringRef pathToFile);

@@ -1,5 +1,5 @@
 //
-//  Defines.h
+//  constants.h
 //  GTaskMaster_Mac
 //
 //  Created by Kurt Hardin on 6/25/12.
@@ -10,8 +10,12 @@
 #ifndef GTaskMaster_Defines_h
 #define GTaskMaster_Defines_h
 
+// Build options
+#define WIPE_LOCAL_TASKS_DB_ON_LAUNCH   1
+#define SAVE_AUTH_TOKEN                 1
+
 // Keychain item name for saving the user's authentication information
-#define kKeychainItemName @"TasksSample: Google Tasks"
+#define kKeychainItemName @"GTaskMaster (Google Tasks)"
 
 // Client ID and secret
 #define kMyClientID @"646051176189.apps.googleusercontent.com"

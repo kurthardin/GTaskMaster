@@ -6,20 +6,50 @@
 //  Copyright (c) 2012 Kurt Hardin. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "GTLTasks.h"
+#import "GTaskMasterManagedObjects.h"
 
 @interface LocalTaskManager : NSObject
 
-@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
-- (NSArray *)taskLists;
-- (NSManagedObject *)taskListWithId:(NSString *)taskListId;
+//+ (NSManagedObjectModel *)sharedManagedObjectModel;
+//+ (NSPersistentStoreCoordinator *)sharedPersistentStoreCoordinator;
 
-- (NSArray *)tasksForTaskList:(NSString *)taskListId;
-- (NSManagedObject *)taskWithId:(NSString *)taskId;
+#pragma mark - TaskList methods
+// Get a local task list:
+- (NSArray *)taskLists;                                                     // Gets all the local task lists
+- (GTaskMasterManagedTaskList *)taskListWithId:(NSString *)taskListId;      // Gets the task list with the specified identifier
 
-- (void)saveContext;
+// Handle a task list from server:
+- (void)addTaskList:(GTLTasksTaskList *)serverTaskList;                     // Adds a new task list from server
+- (void)updateTaskList:(GTLTasksTaskList *)serverTaskList;                  // Updates a task list with new data from server
+
+// Handle task list removal:
+- (void)flagTaskListForRemoval:(NSString *)taskListId;                      // Flags specified task list for removal during next sync
+- (void)removeTaskListWithId:(NSString *)taskListId;                        // Removes the specified task list
+
+// Creates a new task list with the specified title:
+- (GTaskMasterManagedTaskList *)newTaskListWithTitle:(NSString *)title;
+
+
+#pragma mark - Task methods
+// Get a local task:
+//- (NSArray *)tasksForTaskList:(NSString *)taskListId;                     // Gets all the tasks associated with the task list with the specified identifier
+- (GTaskMasterManagedTask *)taskWithId:(NSString *)taskId;                  // Gets the task with the specified identifier
+
+// Handle a task from server:
+- (void)addTask:(GTLTasksTask *)serverTask toList:(NSString *)taskListId;   // Adds a new task from server
+- (void)updateTask:(GTLTasksTask *)serverTask;                              // Updates a task with new data from server
+
+// Create a new task with the specified information:
+- (GTaskMasterManagedTask *)newTaskWithTitle:(NSString *)title;
+- (GTaskMasterManagedTask *)newTaskListWithTitle:(NSString *)title andDueDate:(NSDate *)dueDate;
+- (GTaskMasterManagedTask *)newTaskListWithTitle:(NSString *)title dueDate:(NSDate *)dueDate andNotes:(NSString *)notes;
+
+
+#pragma mark - Utility methods
+- (void)saveContext;                                                        // Saves changes made in the current ManagedObjectContext
+- (void)presentError:(NSError *)error;                                      // Presents a standard error to user
 
 @end

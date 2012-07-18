@@ -6,8 +6,6 @@
 //  Copyright (c) 2012 Kurt Hardin. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-
 @interface MySpotlightImporter : NSObject
 
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
