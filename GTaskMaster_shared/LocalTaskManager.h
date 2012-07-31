@@ -43,9 +43,15 @@
 - (void)updateTask:(GTLTasksTask *)serverTask;                              // Updates a task with new data from server
 
 // Create a new task with the specified information:
-- (GTaskMasterManagedTask *)newTaskWithTitle:(NSString *)title;
-- (GTaskMasterManagedTask *)newTaskListWithTitle:(NSString *)title andDueDate:(NSDate *)dueDate;
-- (GTaskMasterManagedTask *)newTaskListWithTitle:(NSString *)title dueDate:(NSDate *)dueDate andNotes:(NSString *)notes;
+- (GTaskMasterManagedTask *)newTaskWithTitle:(NSString *)title
+                                  inTaskList:(GTaskMasterManagedTaskList *)taskList;
+- (GTaskMasterManagedTask *)newTaskWithTitle:(NSString *)title
+                                  andDueDate:(NSDate *)dueDate
+                                  inTaskList:(GTaskMasterManagedTaskList *)taskList;
+- (GTaskMasterManagedTask *)newTaskWithTitle:(NSString *)title
+                                     dueDate:(NSDate *)dueDate
+                                    andNotes:(NSString *)notes
+                                  inTaskList:(GTaskMasterManagedTaskList *)taskList;
 
 
 #pragma mark - Utility methods

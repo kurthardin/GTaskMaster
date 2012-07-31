@@ -81,6 +81,19 @@
     [self updateManagedTaskList:taskList withServerTaskList:serverTaskList];
 }
 
+- (GTaskMasterManagedTaskList *)newTaskListWithTitle:(NSString *)title {
+    NSLog(@"Create new local task list: '%@'\n", title);
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"TaskList"
+                                              inManagedObjectContext:self.managedObjectContext];
+    GTaskMasterManagedTaskList *newTaskList = [[GTaskMasterManagedTaskList alloc] initWithEntity:entity
+                                                                  insertIntoManagedObjectContext:self.managedObjectContext];
+    [newTaskList setTitle:title];
+    [self saveContext];
+    
+    return newTaskList;
+}
+
 
 #pragma mark - Task methods
 
@@ -138,6 +151,43 @@
     NSLog(@"Update local task from server: '%@'\n", serverTask.title);
     GTaskMasterManagedTask *task = [self taskWithId:serverTask.identifier];
     [self updateManagedTask:task withServerTask:serverTask];
+}
+
+
+- (GTaskMasterManagedTask *)newTaskWithTitle:(NSString *)title
+                                  inTaskList:(GTaskMasterManagedTaskList *)taskList {
+    
+    return [self newTaskWithTitle:title andDueDate:nil inTaskList:taskList];
+    
+}
+
+- (GTaskMasterManagedTask *)newTaskWithTitle:(NSString *)title
+                                      andDueDate:(NSDate *)dueDate
+                                      inTaskList:(GTaskMasterManagedTaskList *)taskList {
+    
+    return [self newTaskWithTitle:title dueDate:dueDate andNotes:nil inTaskList:taskList];
+    
+}
+
+- (GTaskMasterManagedTask *)newTaskWithTitle:(NSString *)title
+                                         dueDate:(NSDate *)dueDate
+                                        andNotes:(NSString *)notes
+                                      inTaskList:(GTaskMasterManagedTaskList *)taskList {
+    
+    NSLog(@"Create new local task: '%@' in list: '%@'\n", title, taskList.title);
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Task"
+                                              inManagedObjectContext:self.managedObjectContext];
+    GTaskMasterManagedTask *newTask = [[GTaskMasterManagedTask alloc] initWithEntity:entity
+                                                   insertIntoManagedObjectContext:self.managedObjectContext];
+    newTask.title = title;
+    newTask.due = dueDate;
+    newTask.notes = notes;
+    newTask.tasklist = taskList;
+    
+    [self saveContext];
+    
+    return newTask;
+    
 }
 
 
