@@ -198,7 +198,7 @@ int const kDefaultSyncIntervalSec = 300;
                         [self.taskManager addTaskList:serverTaskList];
                         
                     } else if (localTaskList.deleted) {
-                        [self removeTaskListFromServer:serverTaskList];
+                        [self removeTaskListFromServer:localTaskList];
                         shouldProcessTasksForTaskList = NO;
                         
                     } else {
