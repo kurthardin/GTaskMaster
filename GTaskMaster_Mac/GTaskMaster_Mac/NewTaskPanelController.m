@@ -24,9 +24,14 @@
     return self;
 }
 
+- (void)dismiss {
+    [super dismiss];
+    [self.titleTextField setStringValue:@""];
+    [self.notesTextField setStringValue:@""];
+}
+
 - (IBAction)handleCancelButton:(id)sender {
-    [NSApp endSheet:self.panel];
-    [self.panel orderOut:sender];
+    [self dismiss];
 }
 
 - (IBAction)handleOkButton:(id)sender {
@@ -42,8 +47,7 @@
                                                                      inTaskList:taskList];
     [[GTSyncManager sharedInstance] addTask:newTask];
     
-    [NSApp endSheet:self.panel];
-    [self.panel orderOut:sender];
+    [self dismiss];
 }
 
 @end

@@ -11,6 +11,7 @@
 
 @implementation TasksTableViewController
 
+@synthesize taskListsController;
 @synthesize tasklistsTableView;
 @synthesize tasksTableView;
 
@@ -21,13 +22,35 @@ NSString *_selectedTaskListId;
 - (void)awakeFromNib {
     _appDelegate = (AppDelegate *) [NSApplication sharedApplication].delegate;
     
-    NSArray *tasklists = [_appDelegate.taskManager taskLists];
-    if (tasklists.count > 0) {
-        GTaskMasterManagedTaskList *taskList = [tasklists objectAtIndex:0];
-        _selectedTaskListId = taskList.identifier;
-    }
+//    _taskListsController = [[NSArrayController alloc] initWithContent:nil];
+//    [_taskListsController setManagedObjectContext:_appDelegate.taskManager.managedObjectContext];
+//    [_taskListsController setEntityName:@"TaskList"];
+//    [_taskListsController setAutomaticallyPreparesContent:YES];
+//    NSError *error;
+//    if ([_taskListsController fetchWithRequest:nil merge:YES error:&error]) {
+//        [_taskListsController setSelectionIndex:0];
+//    }
+//    
+//    _tasksController = [[NSArrayController alloc] initWithContent:nil];
+//    [_tasksController setManagedObjectContext:_appDelegate.taskManager.managedObjectContext];
+//    [_tasksController setEntityName:@"Task"];
+//    [_tasksController setAutomaticallyPreparesContent:YES];
+//    error = nil;
+//    if ([_tasksController fetchWithRequest:nil merge:YES error:&error]) {
+//        [_tasksController setSelectionIndex:0];
+//    }
+    
+//    NSArray *tasklists = [_appDelegate.taskManager taskLists];
+//    if (tasklists.count > 0) {
+//        GTaskMasterManagedTaskList *taskList = [tasklists objectAtIndex:0];
+//        _selectedTaskListId = taskList.identifier;
+//    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTableViews) name:@"tasks_updated" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshTableViews)
+                                                 name:NSManagedObjectContextDidSaveNotification
+                                               object:_appDelegate.taskManager.managedObjectContext];
 }
 
 - (void)refreshTableViews {
@@ -36,7 +59,7 @@ NSString *_selectedTaskListId;
 }
 
 - (IBAction)addTaskList:(id)sender {
-    
+    [_appDelegate.taskListCreationPanelController show];
 }
 
 - (IBAction)addTask:(id)sender {
@@ -52,51 +75,64 @@ NSString *_selectedTaskListId;
 
 #pragma mark - NSTableViewDelegate methods
 
--(BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(NSInteger)row {
-    if ([tableView isEqualTo:self.tasklistsTableView]) {
-        return YES;
-    }
-    
-    return NO;
-}
+//-(BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(NSInteger)row {
+//    
+//    if ([tableView isEqualTo:self.tasklistsTableView]) {
+//        return YES;
+//        
+//    } else if ([tableView isEqualTo:self.tasksTableView]) {
+//        if (_selectedTaskListId) {
+//            GTaskMasterManagedTaskList *tasklist = [_appDelegate.taskManager taskListWithId:_selectedTaskListId];
+//            NSOrderedSet *tasks = tasklist.tasks;
+//            
+//            if (row >= 0 && row < tasks.count) {
+//                GTaskMasterManagedTask *task = [tasks objectAtIndex:row];
+//                NSLog(@"selectedTask=%@", task);
+//            }
+//        }
+//    }
+//    
+//    return NO;
+//}
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
-    NSInteger selectedRow = self.tasklistsTableView.selectedRow;
-    if (selectedRow < 0) {
-        _selectedTaskListId = nil;
-    } else {
-        NSArray *taskLists = [_appDelegate.taskManager taskLists];
-        if (selectedRow < taskLists.count) {
-            GTaskMasterManagedTaskList *taskList = [taskLists objectAtIndex:selectedRow];
-            _selectedTaskListId = taskList.identifier;
-        }
+    
+    NSTableView *tableView = notification.object;
+//    NSInteger selectedRow = self.tasklistsTableView.selectedRow;
+    
+    if ([tableView isEqualTo:self.tasklistsTableView]) {
+//        if (selectedRow < 0) {
+//            _selectedTaskListId = nil;
+//        } else {
+//            NSArray *taskLists = [_appDelegate.taskManager taskLists];
+//            if (selectedRow < taskLists.count) {
+//                GTaskMasterManagedTaskList *taskList = [taskLists objectAtIndex:selectedRow];
+//                NSLog(@"%@", taskList);
+//                _selectedTaskListId = taskList.identifier;
+//            }
+//        }
+        [self.tasksTableView reloadData];
     }
     
-    [self.tasksTableView reloadData];
+    
+    
 }
 
 #pragma mark - NSTableViewDataSource methods
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView {
-    NSInteger rows = 0;
-    if ([aTableView isEqualTo:tasklistsTableView]) {
-        rows = [_appDelegate.taskManager taskLists].count;
-    } else if ([aTableView isEqualTo:tasksTableView] && _selectedTaskListId) {
-        GTaskMasterManagedTaskList *tasklist = [_appDelegate.taskManager taskListWithId:_selectedTaskListId];
+    if (self.taskListsController.selectedObjects.count > 0) {
+        GTaskMasterManagedTaskList *tasklist = [self.taskListsController.selectedObjects objectAtIndex:0];
         NSOrderedSet *tasks = tasklist.tasks;
-        rows = tasks.count;
-    } else {
-        rows = 0;
+        return tasks.count;
     }
-    return rows;
+    return 0;
 }
 
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
     NSString *title = @"FAIL";
-    if ([aTableView isEqualTo:tasklistsTableView]) {
-        title = ((GTaskMasterManagedTaskList *) [[_appDelegate.taskManager taskLists] objectAtIndex:rowIndex]).title;
-    } else if ([aTableView isEqualTo:tasksTableView]) {
-        GTaskMasterManagedTaskList *tasklist = [_appDelegate.taskManager taskListWithId:_selectedTaskListId];
+    if (self.taskListsController.selectedObjects.count > 0) {
+        GTaskMasterManagedTaskList *tasklist = [self.taskListsController.selectedObjects objectAtIndex:0];
         NSOrderedSet *tasks = tasklist.tasks;
         GTaskMasterManagedTask *task = [tasks objectAtIndex:rowIndex];
         title = [task createLabelString];

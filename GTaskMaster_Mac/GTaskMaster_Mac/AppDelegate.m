@@ -15,6 +15,7 @@
 
 @synthesize window = _window;
 @synthesize taskCreationPanelController=_taskCreationPanelController;
+@synthesize taskListCreationPanelController=_taskListCreationPanelController;
 @synthesize taskManager = _taskManager;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
@@ -131,6 +132,13 @@
         _taskCreationPanelController = [[NewTaskPanelController alloc] init];
     }
     return _taskCreationPanelController;
+}
+
+- (NewTaskListPanelController *)taskListCreationPanelController {
+    if (_taskListCreationPanelController==nil) {
+        _taskListCreationPanelController = [[NewTaskListPanelController alloc] init];
+    }
+    return _taskListCreationPanelController;
 }
 
 @end

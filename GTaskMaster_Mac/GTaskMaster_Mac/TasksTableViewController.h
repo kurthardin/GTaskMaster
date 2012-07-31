@@ -8,6 +8,7 @@
 
 @interface TasksTableViewController : NSObject <NSTableViewDelegate, NSTableViewDataSource>
 
+@property (nonatomic, readonly, strong) IBOutlet NSArrayController *taskListsController;
 @property (nonatomic, readonly, strong) IBOutlet NSTableView *tasklistsTableView;
 @property (nonatomic, readonly, strong) IBOutlet NSButton *addTaskListButton;
 

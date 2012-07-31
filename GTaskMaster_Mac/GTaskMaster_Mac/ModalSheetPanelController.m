@@ -26,4 +26,9 @@
           contextInfo:nil];
 }
 
+- (void)dismiss {
+    [NSApp endSheet:self.panel];
+    [self.panel orderOut:nil];
+}
+
 @end

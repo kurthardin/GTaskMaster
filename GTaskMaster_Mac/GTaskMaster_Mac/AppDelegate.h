@@ -8,12 +8,14 @@
 
 #import "LocalTaskManager.h"
 #import "NewTaskPanelController.h"
+#import "NewTaskListPanelController.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
-@property (nonatomic, strong) NewTaskPanelController *taskCreationPanelController;
-@property (readonly, strong, nonatomic) LocalTaskManager *taskManager;
+@property (nonatomic, readonly, strong) NewTaskPanelController *taskCreationPanelController;
+@property (nonatomic, readonly, strong) NewTaskListPanelController *taskListCreationPanelController;
+@property (nonatomic, readonly, strong) LocalTaskManager *taskManager;
 
 - (NSURL *)applicationFilesDirectory;
 

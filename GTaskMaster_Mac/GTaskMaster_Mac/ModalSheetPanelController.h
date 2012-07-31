@@ -14,5 +14,6 @@
 
 - (void)show;
 - (void)showForWindow:(NSWindow *)window;
+- (void)dismiss;
 
 @end

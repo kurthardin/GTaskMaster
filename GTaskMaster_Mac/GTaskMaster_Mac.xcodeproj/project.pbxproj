@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6507E89D15C8338700491FAE /* ModalSheetPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6507E89C15C8338700491FAE /* ModalSheetPanelController.m */; };
+		6507E8A415C8400400491FAE /* NewTaskListPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6507E8A315C8400400491FAE /* NewTaskListPanelController.m */; };
+		6507E8A615C8403100491FAE /* NewTaskListPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6507E8A515C8403100491FAE /* NewTaskListPanel.xib */; };
 		651D0D4615B4E72D0083D6EB /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 651D0D4515B4E72D0083D6EB /* WebKit.framework */; };
 		652AC0D615B6131D00F99147 /* GTL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652AC0D515B6131D00F99147 /* GTL.framework */; };
 		652AC11B15B615CC00F99147 /* GTL.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 652AC0D515B6131D00F99147 /* GTL.framework */; };
@@ -76,6 +78,9 @@
 /* Begin PBXFileReference section */
 		6507E89B15C8338700491FAE /* ModalSheetPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalSheetPanelController.h; sourceTree = "<group>"; };
 		6507E89C15C8338700491FAE /* ModalSheetPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalSheetPanelController.m; sourceTree = "<group>"; };
+		6507E8A215C8400400491FAE /* NewTaskListPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewTaskListPanelController.h; sourceTree = "<group>"; };
+		6507E8A315C8400400491FAE /* NewTaskListPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewTaskListPanelController.m; sourceTree = "<group>"; };
+		6507E8A515C8403100491FAE /* NewTaskListPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewTaskListPanel.xib; sourceTree = "<group>"; };
 		651D0D4515B4E72D0083D6EB /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		652AC0D515B6131D00F99147 /* GTL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GTL.framework; sourceTree = "<group>"; };
 		654A70E115B4C5B50082453C /* TasksTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TasksTableViewController.h; sourceTree = "<group>"; };
@@ -191,6 +196,8 @@
 			children = (
 				6559AD5115C74DDD00130D1B /* NewTaskPanelController.h */,
 				6559AD5215C74DDD00130D1B /* NewTaskPanelController.m */,
+				6507E8A215C8400400491FAE /* NewTaskListPanelController.h */,
+				6507E8A315C8400400491FAE /* NewTaskListPanelController.m */,
 				6507E89B15C8338700491FAE /* ModalSheetPanelController.h */,
 				6507E89C15C8338700491FAE /* ModalSheetPanelController.m */,
 			);
@@ -202,6 +209,7 @@
 			children = (
 				654DA09215937CDB00CBE844 /* MainMenu.xib */,
 				6559AD5415C75A4F00130D1B /* NewTaskPanel.xib */,
+				6507E8A515C8403100491FAE /* NewTaskListPanel.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -497,6 +505,7 @@
 				654DA09415937CDB00CBE844 /* MainMenu.xib in Resources */,
 				654A711715B4D2E20082453C /* GTaskMasterIcon.jpeg in Resources */,
 				6559AD5515C75A4F00130D1B /* NewTaskPanel.xib in Resources */,
+				6507E8A615C8403100491FAE /* NewTaskListPanel.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -558,6 +567,7 @@
 				654A711E15B4D2E20082453C /* GTLTasksTasks.m in Sources */,
 				6559AD5315C74DDD00130D1B /* NewTaskPanelController.m in Sources */,
 				6507E89D15C8338700491FAE /* ModalSheetPanelController.m in Sources */,
+				6507E8A415C8400400491FAE /* NewTaskListPanelController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
