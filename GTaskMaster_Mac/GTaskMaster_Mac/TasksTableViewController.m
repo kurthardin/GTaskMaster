@@ -15,6 +15,7 @@
 @synthesize tasksTableView;
 
 AppDelegate *_appDelegate;
+NSWindow *_modalAddSheet;
 NSString *_selectedTaskListId;
 
 - (void)awakeFromNib {
@@ -30,15 +31,23 @@ NSString *_selectedTaskListId;
 }
 
 - (void)refreshTableViews {
-//    if (_selectedTaskListId == nil) {
-//        NSArray *tasklists = [_appDelegate.taskManager taskLists];
-//        if (tasklists.count > 0) {
-//            GTaskMasterManagedTaskList *taskList = [tasklists objectAtIndex:0];
-//            _selectedTaskListId = taskList.identifier;
-//        }
-//    }
     [self.tasklistsTableView reloadData];
     [self.tasksTableView reloadData];
+}
+
+- (IBAction)addTaskList:(id)sender {
+    
+}
+
+- (IBAction)addTask:(id)sender {
+    if (_selectedTaskListId) {
+        [_appDelegate.taskCreationPanelController setTaskListId:_selectedTaskListId];
+        [_appDelegate.taskCreationPanelController show];
+        
+    } else {
+        NSLog(@"Failed to add task, no task list selected...");
+        
+    }
 }
 
 #pragma mark - NSTableViewDelegate methods

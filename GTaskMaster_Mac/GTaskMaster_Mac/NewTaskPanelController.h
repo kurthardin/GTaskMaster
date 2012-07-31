@@ -6,8 +6,12 @@
 //  Copyright (c) 2012 Kurt Hardin. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "ModalSheetPanelController.h"
 
-@interface NewTaskPanelController : NSObject
+@interface NewTaskPanelController : ModalSheetController
+
+@property (nonatomic, strong) NSString *taskListId;
+@property (nonatomic, readonly, strong) IBOutlet NSTextField *titleTextField;
+@property (nonatomic, readonly, strong) IBOutlet NSTextField *notesTextField;
 
 @end

@@ -14,6 +14,7 @@
 @implementation AppDelegate
 
 @synthesize window = _window;
+@synthesize taskCreationPanelController=_taskCreationPanelController;
 @synthesize taskManager = _taskManager;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
@@ -123,6 +124,13 @@
                                                    object:[GTSyncManager sharedInstance].taskManager.managedObjectContext];
     }
     return _taskManager;
+}
+
+- (NewTaskPanelController *)taskCreationPanelController {
+    if (_taskCreationPanelController==nil) {
+        _taskCreationPanelController = [[NewTaskPanelController alloc] init];
+    }
+    return _taskCreationPanelController;
 }
 
 @end

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6507E89D15C8338700491FAE /* ModalSheetPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6507E89C15C8338700491FAE /* ModalSheetPanelController.m */; };
 		651D0D4615B4E72D0083D6EB /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 651D0D4515B4E72D0083D6EB /* WebKit.framework */; };
 		652AC0D615B6131D00F99147 /* GTL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652AC0D515B6131D00F99147 /* GTL.framework */; };
 		652AC11B15B615CC00F99147 /* GTL.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 652AC0D515B6131D00F99147 /* GTL.framework */; };
@@ -43,6 +44,8 @@
 		654DA0C315937CDB00CBE844 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 654DA0C215937CDB00CBE844 /* main.c */; };
 		654DA0C515937CDB00CBE844 /* GetMetadataForFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 654DA0C415937CDB00CBE844 /* GetMetadataForFile.m */; };
 		654DA0C815937CDB00CBE844 /* MySpotlightImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 654DA0C715937CDB00CBE844 /* MySpotlightImporter.m */; };
+		6559AD5315C74DDD00130D1B /* NewTaskPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6559AD5215C74DDD00130D1B /* NewTaskPanelController.m */; };
+		6559AD5515C75A4F00130D1B /* NewTaskPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6559AD5415C75A4F00130D1B /* NewTaskPanel.xib */; };
 		655C375D159903400027403D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655C375C159903400027403D /* Security.framework */; };
 		655C375F159903480027403D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655C375E159903480027403D /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
@@ -71,6 +74,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6507E89B15C8338700491FAE /* ModalSheetPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalSheetPanelController.h; sourceTree = "<group>"; };
+		6507E89C15C8338700491FAE /* ModalSheetPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalSheetPanelController.m; sourceTree = "<group>"; };
 		651D0D4515B4E72D0083D6EB /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		652AC0D515B6131D00F99147 /* GTL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GTL.framework; sourceTree = "<group>"; };
 		654A70E115B4C5B50082453C /* TasksTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TasksTableViewController.h; sourceTree = "<group>"; };
@@ -138,6 +143,9 @@
 		654DA0C715937CDB00CBE844 /* MySpotlightImporter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MySpotlightImporter.m; sourceTree = "<group>"; };
 		654DA0C915937CDC00CBE844 /* Importer Read Me.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Importer Read Me.txt"; sourceTree = "<group>"; };
 		654DA0CA15937CDC00CBE844 /* GTaskMaster_MacImporter-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GTaskMaster_MacImporter-Prefix.pch"; sourceTree = "<group>"; };
+		6559AD5115C74DDD00130D1B /* NewTaskPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewTaskPanelController.h; sourceTree = "<group>"; };
+		6559AD5215C74DDD00130D1B /* NewTaskPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewTaskPanelController.m; sourceTree = "<group>"; };
+		6559AD5415C75A4F00130D1B /* NewTaskPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewTaskPanel.xib; sourceTree = "<group>"; };
 		655C375C159903400027403D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		655C375E159903480027403D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -178,6 +186,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6507E89F15C833A100491FAE /* Modal Sheets */ = {
+			isa = PBXGroup;
+			children = (
+				6559AD5115C74DDD00130D1B /* NewTaskPanelController.h */,
+				6559AD5215C74DDD00130D1B /* NewTaskPanelController.m */,
+				6507E89B15C8338700491FAE /* ModalSheetPanelController.h */,
+				6507E89C15C8338700491FAE /* ModalSheetPanelController.m */,
+			);
+			name = "Modal Sheets";
+			sourceTree = "<group>";
+		};
+		6507E8A015C833BD00491FAE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				654DA09215937CDB00CBE844 /* MainMenu.xib */,
+				6559AD5415C75A4F00130D1B /* NewTaskPanel.xib */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		654A70E615B4D2E20082453C /* GTaskMaster_shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -312,10 +340,11 @@
 			children = (
 				654DA08F15937CDB00CBE844 /* AppDelegate.h */,
 				654DA09015937CDB00CBE844 /* AppDelegate.m */,
-				654DA09215937CDB00CBE844 /* MainMenu.xib */,
-				654DA08415937CDB00CBE844 /* Supporting Files */,
 				654A70E115B4C5B50082453C /* TasksTableViewController.h */,
 				654A70E215B4C5B50082453C /* TasksTableViewController.m */,
+				6507E89F15C833A100491FAE /* Modal Sheets */,
+				6507E8A015C833BD00491FAE /* Resources */,
+				654DA08415937CDB00CBE844 /* Supporting Files */,
 			);
 			path = GTaskMaster_Mac;
 			sourceTree = "<group>";
@@ -467,6 +496,7 @@
 				654DA08815937CDB00CBE844 /* InfoPlist.strings in Resources */,
 				654DA09415937CDB00CBE844 /* MainMenu.xib in Resources */,
 				654A711715B4D2E20082453C /* GTaskMasterIcon.jpeg in Resources */,
+				6559AD5515C75A4F00130D1B /* NewTaskPanel.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -526,6 +556,8 @@
 				654A711C15B4D2E20082453C /* GTLTasksTaskList.m in Sources */,
 				654A711D15B4D2E20082453C /* GTLTasksTaskLists.m in Sources */,
 				654A711E15B4D2E20082453C /* GTLTasksTasks.m in Sources */,
+				6559AD5315C74DDD00130D1B /* NewTaskPanelController.m in Sources */,
+				6507E89D15C8338700491FAE /* ModalSheetPanelController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
