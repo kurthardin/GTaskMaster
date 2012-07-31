@@ -132,7 +132,11 @@
     managedTask.title = serverTask.title;
     managedTask.updated = serverTask.updated.date;
     
-    managedTask.parent = [self taskWithId:serverTask.parent];
+    NSString *parentTaskId = serverTask.parent;
+    if (parentTaskId) {
+        GTaskMasterManagedTask *parentTask = [self taskWithId:parentTaskId];
+        managedTask.parent = parentTask;
+    }
     
     [self saveContext];
 }

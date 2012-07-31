@@ -24,6 +24,8 @@
 // Handle a task list from server:
 - (void)addTaskList:(GTLTasksTaskList *)serverTaskList;                     // Adds a new task list from server
 - (void)updateTaskList:(GTLTasksTaskList *)serverTaskList;                  // Updates a task list with new data from server
+- (void)updateManagedTaskList:(GTaskMasterManagedTaskList *)managedTaskList
+           withServerTaskList:(GTLTasksTaskList *)serverTaskList;
 
 // Handle task list removal:
 - (void)flagTaskListForRemoval:(NSString *)taskListId;                      // Flags specified task list for removal during next sync
@@ -41,6 +43,8 @@
 // Handle a task from server:
 - (void)addTask:(GTLTasksTask *)serverTask toList:(NSString *)taskListId;   // Adds a new task from server
 - (void)updateTask:(GTLTasksTask *)serverTask;                              // Updates a task with new data from server
+- (void)updateManagedTask:(GTaskMasterManagedTask *)managedTask
+           withServerTask:(GTLTasksTask *)serverTask;
 
 // Create a new task with the specified information:
 - (GTaskMasterManagedTask *)newTaskWithTitle:(NSString *)title

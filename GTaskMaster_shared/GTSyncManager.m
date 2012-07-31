@@ -267,7 +267,8 @@ int const kDefaultSyncIntervalSec = 300;
                                                        if (error) {
                                                            NSLog(@"Error adding task to server:\n  %@", error);
                                                        } else {
-                                                           [self.taskManager updateTaskList:newTaskList];
+                                                           [self.taskManager updateManagedTaskList:localTaskList
+                                                                                withServerTaskList:newTaskList];
                                                            [self processServerTasksForTaskList:newTaskList];
                                                        }
                                                        
@@ -392,20 +393,6 @@ int const kDefaultSyncIntervalSec = 300;
                                                }]];
 }
 
-- (void)executeTaskQuery:(GTLQueryTasks *)taskQuery withErrorMessage:(NSString *)errMsg {
-    [self addActiveServiceTicket:[self.tasksService executeQuery:taskQuery
-                                               completionHandler:^(GTLServiceTicket *ticket,
-                                                                   id serverTask, NSError *error) {
-                                                   if (error) {
-                                                       NSLog(@"%@:\n  %@", errMsg, error);
-                                                   } else {
-                                                       [self.taskManager updateTask:serverTask];
-                                                   }
-                                                   
-                                                   [self removeActiveServiceTicket:ticket];
-                                               }]];
-}
-
 - (BOOL)addTask:(GTaskMasterManagedTask *)task {
     if (!self.isSyncing) {
         [self addTaskToServer:task];
@@ -415,11 +402,30 @@ int const kDefaultSyncIntervalSec = 300;
 }
 
 - (void)addTaskToServer:(GTaskMasterManagedTask *)localTask {
+    
     GTLTasksTask *taskToAdd = [localTask createGTLTasksTask];
+    
     if (taskToAdd.title.length > 0) {
+        
         GTLQueryTasks *query = [GTLQueryTasks queryForTasksInsertWithObject:taskToAdd
                                                                    tasklist:localTask.tasklist.identifier];
-        [self executeTaskQuery:query withErrorMessage:@"Error adding task to server"];
+        
+        [self addActiveServiceTicket:[self.tasksService executeQuery:query
+                                                   completionHandler:^(GTLServiceTicket *ticket,
+                                                                       id serverTask, NSError *error) {
+                                                       
+                                                       if (error) {
+                                                           NSLog(@"Error adding task to server:\n  %@", error);
+                                                           
+                                                       } else {
+                                                           [self.taskManager updateManagedTask:localTask
+                                                                                withServerTask:serverTask];
+                                                           
+                                                       }
+                                                       
+                                                       [self removeActiveServiceTicket:ticket];
+                                                       
+                                                   }]];
     }
 }
 
@@ -432,12 +438,30 @@ int const kDefaultSyncIntervalSec = 300;
 }
 
 - (void)updateTaskOnServer:(GTaskMasterManagedTask *)localTask {
+    
     GTLTasksTask *taskToPatch = [localTask createGTLTasksTask];
+    
     if (taskToPatch.title.length > 0) {
+        
         GTLQueryTasks *query = [GTLQueryTasks queryForTasksPatchWithObject:taskToPatch 
                                                                   tasklist:localTask.tasklist.identifier 
                                                                       task:localTask.identifier];
-        [self executeTaskQuery:query withErrorMessage:@"Error updating task on server"];
+        
+        [self addActiveServiceTicket:[self.tasksService executeQuery:query
+                                                   completionHandler:^(GTLServiceTicket *ticket,
+                                                                       id serverTask, NSError *error) {
+                                                       
+                                                       if (error) {
+                                                           NSLog(@"Error updating task on server:\n  %@", error);
+                                                           
+                                                       } else {
+                                                           [self.taskManager updateTask:serverTask];
+                                                           
+                                                       }
+                                                       
+                                                       [self removeActiveServiceTicket:ticket];
+                                                       
+                                                   }]];
     }
 }
      
@@ -449,7 +473,7 @@ int const kDefaultSyncIntervalSec = 300;
      
 - (void)syncThreadMain {
     // Add selector to prevent CFRunLoopRunInMode from returning immediately
-    [self performSelector:@selector(imageSaverKeepAlive) withObject:nil afterDelay:300];
+    [self performSelector:@selector(syncThreadKeepAlive) withObject:nil afterDelay:300];
     BOOL done = NO;
     
     _syncRunloop = [NSRunLoop currentRunLoop];
