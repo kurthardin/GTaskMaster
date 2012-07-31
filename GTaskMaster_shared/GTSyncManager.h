@@ -21,6 +21,7 @@
 
 @property (readonly, strong, nonatomic) LocalTaskManager *taskManager;
 @property (readonly, strong, nonatomic) GTLServiceTasks *tasksService;
+@property (readonly, copy, nonatomic) NSMutableSet *activeServiceTickets;
 
 + (GTSyncManager *)sharedInstance;
 
@@ -29,5 +30,12 @@
 + (BOOL)startSyncingWithInterval:(double)seconds;
 + (BOOL)stopSyncing;
 + (BOOL)syncNow;
+
+- (BOOL)addTaskList:(GTaskMasterManagedTaskList *)taskList;
+- (BOOL)updateTaskList:(GTaskMasterManagedTaskList *)taskList;
+- (BOOL)removeTaskList:(GTaskMasterManagedTaskList *)taskList;
+
+- (BOOL)addTask:(GTaskMasterManagedTask *)task;
+- (BOOL)updateTask:(GTaskMasterManagedTask *)task;
 
 @end
