@@ -12,7 +12,7 @@
 
 @implementation NewTaskPanelController
 
-@synthesize taskListId;
+@synthesize taskList;
 @synthesize titleTextField;
 @synthesize notesTextField;
 
@@ -35,17 +35,19 @@
 }
 
 - (IBAction)handleOkButton:(id)sender {
-    
-    AppDelegate *appDelegate = (AppDelegate *) [NSApplication sharedApplication].delegate;
-    
-    GTaskMasterManagedTaskList *taskList = [appDelegate.taskManager taskListWithId:self.taskListId];
-    NSString *title = self.titleTextField.stringValue;
-    NSString *notes = self.notesTextField.stringValue;
-    GTaskMasterManagedTask *newTask = [appDelegate.taskManager newTaskWithTitle:title
-                                                                        dueDate:nil
-                                                                       andNotes:notes
-                                                                     inTaskList:taskList];
-    [[GTSyncManager sharedInstance] addTask:newTask];
+    if (self.taskList) {
+        AppDelegate *appDelegate = (AppDelegate *) [NSApplication sharedApplication].delegate;
+        
+        NSString *title = self.titleTextField.stringValue;
+        NSString *notes = self.notesTextField.stringValue;
+        GTaskMasterManagedTask *newTask = [appDelegate.taskManager newTaskWithTitle:title
+                                                                            dueDate:nil
+                                                                           andNotes:notes
+                                                                         inTaskList:self.taskList];
+        [[GTSyncManager sharedInstance] addTask:newTask]; 
+    } else {
+        NSLog(@"Unable to create task, tasklist nil");
+    }
     
     [self dismiss];
 }

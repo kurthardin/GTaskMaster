@@ -7,10 +7,11 @@
 //
 
 #import "ModalSheetPanelController.h"
+#import "GTaskMasterManagedObjects.h"
 
 @interface NewTaskPanelController : ModalSheetController
 
-@property (nonatomic, strong) NSString *taskListId;
+@property (nonatomic, strong) GTaskMasterManagedTaskList *taskList;
 @property (nonatomic, readonly, strong) IBOutlet NSTextField *titleTextField;
 @property (nonatomic, readonly, strong) IBOutlet NSTextField *notesTextField;
 

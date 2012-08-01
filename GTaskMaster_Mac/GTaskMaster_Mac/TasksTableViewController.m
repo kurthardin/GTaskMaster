@@ -17,8 +17,6 @@
 @synthesize tasksTableView;
 
 AppDelegate *_appDelegate;
-NSWindow *_modalAddSheet;
-NSString *_selectedTaskListId;
 
 - (void)awakeFromNib {
     _appDelegate = (AppDelegate *) [NSApplication sharedApplication].delegate;
@@ -38,13 +36,21 @@ NSString *_selectedTaskListId;
     [self.tasksTableView reloadData];
 }
 
+- (GTaskMasterManagedTaskList *)selectedTaskList {
+    if (self.taskListsController.selectedObjects.count > 0) {
+        return [self.taskListsController.selectedObjects objectAtIndex:0];
+    }
+    return nil;
+}
+
 - (IBAction)addTaskList:(id)sender {
     [_appDelegate.taskListCreationPanelController show];
 }
 
 - (IBAction)addTask:(id)sender {
-    if (_selectedTaskListId) {
-        [_appDelegate.taskCreationPanelController setTaskListId:_selectedTaskListId];
+    GTaskMasterManagedTaskList *selectedTasklist = [self selectedTaskList];
+    if (selectedTasklist) {
+        [_appDelegate.taskCreationPanelController setTaskList:selectedTasklist];
         [_appDelegate.taskCreationPanelController show];
         
     } else {
@@ -57,12 +63,10 @@ NSString *_selectedTaskListId;
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
     if ([notification.object isEqualTo:self.tasklistsTableView]) {
-        if (self.taskListsController.selectedObjects.count > 0) {
-            GTaskMasterManagedTaskList *tasklist = [self.taskListsController.selectedObjects objectAtIndex:0];
-            
-            [self.tasksController setFetchPredicate:[NSPredicate predicateWithFormat:@"tasklist.identifier == %@", tasklist.identifier]];
+        GTaskMasterManagedTaskList *selectedTasklist = [self selectedTaskList];
+        if (selectedTasklist) {
+            [self.tasksController setFetchPredicate:[NSPredicate predicateWithFormat:@"tasklist.identifier == %@", selectedTasklist.identifier]];
             [self.tasksController fetch:self];
-            
             [self.tasksTableView reloadData];
         }
     }
