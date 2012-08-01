@@ -9,6 +9,12 @@
 #import "GTLTasks.h"
 #import "GTaskMasterManagedObjects.h"
 
+typedef const enum {
+    kTaskFlagCompleted  = 0x1,
+    kTaskFlagHidden     = 0x2,
+    kTaskFlagDeleted    = 0x4
+} GTaskMasterManagedTaskFlag;
+
 @interface LocalTaskManager : NSObject
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
@@ -52,6 +58,8 @@
                                     andNotes:(NSString *)notes
                                   inTaskList:(GTaskMasterManagedTaskList *)taskList;
 
+// Toggle completed, hidden and deleted flags for a task.  Multiple flags can be passed in simultaneously by or'ing (|) them together.
+- (void)toggleFlags:(GTaskMasterManagedTaskFlag)flags forTask:(GTaskMasterManagedTask *)task;
 
 
 #pragma mark - Server task methods

@@ -8,6 +8,9 @@
 
 #import "GTLTasks.h"
 
+#define TASK_STATUS_COMPLETE    @"completed"
+#define TASK_STATUS_INCOMPLETE  @"needsAction"
+
 @class GTaskMasterManagedTaskList;
 @class GTaskMasterManagedLink;
 

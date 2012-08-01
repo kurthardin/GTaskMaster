@@ -169,6 +169,46 @@
     
 }
 
+- (void)toggleFlags:(GTaskMasterManagedTaskFlag)flags forTask:(GTaskMasterManagedTask *)task {
+    
+    NSUInteger mask = 0x4;
+    BOOL updated = NO;
+    do {
+        switch (flags & mask) {
+            case kTaskFlagCompleted:
+                if ([task.status isEqualToString:TASK_STATUS_INCOMPLETE]) {
+                    task.status = TASK_STATUS_COMPLETE;
+                    task.completed = [NSDate date];
+                    updated = YES;
+                } else if ([task.status isEqualToString:TASK_STATUS_COMPLETE]) {
+                    task.status = TASK_STATUS_INCOMPLETE;
+                    task.completed = nil;
+                    updated = YES;
+                }
+                break;
+                
+            case kTaskFlagHidden:
+                task.hidden = [NSNumber numberWithBool:!task.hidden.boolValue];
+                updated = YES;
+                break;
+                
+            case kTaskFlagDeleted:
+                task.gTDeleted = [NSNumber numberWithBool:!task.gTDeleted.boolValue];
+                updated = YES;
+                break;
+                
+            default:
+                break;
+        }
+        mask = mask >> 1;
+    } while (mask > 0);
+    
+    if (updated) {
+        task.gTUpdated = [NSDate date];
+    }
+    
+    [self saveContext];
+}
 
 
 #pragma mark - Server task methods
