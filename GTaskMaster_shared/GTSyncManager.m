@@ -197,13 +197,13 @@ int const kDefaultSyncIntervalSec = 300;
                     if (localTaskList == nil) {
                         [self.taskManager addTaskList:serverTaskList];
                         
-                    } else if (localTaskList.deleted) {
+                    } else if (localTaskList.gTDeleted.boolValue) {
                         [self removeTaskListFromServer:localTaskList];
                         shouldProcessTasksForTaskList = NO;
                         
                     } else {
                         NSDate *localSyncDate = localTaskList.synced;
-                        NSDate *localModDate = localTaskList.updated;
+                        NSDate *localModDate = localTaskList.gTUpdated;
                         if (![localSyncDate isEqualToDate:localModDate]) {
                             if ([localSyncDate isEqualToDate:serverModDate]) {
                                 [self updateTaskListOnServer:localTaskList];
@@ -362,7 +362,7 @@ int const kDefaultSyncIntervalSec = 300;
                                                                
                                                            } else {
                                                                NSDate *serverModDate = serverTask.updated.date;
-                                                               NSDate *localModDate = localTask.updated;
+                                                               NSDate *localModDate = localTask.gTUpdated;
                                                                NSDate *localSyncDate = localTask.synced;
                                                                if (![localModDate isEqualToDate:localSyncDate]) {
                                                                    if ([localSyncDate isEqualToDate:serverModDate]) {

@@ -22,7 +22,8 @@
 
 @synthesize managedObjectContext = _managedObjectContext;
 
-#pragma mark - TaskList methods
+
+#pragma mark - Local task list methods
 
 - (NSArray *)taskLists {
     NSError *error = nil;
@@ -52,13 +53,35 @@
     return nil;
 }
 
+- (GTaskMasterManagedTaskList *)newTaskListWithTitle:(NSString *)title {
+    NSLog(@"Create new local task list: '%@'\n", title);
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"TaskList"
+                                              inManagedObjectContext:self.managedObjectContext];
+    GTaskMasterManagedTaskList *newTaskList = [[GTaskMasterManagedTaskList alloc] initWithEntity:entity
+                                                                  insertIntoManagedObjectContext:self.managedObjectContext];
+    [newTaskList setTitle:title];
+    [self saveContext];
+    
+    return newTaskList;
+}
+
+- (void)flagTaskListForRemoval:(GTaskMasterManagedTaskList *)localTaskList {
+    [localTaskList setGTDeleted:[NSNumber numberWithBool:YES]];
+    localTaskList.gTUpdated = [NSDate date];
+    [[GTSyncManager sharedInstance] removeTaskList:localTaskList];
+}
+
+
+#pragma mark - Server task list methods
+
 - (void)updateManagedTaskList:(GTaskMasterManagedTaskList *)managedTaskList withServerTaskList:(GTLTasksTaskList *)serverTaskList {
     managedTaskList.etag = serverTaskList.ETag;
     managedTaskList.identifier = serverTaskList.identifier;
     managedTaskList.selflink = serverTaskList.selfLink;
     managedTaskList.synced = serverTaskList.updated.date;
     managedTaskList.title = serverTaskList.title;
-    managedTaskList.updated = serverTaskList.updated.date;
+    managedTaskList.gTUpdated = serverTaskList.updated.date;
     [self saveContext];
 }
 
@@ -81,35 +104,16 @@
     [self updateManagedTaskList:taskList withServerTaskList:serverTaskList];
 }
 
-- (GTaskMasterManagedTaskList *)newTaskListWithTitle:(NSString *)title {
-    NSLog(@"Create new local task list: '%@'\n", title);
-    
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"TaskList"
-                                              inManagedObjectContext:self.managedObjectContext];
-    GTaskMasterManagedTaskList *newTaskList = [[GTaskMasterManagedTaskList alloc] initWithEntity:entity
-                                                                  insertIntoManagedObjectContext:self.managedObjectContext];
-    [newTaskList setTitle:title];
-    [self saveContext];
-    
-    return newTaskList;
-}
-
-- (void)flagTaskListForRemoval:(GTaskMasterManagedTaskList *)localTaskList {
-    [localTaskList setDeleted:[NSNumber numberWithBool:YES]];
-    [[GTSyncManager sharedInstance] removeTaskList:localTaskList];
-}
-
-- (void)removeTaskList:(GTaskMasterManagedTaskList *)localTaskList {
-    [self.managedObjectContext deleteObject:localTaskList];
-    [self saveContext];
+- (void)removeTaskList:(GTLTasksTaskList *)serverTaskList {
+    GTaskMasterManagedTaskList *localTaskList = [self taskListWithId:serverTaskList.identifier];
+    if (localTaskList) {
+        [self.managedObjectContext deleteObject:localTaskList];
+        [self saveContext];
+    }
 }
 
 
-#pragma mark - Task methods
-
-//- (NSArray *)tasksForTaskList:(NSString *)taskListId {
-//    return [self taskListWithId:taskListId].tasks;
-//}
+#pragma mark - Local task methods
 
 - (GTaskMasterManagedTask *)taskWithId:(NSString *)taskId {
     NSError *error = nil;
@@ -126,47 +130,6 @@
     
     return nil;
 }
-
-- (void)updateManagedTask:(GTaskMasterManagedTask *)managedTask withServerTask:(GTLTasksTask *)serverTask {
-    managedTask.completed = serverTask.completed.date;
-    managedTask.deleted = serverTask.deleted;
-    managedTask.due = serverTask.due.date;
-    managedTask.etag = serverTask.ETag;
-    managedTask.hidden = serverTask.hidden;
-    managedTask.identifier = serverTask.identifier;
-    managedTask.notes = serverTask.notes;
-    managedTask.position = serverTask.position;
-    managedTask.selflink = serverTask.selfLink;
-    managedTask.status = serverTask.status;
-    managedTask.synced = serverTask.updated.date;
-    managedTask.title = serverTask.title;
-    managedTask.updated = serverTask.updated.date;
-    
-    NSString *parentTaskId = serverTask.parent;
-    if (parentTaskId) {
-        GTaskMasterManagedTask *parentTask = [self taskWithId:parentTaskId];
-        managedTask.parent = parentTask;
-    }
-    
-    [self saveContext];
-}
-
-- (void)addTask:(GTLTasksTask *)serverTask toList:(NSString *)taskListId {
-    NSLog(@"Adding new local task from server: '%@'\n", serverTask.title);
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Task" 
-                                              inManagedObjectContext:self.managedObjectContext];
-    GTaskMasterManagedTask *task = [[GTaskMasterManagedTask alloc] initWithEntity:entity 
-                                                   insertIntoManagedObjectContext:self.managedObjectContext];
-    task.tasklist = [self taskListWithId:taskListId];
-    [self updateManagedTask:task withServerTask:serverTask];
-}
-
-- (void)updateTask:(GTLTasksTask *)serverTask {
-    NSLog(@"Updating local task from server: '%@'\n", serverTask.title);
-    GTaskMasterManagedTask *task = [self taskWithId:serverTask.identifier];
-    [self updateManagedTask:task withServerTask:serverTask];
-}
-
 
 - (GTaskMasterManagedTask *)newTaskWithTitle:(NSString *)title
                                   inTaskList:(GTaskMasterManagedTaskList *)taskList {
@@ -198,10 +161,56 @@
     newTask.notes = notes;
     newTask.tasklist = taskList;
     
+    taskList.gTUpdated = [NSDate date];
+    
     [self saveContext];
     
     return newTask;
     
+}
+
+
+
+#pragma mark - Server task methods
+
+- (void)updateManagedTask:(GTaskMasterManagedTask *)managedTask withServerTask:(GTLTasksTask *)serverTask {
+    managedTask.completed = serverTask.completed.date;
+    managedTask.gTDeleted = (serverTask.deleted == nil ? [NSNumber numberWithBool:NO] : serverTask.deleted);
+    managedTask.due = serverTask.due.date;
+    managedTask.etag = serverTask.ETag;
+    managedTask.hidden = (serverTask.hidden == nil ? [NSNumber numberWithBool:NO] : serverTask.hidden);
+    managedTask.identifier = serverTask.identifier;
+    managedTask.notes = serverTask.notes;
+    managedTask.position = serverTask.position;
+    managedTask.selflink = serverTask.selfLink;
+    managedTask.status = serverTask.status;
+    managedTask.synced = serverTask.updated.date;
+    managedTask.title = serverTask.title;
+    managedTask.gTUpdated = serverTask.updated.date;
+    
+    NSString *parentTaskId = serverTask.parent;
+    if (parentTaskId) {
+        GTaskMasterManagedTask *parentTask = [self taskWithId:parentTaskId];
+        managedTask.parent = parentTask;
+    }
+    
+    [self saveContext];
+}
+
+- (void)addTask:(GTLTasksTask *)serverTask toList:(NSString *)taskListId {
+    NSLog(@"Adding new local task from server: '%@'\n", serverTask.title);
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Task"
+                                              inManagedObjectContext:self.managedObjectContext];
+    GTaskMasterManagedTask *task = [[GTaskMasterManagedTask alloc] initWithEntity:entity
+                                                   insertIntoManagedObjectContext:self.managedObjectContext];
+    task.tasklist = [self taskListWithId:taskListId];
+    [self updateManagedTask:task withServerTask:serverTask];
+}
+
+- (void)updateTask:(GTLTasksTask *)serverTask {
+    NSLog(@"Updating local task from server: '%@'\n", serverTask.title);
+    GTaskMasterManagedTask *task = [self taskWithId:serverTask.identifier];
+    [self updateManagedTask:task withServerTask:serverTask];
 }
 
 

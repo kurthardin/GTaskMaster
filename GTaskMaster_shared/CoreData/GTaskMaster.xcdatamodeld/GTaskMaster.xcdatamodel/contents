@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1803" systemVersion="11E53" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1803" systemVersion="12A269" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Link" representedClassName="GTaskMasterManagedLink" syncable="YES">
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
@@ -8,10 +8,11 @@
     </entity>
     <entity name="Task" representedClassName="GTaskMasterManagedTask" syncable="YES">
         <attribute name="completed" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="deleted" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="due" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="etag" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="hidden" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="gTDeleted" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="gTUpdated" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="hidden" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="position" optional="YES" attributeType="String" syncable="YES"/>
@@ -19,22 +20,21 @@
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="synced" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
-        <attribute name="updated" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="children" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Task" inverseName="parent" inverseEntity="Task" syncable="YES"/>
         <relationship name="links" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Link" inverseName="task" inverseEntity="Link" syncable="YES"/>
         <relationship name="parent" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Task" inverseName="children" inverseEntity="Task" syncable="YES"/>
         <relationship name="tasklist" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TaskList" inverseName="tasks" inverseEntity="TaskList" syncable="YES"/>
     </entity>
     <entity name="TaskList" representedClassName="GTaskMasterManagedTaskList">
-        <attribute name="deleted" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="etag" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gTDeleted" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="gTUpdated" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="String">
             <userInfo/>
         </attribute>
         <attribute name="selflink" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="synced" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
-        <attribute name="updated" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Task" inverseName="tasklist" inverseEntity="Task" syncable="YES"/>
         <userInfo/>
     </entity>

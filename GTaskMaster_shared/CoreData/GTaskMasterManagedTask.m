@@ -12,7 +12,7 @@
 @implementation GTaskMasterManagedTask
 
 @dynamic completed;
-@dynamic deleted;
+@dynamic gTDeleted;
 @dynamic due;
 @dynamic etag;
 @dynamic hidden;
@@ -23,7 +23,7 @@
 @dynamic status;
 @dynamic synced;
 @dynamic title;
-@dynamic updated;
+@dynamic gTUpdated;
 
 @dynamic children;
 @dynamic links;
@@ -32,15 +32,14 @@
 
 - (NSString *)createLabelString {
     return [NSString stringWithFormat:@" %@ %@",
-            (self.completed ? @"√" : (self.deleted ? @"X" : (self.hidden ? @"+" : @"-"))), self.title];
+            ([self.status isEqualToString:TASK_STATUS_COMPLETE] ?
+             @"√" : (self.gTDeleted.boolValue ? @"X" : (self.hidden.boolValue ? @"+" : @"-"))), self.title];
 }
 
 - (GTLTasksTask *)createGTLTasksTask {
     GTLTasksTask *task = [GTLTasksTask object];
     task.completed = [GTLDateTime dateTimeWithDate:self.completed timeZone:[NSTimeZone systemTimeZone]];
-    task.deleted = self.deleted;
     task.due = [GTLDateTime dateTimeWithDate:self.due timeZone:[NSTimeZone systemTimeZone]];
-    task.hidden = self.hidden;
     task.notes = self.notes;
     task.position = self.position;
     task.status = self.status;

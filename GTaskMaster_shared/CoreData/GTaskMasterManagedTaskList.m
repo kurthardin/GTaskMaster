@@ -10,13 +10,13 @@
 
 @implementation GTaskMasterManagedTaskList
 
-@dynamic deleted;
+@dynamic gTDeleted;
 @dynamic etag;
 @dynamic identifier;
 @dynamic selflink;
 @dynamic synced;
 @dynamic title;
-@dynamic updated;
+@dynamic gTUpdated;
 
 @dynamic tasks;
 

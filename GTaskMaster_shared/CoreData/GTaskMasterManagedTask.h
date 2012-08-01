@@ -14,7 +14,7 @@
 @interface GTaskMasterManagedTask : NSManagedObject
 
 @property (nonatomic, retain) NSDate *completed;
-@property (nonatomic, retain) NSNumber *deleted;
+@property (nonatomic, retain) NSNumber *gTDeleted;
 @property (nonatomic, retain) NSDate *due;
 @property (nonatomic, retain) NSString *etag;
 @property (nonatomic, retain) NSNumber *hidden;
@@ -25,7 +25,7 @@
 @property (nonatomic, retain) NSString *status;
 @property (nonatomic, retain) NSDate *synced;
 @property (nonatomic, retain) NSString *title;
-@property (nonatomic, retain) NSDate *updated;
+@property (nonatomic, retain) NSDate *gTUpdated;
 
 #pragma mark - Relationships
 @property (nonatomic, retain) NSSet *children;

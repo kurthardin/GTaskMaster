@@ -12,13 +12,13 @@
 
 @interface GTaskMasterManagedTaskList : NSManagedObject
 
-@property (nonatomic, retain) NSNumber *deleted;
+@property (nonatomic, retain) NSNumber *gTDeleted;
 @property (nonatomic, retain) NSString *etag;
 @property (nonatomic, retain) NSString *identifier;
 @property (nonatomic, retain) NSString *selflink;
 @property (nonatomic, retain) NSDate *synced;
 @property (nonatomic, retain) NSString *title;
-@property (nonatomic, retain) NSDate *updated;
+@property (nonatomic, retain) NSDate *gTUpdated;
 
 @property (nonatomic, retain) NSOrderedSet *tasks;
 
