@@ -17,7 +17,5 @@
 @property (nonatomic, readonly, strong) IBOutlet NSButton *addTaskButton;
 
 - (void)refreshTableViews;
-- (IBAction)addTaskList:(id)sender;
-- (IBAction)addTask:(id)sender;
 
 @end

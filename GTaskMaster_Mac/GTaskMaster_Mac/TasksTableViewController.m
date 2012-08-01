@@ -22,7 +22,12 @@ AppDelegate *_appDelegate;
     _appDelegate = (AppDelegate *) [NSApplication sharedApplication].delegate;
     
     [self.taskListsController setSortDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:NSOrderedAscending]]];
-    [self.tasksController setSortDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"position" ascending:NSOrderedAscending]]];
+    
+    NSArray *taskSortDescriptors = [NSArray arrayWithObjects:
+                                    [NSSortDescriptor sortDescriptorWithKey:@"completed" ascending:NSOrderedDescending],
+                                    [NSSortDescriptor sortDescriptorWithKey:@"position" ascending:NSOrderedAscending],
+                                    nil];
+    [self.tasksController setSortDescriptors:taskSortDescriptors];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTableViews) name:@"tasks_updated" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -43,8 +48,29 @@ AppDelegate *_appDelegate;
     return nil;
 }
 
+- (GTaskMasterManagedTask *)selectedTask {
+    if (self.tasksController.selectedObjects.count > 0) {
+        return [self.tasksController.selectedObjects objectAtIndex:0];
+    }
+    return nil;
+}
+
+- (IBAction)showTaskListInfo:(id)sender {
+    GTaskMasterManagedTaskList *tasklist = [self selectedTaskList];
+    if (tasklist) {
+        NSLog(@"%@", tasklist);
+    }
+}
+
 - (IBAction)addTaskList:(id)sender {
     [_appDelegate.taskListCreationPanelController show];
+}
+
+- (IBAction)showTaskInfo:(id)sender {
+    GTaskMasterManagedTask *task = [self selectedTask];
+    if (task) {
+        NSLog(@"%@", task);
+    }
 }
 
 - (IBAction)addTask:(id)sender {

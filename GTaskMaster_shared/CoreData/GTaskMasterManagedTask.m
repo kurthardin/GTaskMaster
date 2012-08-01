@@ -8,6 +8,8 @@
 
 #import "GTaskMasterManagedTask.h"
 #import "GTaskMasterManagedLink.h"
+#import "AppDelegate.h"
+#import "GTSyncManager.h"
 
 @implementation GTaskMasterManagedTask
 
@@ -46,6 +48,22 @@
     task.title = self.title;
 #pragma mark TODO: Handle links
     return task;
+}
+
+- (void)setValue:(id)value forKeyPath:(NSString *)keyPath {
+//    NSLog(@"[GTaskMastManagedTask setValue:%@ forKeyPath:%@]", value, keyPath);
+    if ([keyPath isEqualToString:@"completed"] && [value isKindOfClass:[NSNumber class]]) {
+        NSNumber *completed = value;
+        if ((completed.boolValue && [self.status isEqualToString:TASK_STATUS_INCOMPLETE]) ||
+            (!completed.boolValue && [self.status isEqualToString:TASK_STATUS_COMPLETE])) {
+            
+            [((AppDelegate *)[NSApp delegate]).taskManager toggleFlags:kTaskFlagCompleted forTask:self];
+            [[GTSyncManager sharedInstance] updateTask:self];
+        }
+    } else {
+        [super setValue:value forKeyPath:keyPath];
+        
+    }
 }
 
 
