@@ -36,6 +36,28 @@ AppDelegate *_appDelegate;
                                                object:_appDelegate.taskManager.managedObjectContext];
 }
 
+- (void)selectTask:(GTaskMasterManagedTask *)task {
+    NSIndexSet *taskListIndexes = [self.taskListsController.arrangedObjects indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        GTaskMasterManagedTaskList *taskList = obj;
+        if ([taskList.identifier isEqualToString:task.tasklist.identifier]) {
+            *stop = YES;
+            return YES;
+        }
+        return NO;
+    }];
+    [self.taskListsController setSelectionIndexes:taskListIndexes];
+    
+    NSIndexSet *taskIndexes = [self.tasksController.arrangedObjects indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        GTaskMasterManagedTask *currentTask = obj;
+        if ([currentTask.identifier isEqualToString:task.identifier]) {
+            *stop = YES;
+            return YES;
+        }
+        return NO;
+    }];
+    [self.tasksController setSelectionIndexes:taskIndexes];
+}
+
 - (void)refreshTableViews {
     [self.tasklistsTableView reloadData];
     [self.tasksTableView reloadData];

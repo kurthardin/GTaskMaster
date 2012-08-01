@@ -11,9 +11,16 @@
 #import "AppDelegate.h"
 #import "GTSyncManager.h"
 
+@interface AppDelegate ()
+
+- (void)updateNotifications;
+
+@end
+
 @implementation AppDelegate
 
 @synthesize window = _window;
+@synthesize tasksViewController;
 @synthesize taskCreationPanelController=_taskCreationPanelController;
 @synthesize taskListCreationPanelController=_taskListCreationPanelController;
 @synthesize taskManager = _taskManager;
@@ -55,6 +62,29 @@
                                   }];
     }
     
+    NSUserNotificationCenter *notificationCenter = [NSUserNotificationCenter defaultUserNotificationCenter];
+    [notificationCenter setDelegate:self];
+    
+    NSUserNotification *userNotification = [aNotification.userInfo objectForKey:NSApplicationLaunchUserNotificationKey];
+    if (userNotification) {
+        [self userNotificationCenter:notificationCenter didActivateNotification:userNotification];
+    }
+    
+    [self updateNotifications];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateNotifications)
+                                                 name:NSManagedObjectContextDidSaveNotification
+                                               object:self.taskManager.managedObjectContext];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateNotifications)
+                                                 name:NSManagedObjectContextDidSaveNotification
+                                               object:[GTSyncManager sharedInstance].taskManager.managedObjectContext];
+    
+}
+
+- (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification {
+    [self.tasksViewController selectTask:[self.taskManager taskWithId:[notification.userInfo valueForKey:@"taskId"]]];
 }
 
 // Returns the directory the application uses to store the Core Data store file. This code uses a directory named "kurthardin.GTaskMaster_Mac" in the user's Application Support directory.
@@ -139,6 +169,93 @@
         _taskListCreationPanelController = [[NewTaskListPanelController alloc] init];
     }
     return _taskListCreationPanelController;
+}
+
+- (void)updateNotifications {
+    
+    NSUserNotificationCenter *notificationCenter = [NSUserNotificationCenter defaultUserNotificationCenter];
+//    [notificationCenter removeAllDeliveredNotifications];
+//    for (NSUserNotification *notification in notificationCenter.scheduledNotifications) {
+//        [notificationCenter removeScheduledNotification:notification];
+//    }
+//    NSLog(@"scheduledNotifications=%@", notificationCenter.scheduledNotifications);
+//    NSLog(@"deliveredNotifications=%@", notificationCenter.deliveredNotifications);
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:@"Task" inManagedObjectContext:self.taskManager.managedObjectContext]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"(status == %@) AND (due != nil) AND (gTDeleted == NO)", TASK_STATUS_INCOMPLETE]];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"due" ascending:NSOrderedAscending]]];
+    [fetchRequest setFetchLimit:25];
+   
+    NSError *err;
+    NSArray *tasks = [self.taskManager.managedObjectContext executeFetchRequest:fetchRequest error:&err];
+    if (err) {
+        NSLog(@"Error fetching tasks for notifications: %@", err);
+    } else {
+        
+        unsigned int flags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
+        NSCalendar* calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        [calendar setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+        
+        NSDate *currentDate = [NSDate date];
+        NSDateComponents* components = [calendar components:flags fromDate:currentDate];
+        NSDate* currentDateOnly = [calendar dateFromComponents:components];
+        
+        for (GTaskMasterManagedTask *task in tasks) {
+            
+            components = [calendar components:flags fromDate:task.due];
+            NSDate* dueDateOnly = [calendar dateFromComponents:components];
+            
+            BOOL notificationNeedsUpdate = NO;
+            NSUserNotification *notification;
+            
+            if ([dueDateOnly compare:currentDateOnly] == NSOrderedDescending) {
+                for (NSUserNotification *currentNotification in notificationCenter.scheduledNotifications) {
+                    NSString *currentTaskId = [currentNotification.userInfo valueForKey:@"taskId"];
+                    if ([currentTaskId isEqualToString:task.identifier]) {
+                        notification = currentNotification;
+                        break;
+                    }
+                }
+                
+            } else {
+                for (NSUserNotification *currentNotification in notificationCenter.deliveredNotifications) {
+                    NSString *currentTaskId = [currentNotification.userInfo valueForKey:@"taskId"];
+                    if ([currentTaskId isEqualToString:task.identifier]) {
+                        notification = currentNotification;
+                        if ([notification.title hasSuffix:@"due."] && [dueDateOnly compare:currentDateOnly] == NSOrderedAscending) {
+                            notificationNeedsUpdate = YES;
+                        }
+                        break;
+                    }
+                }
+            }
+            
+            if (notification == nil) {
+                notification = [[NSUserNotification alloc] init];
+                notificationNeedsUpdate = YES;
+            }
+            
+            if (notificationNeedsUpdate) {
+                NSString *title = task.title;
+                if ([dueDateOnly compare:currentDateOnly] == NSOrderedAscending) {
+                    title = [title stringByAppendingString:@" is overdue!"];
+                } else {
+                    title = [title stringByAppendingString:@" is due."];
+                }
+                notification.title = title;
+                notification.subtitle = task.tasklist.title;
+                notification.hasActionButton = NO;
+                notification.userInfo = [NSDictionary dictionaryWithObject:task.identifier forKey:@"taskId"];
+                if ([dueDateOnly compare:currentDateOnly] == NSOrderedDescending) {
+                    notification.deliveryDate = task.due;
+                    [notificationCenter scheduleNotification:notification];
+                } else {
+                    [notificationCenter deliverNotification:notification];
+                }
+            }
+        }
+    }
 }
 
 @end

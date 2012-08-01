@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 Kurt Hardin. All rights reserved.
 //
 
+#import "GTaskMasterManagedObjects.h"
+
 @interface TasksTableViewController : NSObject <NSTableViewDelegate>
 
 @property (nonatomic, readonly, strong) IBOutlet NSArrayController *taskListsController;
@@ -16,6 +18,7 @@
 @property (nonatomic, readonly, strong) IBOutlet NSTableView *tasksTableView;
 @property (nonatomic, readonly, strong) IBOutlet NSButton *addTaskButton;
 
+- (void)selectTask:(GTaskMasterManagedTask *)task;
 - (void)refreshTableViews;
 
 @end
