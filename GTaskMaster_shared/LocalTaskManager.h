@@ -28,8 +28,8 @@
            withServerTaskList:(GTLTasksTaskList *)serverTaskList;
 
 // Handle task list removal:
-- (void)flagTaskListForRemoval:(NSString *)taskListId;                      // Flags specified task list for removal during next sync
-- (void)removeTaskListWithId:(NSString *)taskListId;                        // Removes the specified task list
+- (void)flagTaskListForRemoval:(GTaskMasterManagedTaskList *)localTaskList; // Flags specified task list for removal during next sync
+- (void)removeTaskList:(GTaskMasterManagedTaskList *)localTaskList;         // Removes the specified task list
 
 // Creates a new task list with the specified title:
 - (GTaskMasterManagedTaskList *)newTaskListWithTitle:(NSString *)title;

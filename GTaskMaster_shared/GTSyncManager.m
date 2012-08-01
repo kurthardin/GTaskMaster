@@ -234,7 +234,7 @@ int const kDefaultSyncIntervalSec = 300;
                     if ([localTaskList isNew]) {
                         [self addTaskListToServer:localTaskList];
                     } else {
-                        [self.taskManager removeTaskListWithId:localTaskList.identifier];
+                        [self.taskManager removeTaskList:localTaskList];
                     }
                 }
             }
@@ -324,7 +324,7 @@ int const kDefaultSyncIntervalSec = 300;
                                                                    id item, NSError *error) {
                                                    
                                                    if (error == nil) {
-//                                                       [self.taskManager removeTaskListWithId:localTaskList.identifier];
+                                                       [self.taskManager removeTaskList:localTaskList];
                                                    } else {
                                                        NSLog(@"Error removing task list:\n  %@", error);
                                                    }

@@ -94,6 +94,16 @@
     return newTaskList;
 }
 
+- (void)flagTaskListForRemoval:(GTaskMasterManagedTaskList *)localTaskList {
+    [localTaskList setDeleted:[NSNumber numberWithBool:YES]];
+    [[GTSyncManager sharedInstance] removeTaskList:localTaskList];
+}
+
+- (void)removeTaskList:(GTaskMasterManagedTaskList *)localTaskList {
+    [self.managedObjectContext deleteObject:localTaskList];
+    [self saveContext];
+}
+
 
 #pragma mark - Task methods
 
@@ -142,7 +152,7 @@
 }
 
 - (void)addTask:(GTLTasksTask *)serverTask toList:(NSString *)taskListId {
-    NSLog(@"Add new local task from server: '%@'\n", serverTask.title);
+    NSLog(@"Adding new local task from server: '%@'\n", serverTask.title);
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Task" 
                                               inManagedObjectContext:self.managedObjectContext];
     GTaskMasterManagedTask *task = [[GTaskMasterManagedTask alloc] initWithEntity:entity 
@@ -152,7 +162,7 @@
 }
 
 - (void)updateTask:(GTLTasksTask *)serverTask {
-    NSLog(@"Update local task from server: '%@'\n", serverTask.title);
+    NSLog(@"Updating local task from server: '%@'\n", serverTask.title);
     GTaskMasterManagedTask *task = [self taskWithId:serverTask.identifier];
     [self updateManagedTask:task withServerTask:serverTask];
 }
@@ -178,7 +188,7 @@
                                         andNotes:(NSString *)notes
                                       inTaskList:(GTaskMasterManagedTaskList *)taskList {
     
-    NSLog(@"Create new local task: '%@' in list: '%@'\n", title, taskList.title);
+    NSLog(@"Creating new local task: '%@' in list: '%@'\n", title, taskList.title);
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Task"
                                               inManagedObjectContext:self.managedObjectContext];
     GTaskMasterManagedTask *newTask = [[GTaskMasterManagedTask alloc] initWithEntity:entity
@@ -206,6 +216,7 @@
 
 // Performs the save action for the application, which is to send the save: message to the application's managed object context. Any encountered errors are presented to the user.
 - (void)saveContext {
+    NSLog(@"Saving managedObjectContext");
     NSError *error = nil;
     NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
     if (managedObjectContext != nil) {
