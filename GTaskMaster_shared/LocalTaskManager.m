@@ -104,8 +104,7 @@
     [self updateManagedTaskList:taskList withServerTaskList:serverTaskList];
 }
 
-- (void)removeTaskList:(GTLTasksTaskList *)serverTaskList {
-    GTaskMasterManagedTaskList *localTaskList = [self taskListWithId:serverTaskList.identifier];
+- (void)removeTaskList:(GTaskMasterManagedTaskList *)localTaskList {
     if (localTaskList) {
         [self.managedObjectContext deleteObject:localTaskList];
         [self saveContext];

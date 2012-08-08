@@ -40,7 +40,7 @@ typedef const enum {
 - (void)updateTaskList:(GTLTasksTaskList *)serverTaskList;                  // Updates a task list with new data from server
 - (void)updateManagedTaskList:(GTaskMasterManagedTaskList *)managedTaskList
            withServerTaskList:(GTLTasksTaskList *)serverTaskList;
-- (void)removeTaskList:(GTLTasksTaskList *)serverTaskList;                  // Removes the specified task list
+- (void)removeTaskList:(GTaskMasterManagedTaskList *)localTaskList;         // Removes the specified task list
 
 
 #pragma mark - Local task methods
