@@ -100,15 +100,12 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Saves changes in the application's managed object context before the application terminates.
     [self.taskManager saveContext];
+    [[GTSyncManager sharedInstance].taskManager saveContext];
 }
 
 - (LocalTaskManager *)taskManager {
     if (_taskManager == nil) {
-        _taskManager = [[LocalTaskManager alloc] init];
-        [[NSNotificationCenter defaultCenter] addObserver:_taskManager
-                                                 selector:@selector(refresh:)
-                                                     name:NSManagedObjectContextDidSaveNotification
-                                                   object:[GTSyncManager sharedInstance].taskManager.managedObjectContext];
+        _taskManager = [[LocalTaskManager alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     }
     return _taskManager;
 }

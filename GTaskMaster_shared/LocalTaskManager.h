@@ -17,8 +17,10 @@ typedef const enum {
 
 @interface LocalTaskManager : NSObject
 
+@property (nonatomic) NSManagedObjectContextConcurrencyType managedObjectContextConcurrencyType;
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
+- (id)initWithConcurrencyType:(NSManagedObjectContextConcurrencyType)concurrencyType;
 
 #pragma mark - Local task list methods
 
@@ -75,6 +77,10 @@ typedef const enum {
 
 - (void)saveContext;                                                        // Saves changes made in the current ManagedObjectContext
 - (void)presentError:(NSError *)error;                                      // Presents a standard error to user
+
+#pragma mark - CoreData Stack
+
++ (NSManagedObjectContext *)sharedManagedObjectContext;
 
 
 @end

@@ -8,6 +8,7 @@
 
 #import "TasksTableViewController.h"
 #import "AppDelegate.h"
+#import "GTSyncManager.h"
 
 @implementation TasksTableViewController
 
@@ -29,11 +30,10 @@ AppDelegate *_appDelegate;
                                     nil];
     [self.tasksController setSortDescriptors:taskSortDescriptors];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTableViews) name:@"tasks_updated" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(refreshTableViews)
                                                  name:NSManagedObjectContextDidSaveNotification
-                                               object:_appDelegate.taskManager.managedObjectContext];
+                                               object:[GTSyncManager sharedInstance].taskManager.managedObjectContext];
 }
 
 - (void)selectTask:(GTaskMasterManagedTask *)task {

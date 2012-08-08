@@ -76,10 +76,6 @@
                                              selector:@selector(updateNotifications)
                                                  name:NSManagedObjectContextDidSaveNotification
                                                object:self.taskManager.managedObjectContext];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updateNotifications)
-                                                 name:NSManagedObjectContextDidSaveNotification
-                                               object:[GTSyncManager sharedInstance].taskManager.managedObjectContext];
     
 }
 
@@ -148,11 +144,7 @@
 
 - (LocalTaskManager *)taskManager {
     if (_taskManager == nil) {
-        _taskManager = [[LocalTaskManager alloc] init];
-        [[NSNotificationCenter defaultCenter] addObserver:_taskManager
-                                                 selector:@selector(refresh:)
-                                                     name:NSManagedObjectContextDidSaveNotification
-                                                   object:[GTSyncManager sharedInstance].taskManager.managedObjectContext];
+        _taskManager = [[LocalTaskManager alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     }
     return _taskManager;
 }

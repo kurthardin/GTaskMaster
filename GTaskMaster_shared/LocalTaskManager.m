@@ -20,8 +20,17 @@
 
 @implementation LocalTaskManager
 
+@synthesize managedObjectContextConcurrencyType;
 @synthesize managedObjectContext = _managedObjectContext;
 
+
+- (id)initWithConcurrencyType:(NSManagedObjectContextConcurrencyType)concurrencyType {
+    self = [super init];
+    if (self) {
+        self.managedObjectContextConcurrencyType = concurrencyType;
+    }
+    return self;
+}
 
 #pragma mark - Local task list methods
 
@@ -255,32 +264,42 @@
 
 #pragma mark - Utility methods
 
-- (void)refresh:(NSNotification *)didSaveNotification {
-    [NSThread MCSM_performBlockOnMainThread:^{
-        [self.managedObjectContext mergeChangesFromContextDidSaveNotification:didSaveNotification];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"tasks_updated" object:nil];
-    }];
-}
-
 // Performs the save action for the application, which is to send the save: message to the application's managed object context. Any encountered errors are presented to the user.
 - (void)saveContext {
-    NSLog(@"Saving managedObjectContext");
-    NSError *error = nil;
-    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
-    if (managedObjectContext != nil) {
+    
+    [self.managedObjectContext performBlockAndWait:^{
         
+        NSLog(@"Saving managedObjectContext");
+        NSError *error = nil;
+        NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
+        if (managedObjectContext != nil) {
+            
 #if !TARGET_OS_IPHONE
-        if (![managedObjectContext commitEditing]) {
-            NSLog(@"%@:%@ unable to commit editing before saving", [self class], NSStringFromSelector(_cmd));
-        }
+            if (![managedObjectContext commitEditing]) {
+                NSLog(@"%@:%@ unable to commit editing before saving", [self class], NSStringFromSelector(_cmd));
+            }
 #endif
-        
-        if ([[self managedObjectContext] hasChanges] && ![[self managedObjectContext] save:&error]) {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            [self presentError:error];
-            //            abort();
+            
+            if ([[self managedObjectContext] hasChanges] && ![[self managedObjectContext] save:&error]) {
+                NSLog(@"Unresolved error saving context: %@, %@", error, [error userInfo]);
+                [self presentError:error];
+                //            abort();
+            }
         }
-    }
+        
+        if (!error && managedObjectContext.parentContext) {
+            [managedObjectContext.parentContext performBlock:^{
+                
+                NSError *err;
+                if (![managedObjectContext.parentContext save:&err]) {
+                    NSLog(@"Unresolved error saving parent context: %@, %@", err, [err userInfo]);
+                    [self presentError:err];
+                }
+                
+            }];
+        }
+        
+    }];
 }
 
 - (void)presentError:(NSError *)error {
@@ -423,28 +442,41 @@
             }
         }
 #endif
+        
     });
     
     return _sharedPersistentStoreCoordinator;
 }
 
-// Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) 
-- (NSManagedObjectContext *)managedObjectContext {
-    if (_managedObjectContext) {
-        return _managedObjectContext;
-    }
++ (NSManagedObjectContext *)sharedManagedObjectContext {
     
-    NSPersistentStoreCoordinator *coordinator = [LocalTaskManager sharedPersistentStoreCoordinator];
-    if (coordinator == nil) {
-        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-        [dict setValue:@"Failed to initialize the store" forKey:NSLocalizedDescriptionKey];
-        [dict setValue:@"There was an error building up the data file." forKey:NSLocalizedFailureReasonErrorKey];
-        NSError *error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
-        [self presentError:error];
-        return nil;
-    } else {
-        _managedObjectContext = [[NSManagedObjectContext alloc] init];
-        [_managedObjectContext setPersistentStoreCoordinator:coordinator];
+    __strong static NSManagedObjectContext *_sharedManagedObjectContext = nil;
+    
+    static dispatch_once_t pred = 0;
+    dispatch_once(&pred, ^{
+        
+        NSPersistentStoreCoordinator *coordinator = [LocalTaskManager sharedPersistentStoreCoordinator];
+        if (coordinator != nil) {
+            _sharedManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+            [_sharedManagedObjectContext setPersistentStoreCoordinator:coordinator];
+        }
+        
+    });
+    
+    return _sharedManagedObjectContext;
+}
+
+// Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.)
+- (NSManagedObjectContext *)managedObjectContext {
+    if (!_managedObjectContext) {
+        if (self.managedObjectContextConcurrencyType) {
+            if (self.managedObjectContextConcurrencyType == NSMainQueueConcurrencyType) {
+                _managedObjectContext = [LocalTaskManager sharedManagedObjectContext];
+            } else {
+                _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:self.managedObjectContextConcurrencyType];
+                [_managedObjectContext setParentContext:[LocalTaskManager sharedManagedObjectContext]];
+            }
+        }
     }
     
     return _managedObjectContext;
