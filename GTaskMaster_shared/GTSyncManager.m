@@ -39,8 +39,6 @@ int const kDefaultSyncIntervalSec = 300;
 @synthesize isSyncing=_isSyncing;
 @synthesize isRepeating=_isRepeating;
 @synthesize delayInSeconds=_delayInSeconds;
-//@synthesize syncThread=_syncThread;
-//@synthesize syncRunloop=_syncRunloop;
 @synthesize syncTimer=_syncTimer;
 @synthesize taskManager=_taskManager;
 @synthesize tasksService=_tasksService;
@@ -94,8 +92,6 @@ int const kDefaultSyncIntervalSec = 300;
         _isSyncing = NO;
         _isRepeating = NO;
         _delayInSeconds = kDefaultSyncIntervalSec;
-//        _syncThread = [[NSThread alloc] initWithTarget:self selector:@selector(syncThreadMain) object:nil];
-//        [_syncThread start];
         
         _activeServiceTickets = [NSMutableSet setWithCapacity:25];
     }
@@ -104,10 +100,7 @@ int const kDefaultSyncIntervalSec = 300;
 
 - (LocalTaskManager *)taskManager {
     if (_taskManager == nil) {
-//        void (^taskManagerInitBlock)() = ^{
         _taskManager = [[LocalTaskManager alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-//        };
-//        [self.syncThread MCSM_performBlock:taskManagerInitBlock waitUntilDone:YES];
     }
     return _taskManager;
 }
@@ -130,7 +123,6 @@ int const kDefaultSyncIntervalSec = 300;
                                                     selector:@selector(sync)
                                                     userInfo:nil
                                                      repeats:YES];
-//        [self.syncRunloop addTimer:self.syncTimer forMode:NSDefaultRunLoopMode];
         return YES;
     }
     return NO;
@@ -153,7 +145,6 @@ int const kDefaultSyncIntervalSec = 300;
     
     if (!self.isSyncing) {
         _isSyncing = YES;
-//        [self performSelector:@selector(processServerTaskLists) onThread:self.syncThread withObject:nil waitUntilDone:NO];
         [self.taskManager.managedObjectContext performBlock:^{
             [self processServerTaskLists];
         }];
@@ -537,27 +528,5 @@ int const kDefaultSyncIntervalSec = 300;
         }];
     }
 }
-
-     
-#pragma mark - NSThread methods
-
-//- (void) syncThreadKeepAlive {
-//    [self performSelector:@selector(syncThreadKeepAlive) withObject:nil afterDelay:300];
-//}
-//    
-//- (void)syncThreadMain {
-//    // Add selector to prevent CFRunLoopRunInMode from returning immediately
-//    [self performSelector:@selector(syncThreadKeepAlive) withObject:nil afterDelay:300];
-//    BOOL done = NO;
-//    
-//    _syncRunloop = [NSRunLoop currentRunLoop];
-//    
-//    do {
-//        SInt32 result = CFRunLoopRunInMode(kCFRunLoopDefaultMode, 10, YES);
-//        if ((result == kCFRunLoopRunStopped) || (result == kCFRunLoopRunFinished))
-//            done = YES;
-//    }
-//    while (!done);
-//}
 
 @end

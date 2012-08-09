@@ -15,8 +15,6 @@
 @property (readonly, nonatomic) BOOL isRepeating;
 @property (nonatomic) double delayInSeconds;
 
-//@property (readonly, strong, nonatomic) NSThread *syncThread;
-//@property (readonly, strong, nonatomic) NSRunLoop *syncRunloop;
 @property (readonly, strong, nonatomic) NSTimer *syncTimer;
 
 @property (readonly, strong, nonatomic) LocalTaskManager *taskManager;
