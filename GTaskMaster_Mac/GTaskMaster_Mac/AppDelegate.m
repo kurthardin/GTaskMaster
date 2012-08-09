@@ -54,7 +54,7 @@
                                   completionHandler:^(GTMOAuth2Authentication *auth,
                                                       NSError *error) {
                                       if (error) {
-                                          NSLog(@"Error authenticating user:\n   %@", error);
+                                          DLog(@"Error authenticating user:\n   %@", error);
                                       } else {
                                           [[GTSyncManager sharedInstance].tasksService setAuthorizer:auth];
                                           [GTSyncManager startSyncing];
@@ -105,7 +105,7 @@
     }
     
     if (![managedObjectContext commitEditing]) {
-        NSLog(@"%@:%@ unable to commit editing to terminate", [self class], NSStringFromSelector(_cmd));
+        DLog(@"Unable to commit editing to terminate");
         return NSTerminateCancel;
     }
     
@@ -170,8 +170,8 @@
 //    for (NSUserNotification *notification in notificationCenter.scheduledNotifications) {
 //        [notificationCenter removeScheduledNotification:notification];
 //    }
-//    NSLog(@"scheduledNotifications=%@", notificationCenter.scheduledNotifications);
-//    NSLog(@"deliveredNotifications=%@", notificationCenter.deliveredNotifications);
+//    DLog(@"scheduledNotifications=%@", notificationCenter.scheduledNotifications);
+//    DLog(@"deliveredNotifications=%@", notificationCenter.deliveredNotifications);
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"Task" inManagedObjectContext:self.taskManager.managedObjectContext]];
@@ -182,7 +182,7 @@
     NSError *err;
     NSArray *tasks = [self.taskManager.managedObjectContext executeFetchRequest:fetchRequest error:&err];
     if (err) {
-        NSLog(@"Error fetching tasks for notifications: %@", err);
+        DLog(@"Error fetching tasks for notifications: %@", err);
     } else {
         
         unsigned int flags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;

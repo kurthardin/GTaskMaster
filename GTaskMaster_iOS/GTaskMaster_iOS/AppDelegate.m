@@ -63,7 +63,7 @@
                                                                                  GTMOAuth2Authentication *auth,
                                                                                  NSError *error) {
                                                                  if (error) {
-                                                                     NSLog(@"Error authenticating user:\n   %@", error);
+                                                                     DLog(@"Error authenticating user:\n   %@", error);
                                                                  } else {
                                                                      [[GTSyncManager sharedInstance].tasksService setAuthorizer:auth];
                                                                      [GTSyncManager startSyncing];

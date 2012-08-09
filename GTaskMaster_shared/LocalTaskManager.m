@@ -63,7 +63,7 @@
 }
 
 - (GTaskMasterManagedTaskList *)newTaskListWithTitle:(NSString *)title {
-    NSLog(@"Create new local task list: '%@'\n", title);
+    DLog(@"Create new local task list: '%@'\n", title);
     
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"TaskList"
                                               inManagedObjectContext:self.managedObjectContext];
@@ -96,7 +96,7 @@
 
 - (void)addTaskList:(GTLTasksTaskList *)serverTaskList {
     
-    NSLog(@"Add new local task list from server: '%@'\n", serverTaskList.title);
+    DLog(@"Add new local task list from server: '%@'\n", serverTaskList.title);
     
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"TaskList"
                                               inManagedObjectContext:self.managedObjectContext];
@@ -107,7 +107,7 @@
 
 - (void)updateTaskList:(GTLTasksTaskList *)serverTaskList {
     
-    NSLog(@"Update local task list from server: '%@'\n", serverTaskList.title);
+    DLog(@"Update local task list from server: '%@'\n", serverTaskList.title);
     
     GTaskMasterManagedTaskList *taskList = [self taskListWithId:serverTaskList.identifier];
     [self updateManagedTaskList:taskList withServerTaskList:serverTaskList];
@@ -159,7 +159,7 @@
                                         andNotes:(NSString *)notes
                                       inTaskList:(GTaskMasterManagedTaskList *)taskList {
     
-    NSLog(@"Creating new local task: '%@' in list: '%@'\n", title, taskList.title);
+    DLog(@"Creating new local task: '%@' in list: '%@'\n", title, taskList.title);
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Task"
                                               inManagedObjectContext:self.managedObjectContext];
     GTaskMasterManagedTask *newTask = [[GTaskMasterManagedTask alloc] initWithEntity:entity
@@ -246,7 +246,7 @@
 }
 
 - (void)addTask:(GTLTasksTask *)serverTask toList:(NSString *)taskListId {
-    NSLog(@"Adding new local task from server: '%@'\n", serverTask.title);
+    DLog(@"Adding new local task from server: '%@'\n", serverTask.title);
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Task"
                                               inManagedObjectContext:self.managedObjectContext];
     GTaskMasterManagedTask *task = [[GTaskMasterManagedTask alloc] initWithEntity:entity
@@ -256,7 +256,7 @@
 }
 
 - (void)updateTask:(GTLTasksTask *)serverTask {
-    NSLog(@"Updating local task from server: '%@'\n", serverTask.title);
+    DLog(@"Updating local task from server: '%@'\n", serverTask.title);
     GTaskMasterManagedTask *task = [self taskWithId:serverTask.identifier];
     [self updateManagedTask:task withServerTask:serverTask];
 }
@@ -269,19 +269,19 @@
     
     [self.managedObjectContext performBlockAndWait:^{
         
-        NSLog(@"Saving managedObjectContext");
+        DLog(@"Saving managedObjectContext");
         NSError *error = nil;
         NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
         if (managedObjectContext != nil) {
             
 #if !TARGET_OS_IPHONE
             if (![managedObjectContext commitEditing]) {
-                NSLog(@"%@:%@ unable to commit editing before saving", [self class], NSStringFromSelector(_cmd));
+                DLog(@"Unable to commit editing before saving");
             }
 #endif
             
             if ([[self managedObjectContext] hasChanges] && ![[self managedObjectContext] save:&error]) {
-                NSLog(@"Unresolved error saving context: %@, %@", error, [error userInfo]);
+                DLog(@"Unresolved error saving context: %@, %@", error, [error userInfo]);
                 [self presentError:error];
                 //            abort();
             }
@@ -381,7 +381,7 @@
                  Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
                  
                  */
-                NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                DLog(@"Unresolved error %@, %@", error, [error userInfo]);
                 
 //                abort();
                 _sharedPersistentStoreCoordinator = nil;
@@ -437,7 +437,7 @@
                 }
                 
             } else {
-                NSLog(@"%@:%@ No model to generate a store from", [self class], NSStringFromSelector(_cmd));
+                DLog(@"No model to generate a store from");
                 
             }
         }

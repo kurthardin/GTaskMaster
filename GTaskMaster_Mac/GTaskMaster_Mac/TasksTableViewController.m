@@ -80,7 +80,7 @@ AppDelegate *_appDelegate;
 - (IBAction)showTaskListInfo:(id)sender {
     GTaskMasterManagedTaskList *tasklist = [self selectedTaskList];
     if (tasklist) {
-        NSLog(@"%@", tasklist);
+        DLog(@"%@", tasklist);
     }
 }
 
@@ -91,7 +91,7 @@ AppDelegate *_appDelegate;
 - (IBAction)showTaskInfo:(id)sender {
     GTaskMasterManagedTask *task = [self selectedTask];
     if (task) {
-        NSLog(@"%@", task);
+        DLog(@"%@", task);
     }
 }
 
@@ -102,7 +102,7 @@ AppDelegate *_appDelegate;
         [_appDelegate.taskCreationPanelController show];
         
     } else {
-        NSLog(@"Failed to add task, no task list selected...");
+        DLog(@"Failed to add task, no task list selected...");
         
     }
 }

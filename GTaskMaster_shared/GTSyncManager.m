@@ -189,7 +189,7 @@ int const kDefaultSyncIntervalSec = 300;
         [self.taskManager.managedObjectContext performBlock:^{
             
             if (error) {
-                NSLog(@"Error fetching task lists from server:\n  %@", error);
+                DLog(@"Error fetching task lists from server:\n  %@", error);
             } else {
                 NSMutableArray *localTaskLists = [NSMutableArray arrayWithArray:[self.taskManager taskLists]];
                 
@@ -284,7 +284,7 @@ int const kDefaultSyncIntervalSec = 300;
                                                                [self removeActiveServiceTicket:ticket];
                                                                
                                                                if (error) {
-                                                                   NSLog(@"Error adding task to server:\n  %@", error);
+                                                                   DLog(@"Error adding task to server:\n  %@", error);
                                                                } else {
                                                                    [self.taskManager updateManagedTaskList:localTaskList
                                                                                         withServerTaskList:newTaskList];
@@ -328,7 +328,7 @@ int const kDefaultSyncIntervalSec = 300;
                                                            [self.taskManager.managedObjectContext performBlock:^{
                                                                
                                                                if (error) {
-                                                                   NSLog(@"Error updating task list:\n  %@", error);
+                                                                   DLog(@"Error updating task list:\n  %@", error);
                                                                } else {
                                                                    [self.taskManager updateTaskList:updatedTaskList];
                                                                }
@@ -367,7 +367,7 @@ int const kDefaultSyncIntervalSec = 300;
                                                            if (error == nil) {
                                                                [self.taskManager removeTaskList:localTaskList];
                                                            } else {
-                                                               NSLog(@"Error removing task list:\n  %@", error);
+                                                               DLog(@"Error removing task list:\n  %@", error);
                                                            }
                                                            
                                                        }];
@@ -388,7 +388,7 @@ int const kDefaultSyncIntervalSec = 300;
         query.showDeleted = YES;
         query.maxResults = 2000;
         
-        NSLog(@"Fetching tasks for tasklist (%@), query.maxResults=%lld", serverTaskList.identifier, query.maxResults);
+        DLog(@"Fetching tasks for tasklist (%@), query.maxResults=%lld", serverTaskList.identifier, query.maxResults);
         [self addActiveServiceTicket:[self.tasksService executeQuery:query
                                                    completionHandler:^(GTLServiceTicket *ticket,
                                                                        id serverTasks, NSError *error) {
@@ -431,7 +431,7 @@ int const kDefaultSyncIntervalSec = 300;
                                                                    processedCount++;
                                                                }
                                                                
-                                                               NSLog(@"Processed %d tasks from server, %d added\n\n", processedCount, addedCount);
+                                                               DLog(@"Processed %d tasks from server, %d added\n\n", processedCount, addedCount);
                                                                
                                                                if (localTasks.count > 0) {
                                                                    for (GTaskMasterManagedTask *task in localTasks) {
@@ -476,7 +476,7 @@ int const kDefaultSyncIntervalSec = 300;
                                                            [self.taskManager.managedObjectContext performBlock:^{
                                                                
                                                                if (error) {
-                                                                   NSLog(@"Error adding task to server:\n  %@", error);
+                                                                   DLog(@"Error adding task to server:\n  %@", error);
                                                                    
                                                                } else {
                                                                    [self.taskManager updateManagedTask:localTask
@@ -523,7 +523,7 @@ int const kDefaultSyncIntervalSec = 300;
                                                            [self.taskManager.managedObjectContext performBlock:^{
                                                                
                                                                if (error) {
-                                                                   NSLog(@"Error updating task on server:\n  %@", error);
+                                                                   DLog(@"Error updating task on server:\n  %@", error);
                                                                    
                                                                } else {
                                                                    [self.taskManager updateTask:serverTask];

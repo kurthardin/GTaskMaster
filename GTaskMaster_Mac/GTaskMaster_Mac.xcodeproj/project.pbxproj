@@ -668,7 +668,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_CFLAGS = "-DGTL_BUILT_AS_FRAMEWORK=1";
+				OTHER_CFLAGS = (
+					"-DGTL_BUILT_AS_FRAMEWORK=1",
+					"-DDEBUG",
+				);
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -738,7 +741,10 @@
 				GCC_PREFIX_HEADER = "GTaskMaster_Mac/GTaskMaster_Mac-Prefix.pch";
 				INFOPLIST_FILE = "GTaskMaster_Mac/GTaskMaster_Mac-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				OTHER_CFLAGS = "-DGTL_BUILT_AS_FRAMEWORK=1";
+				OTHER_CFLAGS = (
+					"-DGTL_BUILT_AS_FRAMEWORK=1",
+					"-DDEBUG",
+				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

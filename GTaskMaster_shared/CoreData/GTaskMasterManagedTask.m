@@ -52,7 +52,6 @@
 
 #if !TARGET_OS_IPHONE
 - (void)setValue:(id)value forKeyPath:(NSString *)keyPath {
-//    NSLog(@"[GTaskMastManagedTask setValue:%@ forKeyPath:%@]", value, keyPath);
     if ([keyPath isEqualToString:@"completed"] && [value isKindOfClass:[NSNumber class]]) {
         NSNumber *completed = value;
         if ((completed.boolValue && [self.status isEqualToString:TASK_STATUS_INCOMPLETE]) ||

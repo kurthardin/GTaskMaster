@@ -46,7 +46,7 @@
                                                                          inTaskList:self.taskList];
         [[GTSyncManager sharedInstance] addTask:newTask]; 
     } else {
-        NSLog(@"Unable to create task, tasklist nil");
+        DLog(@"Unable to create task, tasklist nil");
     }
     
     [self dismiss];
