@@ -34,7 +34,6 @@
 		65782CBE15B603EE007632E1 /* GTaskMasterManagedTaskList.m in Sources */ = {isa = PBXBuildFile; fileRef = 65782C9C15B603EE007632E1 /* GTaskMasterManagedTaskList.m */; };
 		65782CBF15B603EE007632E1 /* GTSyncManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65782CA015B603EE007632E1 /* GTSyncManager.m */; };
 		65782CC015B603EE007632E1 /* LocalTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65782CA215B603EE007632E1 /* LocalTaskManager.m */; };
-		65782CC215B603EE007632E1 /* NSThread+MCSMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 65782CA615B603EE007632E1 /* NSThread+MCSMAdditions.m */; };
 		65782CC415B603EE007632E1 /* GTaskMasterIcon.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 65782CA915B603EE007632E1 /* GTaskMasterIcon.jpeg */; };
 		65782CC515B603EE007632E1 /* GTLQueryTasks.m in Sources */ = {isa = PBXBuildFile; fileRef = 65782CAD15B603EE007632E1 /* GTLQueryTasks.m */; };
 		65782CC615B603EE007632E1 /* GTLServiceTasks.m in Sources */ = {isa = PBXBuildFile; fileRef = 65782CAF15B603EE007632E1 /* GTLServiceTasks.m */; };
@@ -123,8 +122,6 @@
 		65782CA015B603EE007632E1 /* GTSyncManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTSyncManager.m; sourceTree = "<group>"; };
 		65782CA115B603EE007632E1 /* LocalTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalTaskManager.h; sourceTree = "<group>"; };
 		65782CA215B603EE007632E1 /* LocalTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalTaskManager.m; sourceTree = "<group>"; };
-		65782CA515B603EE007632E1 /* NSThread+MCSMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSThread+MCSMAdditions.h"; sourceTree = "<group>"; };
-		65782CA615B603EE007632E1 /* NSThread+MCSMAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSThread+MCSMAdditions.m"; sourceTree = "<group>"; };
 		65782CA915B603EE007632E1 /* GTaskMasterIcon.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = GTaskMasterIcon.jpeg; sourceTree = "<group>"; };
 		65782CAC15B603EE007632E1 /* GTLQueryTasks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLQueryTasks.h; sourceTree = "<group>"; };
 		65782CAD15B603EE007632E1 /* GTLQueryTasks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLQueryTasks.m; sourceTree = "<group>"; };
@@ -306,7 +303,6 @@
 				65782CA015B603EE007632E1 /* GTSyncManager.m */,
 				65782CA115B603EE007632E1 /* LocalTaskManager.h */,
 				65782CA215B603EE007632E1 /* LocalTaskManager.m */,
-				65782CA315B603EE007632E1 /* NSThread-MCSMAdditions */,
 				65782CA815B603EE007632E1 /* Resources */,
 				65782CAA15B603EE007632E1 /* Tasks */,
 			);
@@ -327,15 +323,6 @@
 				65782C9D15B603EE007632E1 /* GTaskMasterManagedObjects.h */,
 			);
 			path = CoreData;
-			sourceTree = "<group>";
-		};
-		65782CA315B603EE007632E1 /* NSThread-MCSMAdditions */ = {
-			isa = PBXGroup;
-			children = (
-				65782CA515B603EE007632E1 /* NSThread+MCSMAdditions.h */,
-				65782CA615B603EE007632E1 /* NSThread+MCSMAdditions.m */,
-			);
-			path = "NSThread-MCSMAdditions";
 			sourceTree = "<group>";
 		};
 		65782CA815B603EE007632E1 /* Resources */ = {
@@ -496,7 +483,6 @@
 				65782CBE15B603EE007632E1 /* GTaskMasterManagedTaskList.m in Sources */,
 				65782CBF15B603EE007632E1 /* GTSyncManager.m in Sources */,
 				65782CC015B603EE007632E1 /* LocalTaskManager.m in Sources */,
-				65782CC215B603EE007632E1 /* NSThread+MCSMAdditions.m in Sources */,
 				65782CC515B603EE007632E1 /* GTLQueryTasks.m in Sources */,
 				65782CC615B603EE007632E1 /* GTLServiceTasks.m in Sources */,
 				65782CC715B603EE007632E1 /* GTLTasksConstants.m in Sources */,

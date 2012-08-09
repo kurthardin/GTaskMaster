@@ -7,7 +7,6 @@
 //
 
 #import "GTSyncManager.h"
-#import "NSThread-MCSMAdditions/NSThread+MCSMAdditions.h"
 #import "GTaskMasterManagedObjects.h"
 
 @interface GTSyncManager ()
@@ -161,7 +160,7 @@ int const kDefaultSyncIntervalSec = 300;
 - (void)performQuery:(GTLQuery *)query completionHandler:(void (^)(GTLServiceTicket *ticket, id object, NSError *error))handler {
         
     incompleteQueryCount++;
-    [NSThread MCSM_performBlockOnMainThread:^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         
         [_activeServiceTickets addObject:[self.tasksService executeQuery:query
                                                    completionHandler:^(GTLServiceTicket *ticket,
@@ -182,7 +181,7 @@ int const kDefaultSyncIntervalSec = 300;
                                                        
                                                    }]];
         
-    }];
+    });
     
 }
 

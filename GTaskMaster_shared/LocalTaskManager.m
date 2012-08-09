@@ -12,7 +12,6 @@
 
 #import "AppDelegate.h"
 #import "GTSyncManager.h"
-#import "NSThread-MCSMAdditions/NSThread+MCSMAdditions.h"
 
 @interface LocalTaskManager ()
 - (void)presentError:(NSError *)error;
