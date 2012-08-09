@@ -16,8 +16,8 @@
 - (BOOL)cancelRepeatedSyncing;
 - (BOOL)sync;
 
-- (void)addActiveServiceTicket:(GTLServiceTicket *)serviceTicket;
-- (void)removeActiveServiceTicket:(GTLServiceTicket *)serviceTicket;
+- (BOOL)performSyncTask:(void (^)())taskBlock;
+- (void)performQuery:(GTLQuery *)query completionHandler:(void (^)(GTLServiceTicket *ticket, id object, NSError *error))handler;
 
 - (void)processServerTaskLists;
 - (void)addTaskListToServer:(GTaskMasterManagedTaskList *)localTaskList;
@@ -141,228 +141,195 @@ int const kDefaultSyncIntervalSec = 300;
 }
 
 - (BOOL)sync {
-    BOOL syncStarted = NO;
-    
+    return [self performSyncTask:^{
+        incompleteQueryCount = 0;
+        [self processServerTaskLists];
+    }];
+}
+
+- (BOOL)performSyncTask:(void (^)())taskBlock {
     if (!self.isSyncing) {
-        _isSyncing = YES;
         [self.taskManager.managedObjectContext performBlock:^{
-            [self processServerTaskLists];
+            _isSyncing = YES;
+            taskBlock();
         }];
-        syncStarted = YES;
+        return YES;
     }
+    return NO;
+}
+
+- (void)performQuery:(GTLQuery *)query completionHandler:(void (^)(GTLServiceTicket *ticket, id object, NSError *error))handler {
+        
+    incompleteQueryCount++;
+    [NSThread MCSM_performBlockOnMainThread:^{
+        
+        [_activeServiceTickets addObject:[self.tasksService executeQuery:query
+                                                   completionHandler:^(GTLServiceTicket *ticket,
+                                                                       id item, NSError *error) {
+                                                       
+                                                       [_activeServiceTickets removeObject:ticket];
+                                                       
+                                                       [self.taskManager.managedObjectContext performBlock:^{
+                                                           
+                                                           handler(ticket, item, error);
+                                                           
+                                                           incompleteQueryCount--;
+                                                           if (incompleteQueryCount == 0) {
+                                                               _isSyncing = NO;
+                                                           }
+                                                           
+                                                       }];
+                                                       
+                                                   }]];
+        
+    }];
     
-    return syncStarted;
-}
-
-- (void)addActiveServiceTicket:(GTLServiceTicket *)serviceTicket {
-    [_activeServiceTickets addObject:serviceTicket];
-    _isSyncing = YES;
-}
-
-- (void)removeActiveServiceTicket:(GTLServiceTicket *)serviceTicket {
-    [_activeServiceTickets removeObject:serviceTicket];
-    if (_activeServiceTickets.count == 0) {
-        _isSyncing = NO;
-    }
 }
 
 #pragma mark - TaskList methods
 
 - (void)processServerTaskLists {
     
-    // Setup code block to run on completion of query executed below
-    void (^completionHandler)();
-    completionHandler = ^(GTLServiceTicket *ticket,
-                          id serverTaskLists, NSError *error) {
+    [self performQuery:[GTLQueryTasks queryForTasklistsList] completionHandler:^(GTLServiceTicket *ticket,
+                                                                                 id serverTaskLists, NSError *error) {
         
-        [self removeActiveServiceTicket:ticket];
-        
-        [self.taskManager.managedObjectContext performBlock:^{
+        if (error) {
+            DLog(@"Error fetching task lists from server:\n  %@", error);
+        } else {
+            NSMutableArray *localTaskLists = [NSMutableArray arrayWithArray:[self.taskManager taskLists]];
             
-            if (error) {
-                DLog(@"Error fetching task lists from server:\n  %@", error);
-            } else {
-                NSMutableArray *localTaskLists = [NSMutableArray arrayWithArray:[self.taskManager taskLists]];
-                
-                if (serverTaskLists) {
-                    for (GTLTasksTaskList *serverTaskList in serverTaskLists) {
+            if (serverTaskLists) {
+                for (GTLTasksTaskList *serverTaskList in serverTaskLists) {
+                    
+                    NSDate *serverModDate = serverTaskList.updated.date;
+                    GTaskMasterManagedTaskList *localTaskList = [self.taskManager taskListWithId:serverTaskList.identifier];
+                    
+                    BOOL shouldProcessTasksForTaskList = YES;
+                    if (localTaskList == nil) {
+                        [self.taskManager addTaskList:serverTaskList];
                         
-                        NSDate *serverModDate = serverTaskList.updated.date;
-                        GTaskMasterManagedTaskList *localTaskList = [self.taskManager taskListWithId:serverTaskList.identifier];
+                    } else if (localTaskList.gTDeleted.boolValue) {
+                        [self removeTaskListFromServer:localTaskList];
+                        shouldProcessTasksForTaskList = NO;
                         
-                        BOOL shouldProcessTasksForTaskList = YES;
-                        if (localTaskList == nil) {
-                            [self.taskManager addTaskList:serverTaskList];
-                            
-                        } else if (localTaskList.gTDeleted.boolValue) {
-                            [self removeTaskListFromServer:localTaskList];
-                            shouldProcessTasksForTaskList = NO;
-                            
-                        } else {
-                            NSDate *localSyncDate = localTaskList.synced;
-                            NSDate *localModDate = localTaskList.gTUpdated;
-                            if (![localSyncDate isEqualToDate:localModDate]) {
-                                if ([localSyncDate isEqualToDate:serverModDate]) {
-                                    [self updateTaskListOnServer:localTaskList];
-                                } else {
-#pragma mark TODO: Resolve conflict
-                                }
-                                
-                            } else if (![localSyncDate isEqualToDate:serverModDate]) {
-                                [self.taskManager updateTaskList:serverTaskList];
-                                
+                    } else {
+                        NSDate *localSyncDate = localTaskList.synced;
+                        NSDate *localModDate = localTaskList.gTUpdated;
+                        if (![localSyncDate isEqualToDate:localModDate]) {
+                            if ([localSyncDate isEqualToDate:serverModDate]) {
+                                [self updateTaskListOnServer:localTaskList];
                             } else {
-                                shouldProcessTasksForTaskList = NO;
-                                
+#pragma mark TODO: Resolve conflict
                             }
                             
-                        }
-                        
-                        if (shouldProcessTasksForTaskList) {
-                            [self processServerTasksForTaskList:serverTaskList];
-                        }
-                        
-                        [localTaskLists removeObject:localTaskList];
-                    }
-                }
-                
-                if (localTaskLists.count > 0) {
-                    for (GTaskMasterManagedTaskList *localTaskList in localTaskLists) {
-                        if ([localTaskList isNew]) {
-                            [self addTaskListToServer:localTaskList];
+                        } else if (![localSyncDate isEqualToDate:serverModDate]) {
+                            [self.taskManager updateTaskList:serverTaskList];
+                            
                         } else {
-                            [self.taskManager removeTaskList:localTaskList];
+                            shouldProcessTasksForTaskList = NO;
+                            
                         }
+                        
                     }
+                    
+                    if (shouldProcessTasksForTaskList) {
+                        [self processServerTasksForTaskList:serverTaskList];
+                    }
+                    
+                    [localTaskLists removeObject:localTaskList];
                 }
             }
             
-        }];
+            if (localTaskLists.count > 0) {
+                for (GTaskMasterManagedTaskList *localTaskList in localTaskLists) {
+                    if ([localTaskList isNew]) {
+                        [self addTaskListToServer:localTaskList];
+                    } else {
+                        [self.taskManager removeTaskList:localTaskList];
+                    }
+                }
+            }
+        }
         
-    };
-    
-    [NSThread MCSM_performBlockOnMainThread:^{
-        [self addActiveServiceTicket:[self.tasksService executeQuery:[GTLQueryTasks queryForTasklistsList]
-                                                   completionHandler:completionHandler]];
     }];
 }
 
 - (BOOL)addTaskList:(GTaskMasterManagedTaskList *)taskList {
-    if (!self.isSyncing) {
-        [self.taskManager.managedObjectContext performBlock:^{
-            [self addTaskListToServer:taskList];
-        }];
-        return YES;
-    }
-    return NO;
+    return [self performSyncTask:^{
+        [self addTaskListToServer:taskList];
+    }];
 }
 
 - (void)addTaskListToServer:(GTaskMasterManagedTaskList *)localTaskList {
     if ([localTaskList.title length] > 0) {
         
-        [NSThread MCSM_performBlockOnMainThread:^{
+        GTLTasksTaskList *tasklist = [localTaskList createGTLTasksTaskList];
+        GTLQueryTasks *query = [GTLQueryTasks queryForTasklistsInsertWithObject:tasklist];
+        
+        [self performQuery:query completionHandler:^(GTLServiceTicket *ticket,
+                                                     id newTaskList, NSError *error) {
             
-            GTLTasksTaskList *tasklist = [localTaskList createGTLTasksTaskList];
-            
-            GTLQueryTasks *query = [GTLQueryTasks queryForTasklistsInsertWithObject:tasklist];
-            
-            [self addActiveServiceTicket:[self.tasksService executeQuery:query
-                                                       completionHandler:^(GTLServiceTicket *ticket,
-                                                                           id newTaskList, NSError *error) {
-                                                           
-                                                           [self.taskManager.managedObjectContext performBlock:^{
-                                                               
-                                                               [self removeActiveServiceTicket:ticket];
-                                                               
-                                                               if (error) {
-                                                                   DLog(@"Error adding task to server:\n  %@", error);
-                                                               } else {
-                                                                   [self.taskManager updateManagedTaskList:localTaskList
-                                                                                        withServerTaskList:newTaskList];
-                                                                   [self processServerTasksForTaskList:newTaskList];
-                                                               }
-                                                               
-                                                           }];
-                                                           
-                                                       }]];
+            if (error) {
+                DLog(@"Error adding task to server:\n  %@", error);
+                
+            } else {
+                [self.taskManager updateManagedTaskList:localTaskList withServerTaskList:newTaskList];
+                [self processServerTasksForTaskList:newTaskList];
+                
+            }
             
         }];
     }
 }
 
 - (BOOL)updateTaskList:(GTaskMasterManagedTaskList *)taskList {
-    if (!self.isSyncing) {
-        [self.taskManager.managedObjectContext performBlock:^{
-            [self updateTaskListOnServer:taskList];
-        }];
-        return YES;
-    }
-    return NO;
+    return [self performSyncTask:^{
+        [self updateTaskListOnServer:taskList];
+    }];
 }
 
 - (void)updateTaskListOnServer:(GTaskMasterManagedTaskList *)localTaskList {
+    
     if ([localTaskList.title length] > 0) {
         
-        [NSThread MCSM_performBlockOnMainThread:^{
+        GTLTasksTaskList *patchObject = [localTaskList createGTLTasksTaskList];
+        GTLQueryTasks *query = [GTLQueryTasks queryForTasklistsPatchWithObject:patchObject tasklist:localTaskList.identifier];
+        
+        [self performQuery:query completionHandler:^(GTLServiceTicket *ticket,
+                                                     id updatedTaskList, NSError *error) {
             
-            GTLTasksTaskList *patchObject = [localTaskList createGTLTasksTaskList];
-            
-            GTLQueryTasks *query = [GTLQueryTasks queryForTasklistsPatchWithObject:patchObject
-                                                                          tasklist:localTaskList.identifier];
-            
-            [self addActiveServiceTicket:[self.tasksService executeQuery:query
-                                                       completionHandler:^(GTLServiceTicket *ticket,
-                                                                           id updatedTaskList, NSError *error) {
-                                                           
-                                                           [self removeActiveServiceTicket:ticket];
-                                                           
-                                                           [self.taskManager.managedObjectContext performBlock:^{
-                                                               
-                                                               if (error) {
-                                                                   DLog(@"Error updating task list:\n  %@", error);
-                                                               } else {
-                                                                   [self.taskManager updateTaskList:updatedTaskList];
-                                                               }
-                                                               
-                                                           }];
-                                                       }]];
+            if (error) {
+                DLog(@"Error updating task list:\n  %@", error);
+                
+            } else {
+                [self.taskManager updateTaskList:updatedTaskList];
+                
+            }
             
         }];
     }
 }
 
 - (BOOL)removeTaskList:(GTaskMasterManagedTaskList *)taskList {
-    if (!self.isSyncing) {
-        [self.taskManager.managedObjectContext performBlock:^{
-            [self removeTaskListFromServer:taskList];
-        }];
-        return YES;
-    }
-    return NO;
+    return [self performSyncTask:^{
+        [self removeTaskListFromServer:taskList];
+    }];
 }
 
 - (void)removeTaskListFromServer:(GTaskMasterManagedTaskList *)localTaskList {
     
-    [NSThread MCSM_performBlockOnMainThread:^{
+    GTLQueryTasks *query = [GTLQueryTasks queryForTasklistsDeleteWithTasklist:localTaskList.identifier];
+    
+    [self performQuery:query completionHandler:^(GTLServiceTicket *ticket,
+                                                 id item, NSError *error) {
         
-        GTLQueryTasks *query = [GTLQueryTasks queryForTasklistsDeleteWithTasklist:localTaskList.identifier];
-        
-        [self addActiveServiceTicket:[self.tasksService executeQuery:query
-                                                   completionHandler:^(GTLServiceTicket *ticket,
-                                                                       id item, NSError *error) {
-                                                       
-                                                       [self removeActiveServiceTicket:ticket];
-                                                       
-                                                       [self.taskManager.managedObjectContext performBlock:^{
-                                                           
-                                                           if (error == nil) {
-                                                               [self.taskManager removeTaskList:localTaskList];
-                                                           } else {
-                                                               DLog(@"Error removing task list:\n  %@", error);
-                                                           }
-                                                           
-                                                       }];
-                                                   }]];
+        if (error) {
+            DLog(@"Error removing task list:\n  %@", error);
+            
+        } else {
+            [self.taskManager removeTaskList:localTaskList];
+            
+        }
         
     }];
 }
@@ -371,80 +338,67 @@ int const kDefaultSyncIntervalSec = 300;
 
 - (void)processServerTasksForTaskList:(GTLTasksTaskList *)serverTaskList {
     
-    [NSThread MCSM_performBlockOnMainThread:^{
+    GTLQueryTasks *query = [GTLQueryTasks queryForTasksListWithTasklist:serverTaskList.identifier];
+    query.showCompleted = YES;
+    query.showHidden = YES;
+    query.showDeleted = YES;
+    query.maxResults = 2000;
+    
+    DLog(@"Fetching tasks for tasklist (%@), query.maxResults=%lld", serverTaskList.identifier, query.maxResults);
+    
+    [self performQuery:query completionHandler:^(GTLServiceTicket *ticket,
+                                                 id serverTasks, NSError *error) {
         
-        GTLQueryTasks *query = [GTLQueryTasks queryForTasksListWithTasklist:serverTaskList.identifier];
-        query.showCompleted = YES;
-        query.showHidden = YES;
-        query.showDeleted = YES;
-        query.maxResults = 2000;
-        
-        DLog(@"Fetching tasks for tasklist (%@), query.maxResults=%lld", serverTaskList.identifier, query.maxResults);
-        [self addActiveServiceTicket:[self.tasksService executeQuery:query
-                                                   completionHandler:^(GTLServiceTicket *ticket,
-                                                                       id serverTasks, NSError *error) {
-                                                       
-                                                       [self removeActiveServiceTicket:ticket];
-                                                       
-                                                       [self.taskManager.managedObjectContext performBlock:^{
-                                                           
-                                                           if (error) {
+        if (error) {
 #pragma mark TODO: Present error
-                                                           } else {
-                                                               NSMutableOrderedSet *localTasks = [NSMutableOrderedSet orderedSetWithOrderedSet:[self.taskManager taskListWithId:serverTaskList.identifier].tasks];
-                                                               
-                                                               int processedCount = 0;
-                                                               int addedCount = 0;
-                                                               for (GTLTasksTask *serverTask in serverTasks) {
-                                                                   
-                                                                   GTaskMasterManagedTask *localTask = [self.taskManager taskWithId:serverTask.identifier];
-                                                                   if (localTask == nil) {
-                                                                       [self.taskManager addTask:serverTask toList:serverTaskList.identifier];
-                                                                       addedCount++;
-                                                                       
-                                                                   } else {
-                                                                       NSDate *serverModDate = serverTask.updated.date;
-                                                                       NSDate *localModDate = localTask.gTUpdated;
-                                                                       NSDate *localSyncDate = localTask.synced;
-                                                                       if (![localModDate isEqualToDate:localSyncDate]) {
-                                                                           if ([localSyncDate isEqualToDate:serverModDate]) {
-                                                                               [self updateTaskOnServer:localTask];
-                                                                           } else {
+        } else {
+            NSMutableOrderedSet *localTasks = [NSMutableOrderedSet orderedSetWithOrderedSet:[self.taskManager taskListWithId:serverTaskList.identifier].tasks];
+            
+            int processedCount = 0;
+            int addedCount = 0;
+            for (GTLTasksTask *serverTask in serverTasks) {
+                
+                GTaskMasterManagedTask *localTask = [self.taskManager taskWithId:serverTask.identifier];
+                if (localTask == nil) {
+                    [self.taskManager addTask:serverTask toList:serverTaskList.identifier];
+                    addedCount++;
+                    
+                } else {
+                    NSDate *serverModDate = serverTask.updated.date;
+                    NSDate *localModDate = localTask.gTUpdated;
+                    NSDate *localSyncDate = localTask.synced;
+                    if (![localModDate isEqualToDate:localSyncDate]) {
+                        if ([localSyncDate isEqualToDate:serverModDate]) {
+                            [self updateTaskOnServer:localTask];
+                        } else {
 # pragma mark TODO: Resolve sync conflict
-                                                                           }
-                                                                       } else if (![localSyncDate isEqualToDate:serverModDate]) {
-                                                                           [self.taskManager updateTask:serverTask];
-                                                                       }
-                                                                       
-                                                                       [localTasks removeObject:localTask];
-                                                                   }
-                                                                   
-                                                                   processedCount++;
-                                                               }
-                                                               
-                                                               DLog(@"Processed %d tasks from server, %d added\n\n", processedCount, addedCount);
-                                                               
-                                                               if (localTasks.count > 0) {
-                                                                   for (GTaskMasterManagedTask *task in localTasks) {
-                                                                       [self addTaskToServer:task];
-                                                                   }
-                                                               }
-                                                           }
-                                                           
-                                                       }];
-                                                   }]];
-        
-    }];
+                        }
+                    } else if (![localSyncDate isEqualToDate:serverModDate]) {
+                        [self.taskManager updateTask:serverTask];
+                    }
+                    
+                    [localTasks removeObject:localTask];
+                }
+                
+                processedCount++;
+            }
+            
+            DLog(@"Processed %d tasks from server, %d added\n\n", processedCount, addedCount);
+            
+            if (localTasks.count > 0) {
+                for (GTaskMasterManagedTask *task in localTasks) {
+                    [self addTaskToServer:task];
+                }
+            }
+        }
+     
+     }];
 }
 
 - (BOOL)addTask:(GTaskMasterManagedTask *)task {
-    if (!self.isSyncing) {
-        [self.taskManager.managedObjectContext performBlock:^{
-            [self addTaskToServer:task];
-        }];
-        return YES;
-    }
-    return NO;
+    return [self performSyncTask:^{
+        [self addTaskToServer:task];
+    }];
 }
 
 - (void)addTaskToServer:(GTaskMasterManagedTask *)localTask {
@@ -453,44 +407,27 @@ int const kDefaultSyncIntervalSec = 300;
     
     if (taskToAdd.title.length > 0) {
         
-        [NSThread MCSM_performBlockOnMainThread:^{
+        GTLQueryTasks *query = [GTLQueryTasks queryForTasksInsertWithObject:taskToAdd tasklist:localTask.tasklist.identifier];
+        
+        [self performQuery:query completionHandler:^(GTLServiceTicket *ticket,
+                                                     id serverTask, NSError *error) {
             
-            GTLQueryTasks *query = [GTLQueryTasks queryForTasksInsertWithObject:taskToAdd
-                                                                       tasklist:localTask.tasklist.identifier];
-            
-            [self addActiveServiceTicket:[self.tasksService executeQuery:query
-                                                       completionHandler:^(GTLServiceTicket *ticket,
-                                                                           id serverTask, NSError *error) {
-                                                           
-                                                           [self removeActiveServiceTicket:ticket];
-                                                           
-                                                           [self.taskManager.managedObjectContext performBlock:^{
-                                                               
-                                                               if (error) {
-                                                                   DLog(@"Error adding task to server:\n  %@", error);
-                                                                   
-                                                               } else {
-                                                                   [self.taskManager updateManagedTask:localTask
-                                                                                        withServerTask:serverTask];
-                                                                   
-                                                               }
-                                                               
-                                                           }];
-                                                           
-                                                       }]];
+            if (error) {
+                DLog(@"Error adding task to server:\n  %@", error);
+                
+            } else {
+                [self.taskManager updateManagedTask:localTask withServerTask:serverTask];
+                
+            }
             
         }];
     }
 }
 
 - (BOOL)updateTask:(GTaskMasterManagedTask *)task {
-    if (!self.isSyncing) {
-        [self.taskManager.managedObjectContext performBlock:^{
-            [self updateTaskOnServer:task];
-        }];
-        return YES;
-    }
-    return NO;
+    return [self performSyncTask:^{
+        [self updateTaskOnServer:task];
+    }];
 }
 
 - (void)updateTaskOnServer:(GTaskMasterManagedTask *)localTask {
@@ -499,31 +436,20 @@ int const kDefaultSyncIntervalSec = 300;
     
     if (taskToPatch.title.length > 0) {
         
-        [NSThread MCSM_performBlockOnMainThread:^{
+        GTLQueryTasks *query = [GTLQueryTasks queryForTasksPatchWithObject:taskToPatch
+                                                                  tasklist:localTask.tasklist.identifier
+                                                                      task:localTask.identifier];
+        
+        [self performQuery:query completionHandler:^(GTLServiceTicket *ticket,
+                                                     id serverTask, NSError *error) {
             
-            GTLQueryTasks *query = [GTLQueryTasks queryForTasksPatchWithObject:taskToPatch
-                                                                      tasklist:localTask.tasklist.identifier
-                                                                          task:localTask.identifier];
-            
-            [self addActiveServiceTicket:[self.tasksService executeQuery:query
-                                                       completionHandler:^(GTLServiceTicket *ticket,
-                                                                           id serverTask, NSError *error) {
-                                                           
-                                                           [self removeActiveServiceTicket:ticket];
-                                                           
-                                                           [self.taskManager.managedObjectContext performBlock:^{
-                                                               
-                                                               if (error) {
-                                                                   DLog(@"Error updating task on server:\n  %@", error);
-                                                                   
-                                                               } else {
-                                                                   [self.taskManager updateTask:serverTask];
-                                                                   
-                                                               }
-                                                               
-                                                           }];
-                                                           
-                                                       }]];
+            if (error) {
+                DLog(@"Error updating task on server:\n  %@", error);
+                
+            } else {
+                [self.taskManager updateTask:serverTask];
+                
+            }
             
         }];
     }

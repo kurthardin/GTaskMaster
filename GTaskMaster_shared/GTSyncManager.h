@@ -9,7 +9,9 @@
 #import "LocalTaskManager.h"
 #import "GTLTasks.h"
 
-@interface GTSyncManager : NSObject
+@interface GTSyncManager : NSObject {
+    NSInteger incompleteQueryCount;
+}
 
 @property (readonly, nonatomic) BOOL isSyncing;
 @property (readonly, nonatomic) BOOL isRepeating;
