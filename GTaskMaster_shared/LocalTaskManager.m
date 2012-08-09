@@ -287,17 +287,17 @@
             }
         }
         
-        if (!error && managedObjectContext.parentContext) {
-            [managedObjectContext.parentContext performBlock:^{
-                
-                NSError *err;
-                if (![managedObjectContext.parentContext save:&err]) {
-                    NSLog(@"Unresolved error saving parent context: %@, %@", err, [err userInfo]);
-                    [self presentError:err];
-                }
-                
-            }];
-        }
+//        if (!error && managedObjectContext.parentContext) {
+//            [managedObjectContext.parentContext performBlock:^{
+//                
+//                NSError *err;
+//                if (![managedObjectContext.parentContext save:&err]) {
+//                    DLog(@"Unresolved error saving parent context: %@, %@", err, [err userInfo]);
+//                    [self presentError:err];
+//                }
+//                
+//            }];
+//        }
         
     }];
 }
